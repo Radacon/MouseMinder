@@ -1,22 +1,28 @@
 # MouseMinder
 
-MouseMinder is a small ATtiny10-based hardware project with a matching programming and test fixture. This repository contains the KiCad source for the board itself, manufacturing outputs, Arduino-based fixture firmware, a Python operator GUI, and supporting test data.
+MouseMinder is a small ATtiny10-based hardware project with a matching programming and test fixture. This repository combines the PCB design, fixture firmware, operator GUI, mechanical CAD exports, and simulation or validation data used to build and test the device.
 
-## What Is In This Repo
+## Repository Layout
 
-- `MouseMinder/`
-  - Main KiCad project for the MouseMinder PCB
-  - 3D models, schematics, PCB layout, fabrication outputs, and production BOM/position files
-  - `MouseMinder_Programmer/` contains the companion KiCad project for the programming fixture
-- `Codebase/`
-  - `ardu_tiny_toaster.ino`: Arduino Uno firmware for the programming and test fixture
-  - `tiny10_base_code.ino`: base TPI programmer implementation for ATtiny4/5/9/10/20/40 devices
-  - `gui.py`: desktop GUI for operators to select firmware, auto-discover the fixture over serial, and run the programming loop
-  - `requirements.txt`: project notes describing the original GUI/fixture behavior
-- `PowerProfilerData/`
-  - Power measurements for ATtiny10 sleep behavior
-- `Simulation/`
-  - CSV exports from circuit/scope simulation work
+- `codebase/`
+  - Arduino Uno fixture firmware in `ardu_tiny_toaster.ino`
+  - Base TPI programmer implementation in `tiny10_base_code.ino`
+  - Operator desktop GUI in `gui.py`
+  - Early or alternate device firmware work under `AtmelStudio/`
+- `pcb_design/`
+  - Main MouseMinder KiCad project files:
+    - `MouseMinder.kicad_sch`
+    - `MouseMinder.kicad_pcb`
+    - `MouseMinder.kicad_pro`
+  - Fixture or shield PCB design under `MouseMinder_Programmer_Shield/`
+  - Archived KiCad backups under `MouseMinder-backups/`
+  - Older release archives under `mouseminder_prev_versions/`
+- `mechanical_design/`
+  - Enclosure and trap body STEP exports under `trap_body/`
+  - Accessory parts such as the battery isolator under `accessories/`
+- `sim_and_test/`
+  - Power profiling captures under `PowerProfilerData/`
+  - Simulation exports under `Simulation/`
 
 ## Hardware Overview
 
@@ -26,36 +32,43 @@ The main board centers on an `ATtiny10-TS` and includes:
 - A buzzer
 - An LED indicator
 - Two pushbuttons
-- A discrete power/latching section around `Q1`
+- A discrete power or latching section around `Q1`
 
-Repository BOM files indicate this design is intended for assembled prototype or low-volume production runs, with both sourcing-oriented BOM exports and placement data included.
+The repository also includes a separate programmer shield design and a fixture workflow for flashing and validating boards during bring-up or production.
 
-## Design Files
+## PCB Design Files
 
-Primary design assets live under `MouseMinder/`:
+Primary electrical design assets live in `pcb_design/`:
 
 - `MouseMinder.kicad_sch`
 - `MouseMinder.kicad_pcb`
-- `MouseMinder.step`
-- `production/bom.csv`
-- `production/*-pos.csv`
-- `Fabs/` and `Fabs/R2JLC/` Gerber and drill outputs
+- `MouseMinder.kicad_pro`
 
-There are also schematic PDFs for archived revisions, including `V3_JLC_SCH.pdf` and `V4_SCH.pdf`.
+Related hardware history is split out into:
 
-## Programming And Test Fixture
+- `pcb_design/MouseMinder_Programmer_Shield/` for the programming fixture PCB
+- `pcb_design/MouseMinder-backups/` for KiCad backup archives
+- `pcb_design/mouseminder_prev_versions/` for older packaged revisions
 
-The fixture is built around an Arduino Uno and a desktop GUI.
+## Firmware And GUI
 
-The Arduino side:
+The programming and test fixture is built around an Arduino Uno and a Python desktop GUI.
 
-- Speaks to the GUI over serial at `9600` baud
-- Detects supported ATtiny devices over TPI
-- Requests an Intel HEX image from the GUI
-- Programs and verifies flash
-- Performs a post-program battery/isolation check using analog measurements
+Arduino-side files in `codebase/`:
 
-The current fixture firmware maps:
+- `ardu_tiny_toaster.ino`: fixture control firmware
+- `tiny10_base_code.ino`: base TPI programming support for ATtiny4/5/9/10/20/40 devices
+
+Desktop-side files in `codebase/`:
+
+- `gui.py`: operator GUI for selecting firmware, discovering the fixture over serial, and running the programming loop
+- `requirements.txt`: original behavior notes for the GUI and fixture
+
+There is also an Atmel Studio project under `codebase/AtmelStudio/MouseMinder/` with a `main.c` firmware entry point and generated debug outputs.
+
+## Fixture I/O Mapping
+
+The current fixture firmware uses:
 
 - `D10` -> `!RST`
 - `D11/D12` -> `TPIDATA`
@@ -63,28 +76,42 @@ The current fixture firmware maps:
 - `A0` -> `BATT`
 - `A1` -> `LATCHED`
 
-The operator GUI:
+The operator GUI is intended to:
 
-- Auto-discovers the Arduino fixture over available COM ports
-- Displays connection state, detected chip ID, operator prompts, and `BATT` / `LATCHED` pin states
-- Lets the operator select a `.hex` file
-- Supports a clear-memory mode for erase/blank-check workflows
+- Auto-discover the Arduino fixture over available COM ports
+- Show connection and pin-state information
+- Let the operator select a `.hex` file
+- Run the detect, program, verify, and test loop
+
+## Mechanical Assets
+
+Mechanical CAD exports are grouped under `mechanical_design/`:
+
+- `trap_body/` contains enclosure and body STEP files, including lid and clip geometry
+- `accessories/` contains supporting parts such as `Battery_Isolator_debossed.STEP`
+
+## Simulation And Validation Data
+
+Supporting measurement and simulation files live in `sim_and_test/`:
+
+- `PowerProfilerData/` contains sleep-current or power measurement CSV files
+- `Simulation/` contains scope and waveform export data from circuit simulation work
 
 ## Typical Workflow
 
-1. Build or load the fixture firmware onto an Arduino Uno.
-2. Launch the Python GUI from `Codebase/gui.py`.
-3. Connect the programming fixture and target board.
-4. Select the target `.hex` file, or use clear-memory mode.
-5. Follow the GUI prompts while the fixture detects the device, programs it, verifies it, and checks battery isolation behavior.
+1. Open the main hardware in `pcb_design/MouseMinder.kicad_sch` and `pcb_design/MouseMinder.kicad_pcb`.
+2. Load the Arduino fixture firmware from `codebase/ardu_tiny_toaster.ino`.
+3. Launch the operator GUI from `codebase/gui.py`.
+4. Connect the programming fixture and target board.
+5. Select a target `.hex` file and run the programming and test cycle.
 
 ## Running The GUI
 
-Install the Python dependency manually, then run:
+Install the required Python package, then launch the GUI:
 
 ```powershell
 pip install pyserial
-python Codebase\gui.py
+python codebase\gui.py
 ```
 
 The GUI depends on:
@@ -92,22 +119,11 @@ The GUI depends on:
 - `pyserial`
 - Python standard library `tkinter`
 
-## Manufacturing Notes
+## Fastest Entry Points
 
-For board fabrication or assembly handoff, start with:
+If you are picking up the project fresh, start with:
 
-- `MouseMinder/production/bom.csv`
-- `MouseMinder/production/MouseMinder-top-pos.csv`
-- `MouseMinder/production/MouseMinder-bottom-pos.csv`
-- `MouseMinder/Fabs/` or `MouseMinder/Fabs/R2JLC/`
-
-The repository also includes alternate BOM exports such as `qty50_MouseMinder_boM.csv` for sourcing and cost planning.
-
-## Status
-
-This repository appears to combine active hardware design work, production outputs, fixture firmware, and validation data in one place. If you are picking it up fresh, the fastest entry points are:
-
-- `MouseMinder/MouseMinder.kicad_sch`
-- `MouseMinder/MouseMinder.kicad_pcb`
-- `Codebase/ardu_tiny_toaster.ino`
-- `Codebase/gui.py`
+- `pcb_design/MouseMinder.kicad_sch`
+- `pcb_design/MouseMinder.kicad_pcb`
+- `codebase/ardu_tiny_toaster.ino`
+- `codebase/gui.py`
