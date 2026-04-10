@@ -1,0 +1,60 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+
+# =========================
+# KiCad (ignore junk, keep design files)
+# =========================
+*.kicad_prl
+fp-info-cache
+fp-lib-table
+
+# KiCad backups (you have a TON of these)
+*-backups/
+*/MouseMinder-backups/
+*/MouseMinder_Programmer-backups/
+
+# =========================
+# Fabrication outputs (optional – depends on your workflow)
+# =========================
+# Uncomment if you DON'T want to version fab outputs
+# MouseMinder/Fabs/
+# MouseMinder/production/
+# *.gbr
+# *.drl
+# *.gbrjob
+
+# =========================
+# Zip archives (definitely ignore these)
+# =========================
+*.zip
+
+# =========================
+# Excel / generated reports (optional)
+# =========================
+# Uncomment if these are generated artifacts
+# *.xlsx
+
+# =========================
+# Simulation / data dumps
+# =========================
+*.pwl
+
+# Optional: ignore raw scope/sim data if not needed
+# Simulation/
+# PowerProfilerData/
+
+# =========================
+# OS junk
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Arduino / build artifacts
+# =========================
+*.elf
+*.bin
