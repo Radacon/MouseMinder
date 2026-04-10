@@ -36,7 +36,7 @@ fp-lib-table
 # Excel / generated reports (optional)
 # =========================
 # Uncomment if these are generated artifacts
-# *.xlsx
+*.xlsx
 
 # =========================
 # Simulation / data dumps
