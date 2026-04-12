@@ -3,7 +3,6 @@
 
 #define SLD    0x20
 #define SLDp   0x24
-#define SST    0x60
 #define SSTp   0x64
 #define SSTPRH 0x69
 #define SSTPRL 0x68
@@ -14,7 +13,6 @@
 #define NVMCSR 0x32
 #define NVM_NOP 0x00
 #define NVM_CHIP_ERASE 0x10
-#define NVM_SECTION_ERASE 0x14
 #define NVM_WORD_WRITE 0x1D
 
 #define PIN_RESET 10
@@ -59,10 +57,8 @@ unsigned int progSize = 0;
 unsigned int expectedImageSize = 0;
 bool expectedImageValid = false;
 
-long startTime;
 int timeout;
 uint8_t b, b1, b2, b3;
-boolean correct;
 char type = 0;
 
 ToasterState state = STATE_WAIT_GUI;
@@ -108,7 +104,6 @@ void setLatchedAdc();
 int readBattMillivolts();
 int readLatchedMillivolts();
 int sampleBattAverageMillivolts(unsigned long durationMs);
-int sampleLatchedAverageMillivolts(unsigned long durationMs);
 bool latchedIsHigh();
 bool latchedIsStableHigh();
 bool readSerialLine(char *buffer, size_t length);
@@ -189,8 +184,13 @@ void loop() {
 }
 
 void setState(ToasterState nextState, const __FlashStringHelper *message) {
+  ToasterState previous = state;
   state = nextState;
   stateChangedAt = millis();
+  Serial.print(F("LOG STATE_"));
+  Serial.print(stateName(previous));
+  Serial.print(F("_TO_"));
+  Serial.println(stateName(nextState));
   Serial.print(F("STATUS "));
   Serial.print(stateName(nextState));
   Serial.print(F(" "));
@@ -389,21 +389,6 @@ int sampleBattAverageMillivolts(unsigned long durationMs) {
   return (int)(total / count);
 }
 
-int sampleLatchedAverageMillivolts(unsigned long durationMs) {
-  unsigned long started = millis();
-  unsigned long total = 0;
-  unsigned int count = 0;
-  while (millis() - started < durationMs) {
-    total += (unsigned long)readLatchedMillivolts();
-    ++count;
-    delay(10);
-  }
-  if (count == 0) {
-    return readLatchedMillivolts();
-  }
-  return (int)(total / count);
-}
-
 bool latchedIsHigh() {
   return readLatchedMillivolts() >= 3000;
 }
@@ -461,6 +446,11 @@ bool readSerialLine(char *buffer, size_t length) {
 }
 
 void handleCommand(const char *line) {
+  Serial.print(F("LOG CMD_RX_"));
+  Serial.print(line);
+  Serial.print(F("_IN_"));
+  Serial.println(stateName(state));
+
   if (strcmp(line, "GUI_HELLO") == 0) {
     guiConnected = true;
     Serial.println(F("ACK GUI"));
@@ -557,6 +547,8 @@ void processScanDevice() {
   lastScanAt = millis();
 
   bool valid = detectConnectedDevice();
+  Serial.print(F("LOG SCAN_DEVICE_VALID_"));
+  Serial.println(valid ? F("YES") : F("NO"));
   if (valid != lastDeviceValid) {
     emitDevice(valid);
     lastDeviceValid = valid;
@@ -569,17 +561,24 @@ void processScanDevice() {
 }
 
 void processWaitHex() {
+  emitLog(F("WAIT_HEX_ENTER"));
   if (!hexRequested) {
+    emitLog(F("WAIT_HEX_REQUESTED"));
     Serial.println(F("REQUEST HEX"));
     hexRequested = true;
   }
 
   while (Serial.available() > 0) {
+    Serial.print(F("LOG WAIT_HEX_AVAIL_"));
+    Serial.println(Serial.available());
     int next = Serial.peek();
     if (next == '\r' || next == '\n') {
+      emitLog(F("WAIT_HEX_PEEK_EOL"));
       Serial.read();
       continue;
     }
+    Serial.print(F("LOG WAIT_HEX_PEEK_"));
+    Serial.println((char)next);
     if (next == ':') {
       bool success = runProgrammingCycle();
       bool batteryPass = false;
@@ -611,6 +610,8 @@ void processWaitHex() {
 
     char line[96];
     if (readSerialLine(line, sizeof(line))) {
+      Serial.print(F("LOG WAIT_HEX_RX_"));
+      Serial.println(line);
       if (strcmp(line, "CLEAR") == 0) {
         completeClearRequest();
         return;
@@ -621,6 +622,7 @@ void processWaitHex() {
       }
       handleCommand(line);
     } else {
+      emitLog(F("WAIT_HEX_READLINE_EMPTY"));
       return;
     }
   }
@@ -788,6 +790,7 @@ bool runMetadataReadCycle() {
 
 bool detectConnectedDevice() {
   if (!start_tpi()) {
+    emitLog(F("SCAN_TPI_START_FAILED"));
     type = 0;
     finish();
     return false;
@@ -820,11 +823,13 @@ bool start_tpi() {
   unsigned long started = millis();
   while ((readCSS(0x00) & 0x02) < 1) {
     if (tpiTimedOut) {
+      emitLog(F("START_TPI_TIMEOUT"));
       SPI.end();
       digitalWrite(PIN_RESET, HIGH);
       return false;
     }
     if (millis() - started > 50) {
+      emitLog(F("START_TPI_READY_TIMEOUT"));
       SPI.end();
       digitalWrite(PIN_RESET, HIGH);
       return false;
@@ -910,7 +915,6 @@ boolean writeProgramFromSerial() {
   uint8_t linelength = 0;
   boolean fileEnd = false;
   unsigned short tadrs = 0x4000;
-  correct = true;
   unsigned long pgmStartTime = millis();
   resetExpectedImage();
   if (!eraseChip()) {

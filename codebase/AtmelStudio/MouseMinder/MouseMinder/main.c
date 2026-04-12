@@ -108,8 +108,6 @@ int main(void)
 	tone_pb2_4khz_ms(50);
 	_delay_ms(50);
 	tone_pb2_4khz_ms(50);
-	_delay_ms(50);
-	tone_pb2_4khz_ms(50);
 
 	uint8_t flash_count = 0;
 

@@ -383,6 +383,7 @@ class ToasterGui:
 
     def _send_control_command(self, line: str, repeats: int = 3, spacing_s: float = 0.05) -> None:
         for attempt in range(repeats):
+            self._log(f"TX {line} ({attempt + 1}/{repeats})")
             self._send_raw(line + "\r\n")
             if attempt + 1 < repeats:
                 time.sleep(spacing_s)
