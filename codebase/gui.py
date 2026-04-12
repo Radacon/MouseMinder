@@ -1,16 +1,22 @@
 from __future__ import annotations
 
+import json
 import queue
 import threading
 import time
 import tkinter as tk
 from pathlib import Path
 from tkinter import filedialog, ttk
+from urllib.error import HTTPError, URLError
+from urllib.parse import urlparse
+from urllib.request import Request, urlopen
 
 import serial
 from serial.tools import list_ports
 
 DEFAULT_HEX_PATH = Path(r"C:\Users\robot\Documents\Atmel Studio\7.0\MouseMinder\MouseMinder\Debug\MouseMinder.hex")
+DEFAULT_GITHUB_HEX_URL = "https://github.com/Radacon/MouseMinder/blob/main/codebase/AtmelStudio/MouseMinder/MouseMinder/Debug/MouseMinder.hex"
+HTTP_USER_AGENT = "MouseMinderGui/1.0"
 
 
 class ToasterGui:
@@ -29,6 +35,10 @@ class ToasterGui:
         self.handshake_complete = False
         self.hex_path = Path()
         self.hex_send_in_progress = False
+        self.github_refresh_in_progress = False
+        self.cached_github_hex_lines: list[str] = []
+        self.cached_github_hex_hash = ""
+        self.cached_github_hex_url = ""
 
         self.connection_var = tk.StringVar(value="Disconnected")
         self.state_var = tk.StringVar(value="WAIT_GUI")
@@ -36,6 +46,9 @@ class ToasterGui:
         self.chip_id_var = tk.StringVar(value="")
         self.prompt_var = tk.StringVar(value="Waiting for operator input.")
         self.hex_var = tk.StringVar(value="No file selected")
+        self.firmware_source_var = tk.StringVar(value="github")
+        self.github_url_var = tk.StringVar(value=DEFAULT_GITHUB_HEX_URL)
+        self.github_hash_var = tk.StringVar(value="Git hash: loading...")
         self.clear_memory_var = tk.BooleanVar(value=False)
         self.pin_value_labels: dict[str, tk.Label] = {}
         self.pin_adc_labels: dict[str, tk.Label] = {}
@@ -49,6 +62,7 @@ class ToasterGui:
 
         self._build_ui()
         self._load_default_hex()
+        self._refresh_github_hash()
         self.discovery_thread.start()
         self.root.after(100, self._pump_events)
         self.root.protocol("WM_DELETE_WINDOW", self._close)
@@ -78,7 +92,29 @@ class ToasterGui:
 
         file_frame = ttk.LabelFrame(main, text="Firmware", padding=12)
         file_frame.pack(fill="x", pady=(12, 0))
-        ttk.Label(file_frame, textvariable=self.hex_var).pack(anchor="w")
+        github_row = ttk.Frame(file_frame)
+        github_row.pack(fill="x", anchor="w")
+        ttk.Radiobutton(
+            github_row,
+            text="GitHub",
+            variable=self.firmware_source_var,
+            value="github",
+        ).pack(side="left")
+        ttk.Label(github_row, textvariable=self.github_hash_var).pack(side="left", padx=(12, 0))
+        ttk.Button(github_row, text="Refresh Hash", command=self._refresh_github_hash).pack(side="right")
+
+        ttk.Entry(file_frame, textvariable=self.github_url_var).pack(fill="x", pady=(6, 8))
+
+        local_row = ttk.Frame(file_frame)
+        local_row.pack(fill="x", anchor="w")
+        ttk.Radiobutton(
+            local_row,
+            text="Local .hex",
+            variable=self.firmware_source_var,
+            value="local",
+        ).pack(side="left")
+        ttk.Label(local_row, textvariable=self.hex_var).pack(side="left", padx=(12, 0))
+
         ttk.Checkbutton(
             file_frame,
             text="Clear memory only",
@@ -237,8 +273,12 @@ class ToasterGui:
             self.hex_send_in_progress = True
             threading.Thread(target=self._send_clear_hex, daemon=True).start()
             return
-        if not self.hex_path or not self.hex_path.exists():
+        if self.firmware_source_var.get() == "local" and (not self.hex_path or not self.hex_path.exists()):
             self._log("Hex requested but no firmware file is selected")
+            self._send_line("ABORT")
+            return
+        if self.firmware_source_var.get() == "github" and not self.github_url_var.get().strip():
+            self._log("Hex requested but no GitHub HEX URL is configured")
             self._send_line("ABORT")
             return
 
@@ -247,14 +287,11 @@ class ToasterGui:
 
     def _send_hex_file(self) -> None:
         try:
-            self._log(f"Sending firmware: {self.hex_path.name}")
-            with self.hex_path.open("r", encoding="utf-8") as handle:
-                for raw_line in handle:
-                    line = raw_line.strip()
-                    if not line:
-                        continue
-                    self._send_raw(line + "\n")
-                    time.sleep(0.01)
+            source_name, lines = self._load_selected_hex_lines()
+            self._log(f"Sending firmware: {source_name}")
+            for line in lines:
+                self._send_raw(line + "\n")
+                time.sleep(0.01)
             self._log("Firmware transfer complete")
         except Exception as exc:
             self._log(f"Firmware transfer failed: {exc}")
@@ -276,6 +313,25 @@ class ToasterGui:
 
     def _send_line(self, line: str) -> None:
         self._send_raw(line + "\n")
+
+    def _load_selected_hex_lines(self) -> tuple[str, list[str]]:
+        if self.firmware_source_var.get() == "github":
+            blob_url = self.github_url_var.get().strip()
+            if not blob_url:
+                raise RuntimeError("GitHub HEX URL is empty")
+            if not self.cached_github_hex_lines or self.cached_github_hex_url != blob_url:
+                self._refresh_github_cache(force_download=True)
+            if not self.cached_github_hex_lines:
+                raise RuntimeError("GitHub HEX is not cached yet")
+            source_name = f"{blob_url} @ {self.cached_github_hex_hash or 'unknown'}"
+            return (source_name, list(self.cached_github_hex_lines))
+
+        if not self.hex_path or not self.hex_path.exists():
+            raise FileNotFoundError("No local firmware file is selected")
+
+        with self.hex_path.open("r", encoding="utf-8") as handle:
+            lines = [raw_line.strip() for raw_line in handle if raw_line.strip()]
+        return (self.hex_path.name, lines)
 
     def _send_raw(self, payload: str) -> None:
         with self.serial_lock:
@@ -385,10 +441,108 @@ class ToasterGui:
         self.log_text.see("end")
         self.log_text.configure(state="disabled")
 
+    def _refresh_github_hash(self) -> None:
+        if self.github_refresh_in_progress:
+            return
+        self.github_refresh_in_progress = True
+        self.github_hash_var.set("Git hash: loading...")
+        threading.Thread(target=self._refresh_github_hash_worker, daemon=True).start()
+
+    def _refresh_github_hash_worker(self) -> None:
+        try:
+            self._refresh_github_cache(force_download=False)
+        except Exception as exc:
+            self.root.after(0, lambda: self.github_hash_var.set(f"Git hash: error ({exc})"))
+        finally:
+            self.root.after(0, self._finish_github_hash_refresh)
+
+    def _finish_github_hash_refresh(self) -> None:
+        self.github_refresh_in_progress = False
+
     def _close(self) -> None:
         self.running = False
         self._drop_connection()
         self.root.destroy()
+
+    def _download_github_hex_lines(self, blob_url: str) -> list[str]:
+        raw_url = self._github_blob_to_raw_url(blob_url)
+        request = Request(raw_url, headers={"User-Agent": HTTP_USER_AGENT})
+        try:
+            with urlopen(request, timeout=15) as response:
+                body = response.read().decode("utf-8")
+        except HTTPError as exc:
+            raise RuntimeError(f"GitHub HEX download failed: HTTP {exc.code}") from exc
+        except URLError as exc:
+            raise RuntimeError(f"GitHub HEX download failed: {exc.reason}") from exc
+
+        lines = [line.strip() for line in body.splitlines() if line.strip()]
+        if not lines:
+            raise RuntimeError("GitHub HEX file was empty")
+        return lines
+
+    def _refresh_github_cache(self, force_download: bool) -> None:
+        blob_url = self.github_url_var.get().strip()
+        if not blob_url:
+            raise RuntimeError("GitHub HEX URL is empty")
+
+        commit_hash = self._fetch_github_commit_hash(blob_url)
+        needs_download = (
+            force_download
+            or not self.cached_github_hex_lines
+            or self.cached_github_hex_hash != commit_hash
+            or self.cached_github_hex_url != blob_url
+        )
+
+        if needs_download:
+            lines = self._download_github_hex_lines(blob_url)
+            self.cached_github_hex_lines = lines
+            self.cached_github_hex_hash = commit_hash
+            self.cached_github_hex_url = blob_url
+            self.root.after(0, lambda: self._log(f"Cached GitHub firmware: {commit_hash}"))
+        else:
+            self.root.after(0, lambda: self._log(f"GitHub firmware unchanged: {commit_hash}"))
+
+        self.root.after(0, lambda: self.github_hash_var.set(f"Git hash: {commit_hash}"))
+
+    def _fetch_github_commit_hash(self, blob_url: str) -> str:
+        owner, repo, ref, _ = self._parse_github_blob_url(blob_url)
+        api_url = f"https://api.github.com/repos/{owner}/{repo}/commits/{ref}"
+        request = Request(api_url, headers={"User-Agent": HTTP_USER_AGENT, "Accept": "application/vnd.github+json"})
+        try:
+            with urlopen(request, timeout=15) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+        except HTTPError as exc:
+            raise RuntimeError(f"HTTP {exc.code}") from exc
+        except URLError as exc:
+            raise RuntimeError(str(exc.reason)) from exc
+        except json.JSONDecodeError as exc:
+            raise RuntimeError("invalid JSON") from exc
+
+        sha = payload.get("sha")
+        if not isinstance(sha, str) or not sha:
+            raise RuntimeError("missing sha")
+        return sha[:12]
+
+    def _github_blob_to_raw_url(self, blob_url: str) -> str:
+        owner, repo, ref, repo_path = self._parse_github_blob_url(blob_url)
+        return f"https://raw.githubusercontent.com/{owner}/{repo}/{ref}/{repo_path}"
+
+    def _parse_github_blob_url(self, blob_url: str) -> tuple[str, str, str, str]:
+        parsed = urlparse(blob_url)
+        if parsed.netloc not in {"github.com", "www.github.com"}:
+            raise RuntimeError("URL must point to github.com")
+
+        parts = [part for part in parsed.path.split("/") if part]
+        if len(parts) < 5 or parts[2] != "blob":
+            raise RuntimeError("URL must look like github.com/<owner>/<repo>/blob/<ref>/<path>")
+
+        owner = parts[0]
+        repo = parts[1]
+        ref = parts[3]
+        repo_path = "/".join(parts[4:])
+        if not repo_path.lower().endswith(".hex"):
+            raise RuntimeError("GitHub URL must point to a .hex file")
+        return (owner, repo, ref, repo_path)
 
 
 def main() -> None:
