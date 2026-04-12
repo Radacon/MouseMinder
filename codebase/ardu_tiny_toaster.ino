@@ -34,6 +34,7 @@
 #define HexError 2
 #define TooLarge 3
 #define MAX_VERIFY_FLASH_BYTES 1024
+#define BATT_FAIL_THRESHOLD_MV 2000
 
 enum ToasterState {
   STATE_WAIT_GUI,
@@ -102,9 +103,12 @@ void resetForNextDevice();
 void setProgrammingPinsHighImpedance();
 void setBattOutput(int value);
 void setBattAdc();
+void setLatchedOutput(int value);
 void setLatchedAdc();
 int readBattMillivolts();
 int readLatchedMillivolts();
+int sampleBattAverageMillivolts(unsigned long durationMs);
+int sampleLatchedAverageMillivolts(unsigned long durationMs);
 bool latchedIsHigh();
 bool latchedIsStableHigh();
 bool readSerialLine(char *buffer, size_t length);
@@ -114,6 +118,9 @@ void processScanDevice();
 void processWaitHex();
 bool runProgrammingCycle();
 bool runClearCycle();
+bool runMetadataReadCycle();
+void completeClearRequest();
+void completeMetadataReadRequest();
 bool start_tpi();
 void finish();
 bool readDeviceIdentity(uint8_t &id1, uint8_t &id2, uint8_t &id3);
@@ -128,6 +135,9 @@ bool dumpAndVerifyBlankFlash();
 bool verifyWrittenFlash();
 void dumpFlashWindow(unsigned int flashBytes);
 bool readFlashByteAt(unsigned int flashOffset, uint8_t &value);
+bool readFlashPage(unsigned int flashOffset, uint8_t *buffer, uint8_t count);
+bool pageMatchesMetadata(const uint8_t *buffer, const char *text);
+void emitMetadataField(const __FlashStringHelper *key, const uint8_t *buffer, uint8_t count);
 bool latchedIsLow();
 bool latchedIsStableLow();
 int readHexChar();
@@ -342,6 +352,13 @@ void setBattAdc() {
   battMode = ROLE_ADC;
 }
 
+void setLatchedOutput(int value) {
+  pinMode(PIN_LATCHED, OUTPUT);
+  digitalWrite(PIN_LATCHED, value);
+  latchedMode = ROLE_OUTPUT;
+  latchedOutputValue = value;
+}
+
 void setLatchedAdc() {
   pinMode(PIN_LATCHED, INPUT);
   latchedMode = ROLE_ADC;
@@ -355,6 +372,36 @@ int readBattMillivolts() {
 int readLatchedMillivolts() {
   long sample = analogRead(PIN_LATCHED);
   return (int)((sample * 5000L) / 1023L);
+}
+
+int sampleBattAverageMillivolts(unsigned long durationMs) {
+  unsigned long started = millis();
+  unsigned long total = 0;
+  unsigned int count = 0;
+  while (millis() - started < durationMs) {
+    total += (unsigned long)readBattMillivolts();
+    ++count;
+    delay(10);
+  }
+  if (count == 0) {
+    return readBattMillivolts();
+  }
+  return (int)(total / count);
+}
+
+int sampleLatchedAverageMillivolts(unsigned long durationMs) {
+  unsigned long started = millis();
+  unsigned long total = 0;
+  unsigned int count = 0;
+  while (millis() - started < durationMs) {
+    total += (unsigned long)readLatchedMillivolts();
+    ++count;
+    delay(10);
+  }
+  if (count == 0) {
+    return readLatchedMillivolts();
+  }
+  return (int)(total / count);
 }
 
 bool latchedIsHigh() {
@@ -433,27 +480,12 @@ void handleCommand(const char *line) {
   }
 
   if (strcmp(line, "CLEAR") == 0 && state == STATE_WAIT_HEX) {
-    emitLog(F("CLEAR_RECEIVED"));
-    bool success = runClearCycle();
-    setBattAdc();
-    delay(500);
-    battClearSince = 0;
-    if (success) {
-      emitResult(F("CLEAR_OK"));
-    } else {
-      emitResult(F("CLEAR_FAIL"));
-    }
+    completeClearRequest();
+    return;
+  }
 
-    int battMv = readBattMillivolts();
-    if (battMv > 500) {
-      emitResult(F("BATTERY_FAIL"), battMv);
-    } else {
-      emitResult(F("BATTERY_OK"), battMv);
-    }
-
-    setState(STATE_WAIT_BATT_CLEAR, F("REMOVE_DEVICE"));
-    hexRequested = false;
-    lastDeviceValid = success;
+  if (strcmp(line, "READ_METADATA") == 0 && state == STATE_WAIT_HEX) {
+    completeMetadataReadRequest();
     return;
   }
 }
@@ -550,8 +582,7 @@ void processWaitHex() {
     }
     if (next == ':') {
       bool success = runProgrammingCycle();
-      setBattAdc();
-      delay(500);
+      bool batteryPass = false;
       battClearSince = 0;
       if (success) {
         emitResult(F("PROGRAM_OK"));
@@ -559,26 +590,70 @@ void processWaitHex() {
         emitResult(F("PROGRAM_FAIL"));
       }
 
-      int battMv = readBattMillivolts();
-      if (battMv > 500) {
-        emitResult(F("BATTERY_FAIL"), battMv);
-      } else {
+      setBattOutput(LOW);
+      setLatchedOutput(LOW);
+      delay(50);
+      setBattAdc();
+      setLatchedAdc();
+      int battMv = sampleBattAverageMillivolts(100);
+      if (battMv <= BATT_FAIL_THRESHOLD_MV) {
+        batteryPass = true;
         emitResult(F("BATTERY_OK"), battMv);
+      } else {
+        emitResult(F("BATTERY_FAIL"), battMv);
       }
 
       setState(STATE_WAIT_BATT_CLEAR, F("REMOVE_DEVICE"));
       hexRequested = false;
-      lastDeviceValid = success;
+      lastDeviceValid = success && batteryPass;
       return;
     }
 
     char line[96];
     if (readSerialLine(line, sizeof(line))) {
+      if (strcmp(line, "CLEAR") == 0) {
+        completeClearRequest();
+        return;
+      }
+      if (strcmp(line, "READ_METADATA") == 0) {
+        completeMetadataReadRequest();
+        return;
+      }
       handleCommand(line);
     } else {
       return;
     }
   }
+}
+
+void completeClearRequest() {
+  emitLog(F("CLEAR_RECEIVED"));
+  bool success = runClearCycle();
+  battClearSince = 0;
+  if (success) {
+    emitResult(F("CLEAR_OK"));
+  } else {
+    emitResult(F("CLEAR_FAIL"));
+  }
+
+  setState(STATE_WAIT_BATT_CLEAR, F("REMOVE_DEVICE"));
+  hexRequested = false;
+  lastDeviceValid = success;
+}
+
+void completeMetadataReadRequest() {
+  emitLog(F("READ_METADATA_RECEIVED"));
+  bool success = runMetadataReadCycle();
+  battClearSince = 0;
+  if (success) {
+    emitResult(F("METADATA_OK"));
+  } else {
+    emitResult(F("METADATA_FAIL"));
+  }
+
+  setState(STATE_WAIT_BATT_CLEAR, F("REMOVE_DEVICE"));
+  hexRequested = false;
+  lastDeviceValid = success;
 }
 
 bool runProgrammingCycle() {
@@ -612,7 +687,6 @@ bool runProgrammingCycle() {
     }
   }
   finish();
-  delay(2000);
   return programmed && verified;
 }
 
@@ -638,7 +712,77 @@ bool runClearCycle() {
   }
   emitLog(F("ERASE_COMPLETE"));
   finish();
-  delay(2000);
+  return true;
+}
+
+bool runMetadataReadCycle() {
+  if (!start_tpi()) {
+    finish();
+    emitLog(F("TPI_START_FAILED"));
+    return false;
+  }
+
+  if (!readDeviceIdentity(lastId1, lastId2, lastId3)) {
+    finish();
+    emitLog(F("DEVICE_ID_READ_FAILED"));
+    return false;
+  }
+
+  bool valid = (type != 0);
+  emitDevice(valid);
+  if (!valid) {
+    finish();
+    emitLog(F("INVALID_DEVICE"));
+    return false;
+  }
+
+  const char verse[] = "Luke 19:39-40";
+  uint8_t page[16];
+  bool found = false;
+  unsigned int verseOffset = 0;
+
+  for (unsigned int offset = 0; offset + 16 <= flashByteLength(); offset += 16) {
+    if (!readFlashPage(offset, page, 16)) {
+      finish();
+      emitLog(F("METADATA_READ_FAILED"));
+      return false;
+    }
+    if (pageMatchesMetadata(page, verse)) {
+      verseOffset = offset;
+      found = true;
+      break;
+    }
+  }
+
+  if (!found || verseOffset < 32) {
+    finish();
+    emitLog(F("METADATA_NOT_FOUND"));
+    emitResult(F("METADATA_NONE"));
+    return false;
+  }
+
+  if (!readFlashPage(verseOffset - 32, page, 16)) {
+    finish();
+    emitLog(F("METADATA_READ_FAILED"));
+    return false;
+  }
+  emitMetadataField(F("UNIX"), page, 16);
+
+  if (!readFlashPage(verseOffset - 16, page, 16)) {
+    finish();
+    emitLog(F("METADATA_READ_FAILED"));
+    return false;
+  }
+  emitMetadataField(F("GIT"), page, 16);
+
+  if (!readFlashPage(verseOffset, page, 16)) {
+    finish();
+    emitLog(F("METADATA_READ_FAILED"));
+    return false;
+  }
+  emitMetadataField(F("VERSE"), page, 16);
+
+  finish();
   return true;
 }
 
@@ -994,6 +1138,45 @@ bool readFlashByteAt(unsigned int flashOffset, uint8_t &value) {
   tpi_send_byte(SLD);
   value = tpi_receive_byte();
   return !tpiTimedOut;
+}
+
+bool readFlashPage(unsigned int flashOffset, uint8_t *buffer, uint8_t count) {
+  for (uint8_t i = 0; i < count; ++i) {
+    if (!readFlashByteAt(flashOffset + i, buffer[i])) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool pageMatchesMetadata(const uint8_t *buffer, const char *text) {
+  uint8_t i = 0;
+  while (text[i] != '\0') {
+    if (i >= 16 || buffer[i] != (uint8_t)text[i]) {
+      return false;
+    }
+    ++i;
+  }
+  while (i < 16) {
+    if (buffer[i] != 0xFF) {
+      return false;
+    }
+    ++i;
+  }
+  return true;
+}
+
+void emitMetadataField(const __FlashStringHelper *key, const uint8_t *buffer, uint8_t count) {
+  Serial.print(F("META "));
+  Serial.print(key);
+  Serial.print(F(" "));
+  for (uint8_t i = 0; i < count; ++i) {
+    if (buffer[i] == 0xFF) {
+      break;
+    }
+    Serial.write((char)buffer[i]);
+  }
+  Serial.println();
 }
 
 void dumpFlashWindow(unsigned int flashBytes) {
