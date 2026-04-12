@@ -1,0 +1,25 @@
+I want a gui written that talks to an arduino uno over serial. The gui should control a piece of hardware called the arduino toaster. it's job is to take test PCBs and power them on, program them, and then test them. The gui.py will have a selector for .hex files for the firmware. It will also auto-discover the arduino over com ports. 
+
+The arduino code (adru_tiny_toaster.ino) will use tiny10_base_code.ino as a base for programming 
+the attiny10 dev board and doing some basic tests. This will use an arduino uno. 
+
+The pins are as follows: 
+
+10-->!RST
+11/12-->TPIDATA
+13-->TPICLK
+A0-->BATT 
+A1--> LATCHED
+
+
+What the arduino should do is continually try to serial transmit what it is over serial until the gui can auto-discover it and handshake.
+Once discovered, the arduino will turn on the LATCHED pins and try to read the device ID, 
+It should do this once every half second. Once a valid device ID is presented then it should turn the 
+LATCHED pin into an input and prompt the user (through the GUI) to press the "TEST BUTTON" and turn on the 
+BATT pin. Once LATCHED is read as high, this means the test button has been pressed, the .hex file will then be sent to the 
+device. Power should remain on for 2 seconds. Then, BATT should go into an ADC input and read the voltage on that pin. 
+If the voltage is over 0.5V then the battery isolator tab is not in the device properly and this should get flagged in the gui.  
+The GUI will then restart this loop after no voltage over 0.5V for 2 seconds. 
+
+I want the states of the pins in use to be displayed in the GUI as IN/OUT/ADC and the current value. We can ignore the TPIDATA, TPICLK, and !RST pins for the gui display. 
+
