@@ -23,6 +23,9 @@ from serial.tools import list_ports
 DEFAULT_HEX_PATH = Path(r"C:\Users\robot\Documents\Atmel Studio\7.0\MouseMinder\MouseMinder\Debug\MouseMinder.hex")
 DEFAULT_GITHUB_HEX_URL = "https://github.com/Radacon/MouseMinder/blob/main/codebase/AtmelStudio/MouseMinder/MouseMinder/Debug/MouseMinder.hex"
 HTTP_USER_AGENT = "MouseMinderGui/1.0"
+SERIAL_BAUDRATE = 115200
+PROGRAM_HEX_START_DELAY_S = 0.05
+PROGRAM_HEX_LINE_DELAY_S = 0.02
 ATTINY10_FLASH_BYTES = 1024
 ATTINY10_PAGE_BYTES = 16
 METADATA_PADDING_PAGES = 4
@@ -49,7 +52,12 @@ class ToasterGui:
         self.connected_port = ""
         self.handshake_complete = False
         self.hex_path = Path()
+        self.action_send_in_progress = False
         self.hex_send_in_progress = False
+        self.program_ack_event = threading.Event()
+        self.hex_line_ack_event = threading.Event()
+        self.clear_ack_event = threading.Event()
+        self.read_metadata_ack_event = threading.Event()
         self.github_refresh_in_progress = False
         self.cached_github_hex_lines: list[str] = []
         self.cached_github_hex_hash = ""
@@ -276,6 +284,29 @@ class ToasterGui:
             self._log("GUI handshake complete")
             return
 
+        if line == "ACK PROGRAM":
+            self.program_ack_event.set()
+            self._log("Program command acknowledged")
+            return
+
+        if line == "ACK HEX":
+            self.hex_line_ack_event.set()
+            return
+
+        if line == "ACK CLEAR":
+            self.clear_ack_event.set()
+            self._log("Clear-memory command acknowledged")
+            return
+
+        if line == "ACK READ_METADATA":
+            self.read_metadata_ack_event.set()
+            self._log("Read-metadata command acknowledged")
+            return
+
+        if line.startswith("REQUEST ACTION"):
+            self._handle_action_request()
+            return
+
         if line.startswith("STATUS "):
             _, state, *rest = line.split(" ")
             message = " ".join(rest).replace("_", " ")
@@ -319,13 +350,16 @@ class ToasterGui:
         if self.hex_send_in_progress:
             return
         mode = self.firmware_mode_var.get()
-        if mode == "clear":
-            self.hex_send_in_progress = True
-            threading.Thread(target=self._send_clear_command, daemon=True).start()
+        if mode in {"clear", "read_metadata"}:
+            self._log(f"Unexpected HEX request while mode is {mode}")
+            self._send_line("ABORT")
             return
-        if mode == "read_metadata":
-            self.hex_send_in_progress = True
-            threading.Thread(target=self._send_read_metadata_command, daemon=True).start()
+        if self.action_send_in_progress:
+            self._log("HEX requested before action negotiation completed")
+            return
+        if mode not in {"github", "local"}:
+            self._log(f"Unknown firmware mode: {mode}")
+            self._send_line("ABORT")
             return
         if mode == "local" and (not self.hex_path or not self.hex_path.exists()):
             self._log("Hex requested but no firmware file is selected")
@@ -339,13 +373,50 @@ class ToasterGui:
         self.hex_send_in_progress = True
         threading.Thread(target=self._send_hex_file, daemon=True).start()
 
+    def _handle_action_request(self) -> None:
+        if self.action_send_in_progress:
+            return
+        mode = self.firmware_mode_var.get()
+        if mode == "clear":
+            self.action_send_in_progress = True
+            threading.Thread(target=self._send_clear_command, daemon=True).start()
+            return
+        if mode == "read_metadata":
+            self.action_send_in_progress = True
+            threading.Thread(target=self._send_read_metadata_command, daemon=True).start()
+            return
+        if mode in {"github", "local"}:
+            self.action_send_in_progress = True
+            threading.Thread(target=self._send_program_command, daemon=True).start()
+            return
+        self._log(f"Unknown firmware mode: {mode}")
+        self._send_line("ABORT")
+
+    def _send_program_command(self) -> None:
+        try:
+            self._log("Sending program command")
+            self._send_action_command(
+                command="PROGRAM",
+                ack_event=self.program_ack_event,
+                label="program",
+            )
+        except Exception as exc:
+            self._log(f"Program command failed: {exc}")
+            self._send_line("ABORT")
+        finally:
+            self.action_send_in_progress = False
+
     def _send_hex_file(self) -> None:
         try:
             source_name, lines = self._load_selected_hex_lines()
             self._log(f"Sending firmware: {source_name}")
+            time.sleep(PROGRAM_HEX_START_DELAY_S)
             for line in lines:
+                self.hex_line_ack_event.clear()
                 self._send_raw(line + "\n")
-                time.sleep(0.01)
+                if not self.hex_line_ack_event.wait(timeout=2.0):
+                    raise RuntimeError(f"HEX line ACK timeout for: {line[:16]}")
+                time.sleep(PROGRAM_HEX_LINE_DELAY_S)
             self._log("Firmware transfer complete")
         except Exception as exc:
             self._log(f"Firmware transfer failed: {exc}")
@@ -356,13 +427,16 @@ class ToasterGui:
     def _send_clear_command(self) -> None:
         try:
             self._log("Sending clear-memory command")
-            self._send_control_command("CLEAR")
-            self._log("Clear-memory command sent")
+            self._send_action_command(
+                command="CLEAR",
+                ack_event=self.clear_ack_event,
+                label="clear-memory",
+            )
         except Exception as exc:
             self._log(f"Clear-memory transfer failed: {exc}")
             self._send_line("ABORT")
         finally:
-            self.hex_send_in_progress = False
+            self.action_send_in_progress = False
 
     def _send_read_metadata_command(self) -> None:
         try:
@@ -370,16 +444,29 @@ class ToasterGui:
             self.metadata_git_var.set("-")
             self.metadata_verse_var.set("-")
             self._log("Sending read-metadata command")
-            self._send_control_command("READ_METADATA")
-            self._log("Read-metadata command sent")
+            self._send_action_command(
+                command="READ_METADATA",
+                ack_event=self.read_metadata_ack_event,
+                label="read-metadata",
+            )
         except Exception as exc:
             self._log(f"Read-metadata command failed: {exc}")
             self._send_line("ABORT")
         finally:
-            self.hex_send_in_progress = False
+            self.action_send_in_progress = False
 
     def _send_line(self, line: str) -> None:
         self._send_raw(line + "\n")
+
+    def _send_action_command(self, command: str, ack_event: threading.Event, label: str) -> None:
+        ack_event.clear()
+        time.sleep(0.15)
+        self._log(f"TX {command}")
+        self._send_raw(command + "\r\n")
+        if ack_event.wait(timeout=1.5):
+            return
+        self._log(f"{label.capitalize()} command timed out waiting for ACK")
+        self._send_line("ABORT")
 
     def _send_control_command(self, line: str, repeats: int = 3, spacing_s: float = 0.05) -> None:
         for attempt in range(repeats):
@@ -550,7 +637,7 @@ class ToasterGui:
                 if not self.running:
                     return
                 try:
-                    ser = serial.Serial(port.device, 9600, timeout=0.25, write_timeout=1)
+                    ser = serial.Serial(port.device, SERIAL_BAUDRATE, timeout=0.25, write_timeout=1)
                     time.sleep(1.8)
                     hello_seen = False
                     deadline = time.time() + 2.0

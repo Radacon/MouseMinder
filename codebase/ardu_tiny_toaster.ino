@@ -33,6 +33,7 @@
 #define TooLarge 3
 #define MAX_VERIFY_FLASH_BYTES 1024
 #define BATT_FAIL_THRESHOLD_MV 2000
+#define SERIAL_BAUDRATE 115200
 
 enum ToasterState {
   STATE_WAIT_GUI,
@@ -64,8 +65,11 @@ char type = 0;
 ToasterState state = STATE_WAIT_GUI;
 bool guiConnected = false;
 bool hexRequested = false;
+bool actionRequested = false;
+bool programPrepared = false;
 bool lastDeviceValid = false;
 bool tpiTimedOut = false;
+size_t serialLineIndex = 0;
 unsigned long lastHelloAt = 0;
 unsigned long lastScanAt = 0;
 unsigned long lastPinReportAt = 0;
@@ -96,6 +100,7 @@ const __FlashStringHelper *deviceNameFromId(uint8_t id1, uint8_t id2, uint8_t id
 void configureForScan();
 void configureForWaitButton();
 void resetForNextDevice();
+void emitRawDeviceId();
 void setProgrammingPinsHighImpedance();
 void setBattOutput(int value);
 void setBattAdc();
@@ -106,12 +111,14 @@ int readLatchedMillivolts();
 int sampleBattAverageMillivolts(unsigned long durationMs);
 bool latchedIsHigh();
 bool latchedIsStableHigh();
+void resetSerialLineReader();
 bool readSerialLine(char *buffer, size_t length);
 void handleCommand(const char *line);
 void processStateMachine();
 void processScanDevice();
 void processWaitHex();
 bool runProgrammingCycle();
+bool beginProgrammingSession();
 bool runClearCycle();
 bool runMetadataReadCycle();
 void completeClearRequest();
@@ -151,7 +158,7 @@ uint8_t byteval(char c1, char c2);
 void outHex(unsigned int n, char l);
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(SERIAL_BAUDRATE);
   timeout = 20000;
   setProgrammingPinsHighImpedance();
   configureForScan();
@@ -177,7 +184,7 @@ void loop() {
     processStateMachine();
   }
 
-  if (millis() - lastPinReportAt >= 250) {
+  if (state != STATE_WAIT_HEX && millis() - lastPinReportAt >= 250) {
     emitPins();
     lastPinReportAt = millis();
   }
@@ -186,6 +193,7 @@ void loop() {
 void setState(ToasterState nextState, const __FlashStringHelper *message) {
   ToasterState previous = state;
   state = nextState;
+  resetSerialLineReader();
   stateChangedAt = millis();
   Serial.print(F("LOG STATE_"));
   Serial.print(stateName(previous));
@@ -263,6 +271,16 @@ void emitDevice(bool valid) {
   Serial.println();
 }
 
+void emitRawDeviceId() {
+  Serial.print(F("LOG RAW_ID_"));
+  outHex(lastId1, 2);
+  Serial.print(F("_"));
+  outHex(lastId2, 2);
+  Serial.print(F("_"));
+  outHex(lastId3, 2);
+  Serial.println();
+}
+
 void emitPins() {
   emitPinBatt();
   emitPinLatched();
@@ -315,6 +333,9 @@ void configureForWaitButton() {
 
 void resetForNextDevice() {
   hexRequested = false;
+  actionRequested = false;
+  programPrepared = false;
+  resetSerialLineReader();
   latchedHighSince = 0;
   latchedLowSince = 0;
   battClearSince = 0;
@@ -423,23 +444,26 @@ bool latchedIsStableLow() {
   return false;
 }
 
+void resetSerialLineReader() {
+  serialLineIndex = 0;
+}
+
 bool readSerialLine(char *buffer, size_t length) {
-  static size_t index = 0;
   while (Serial.available() > 0) {
     char c = (char)Serial.read();
     if (c == '\r') {
       continue;
     }
     if (c == '\n') {
-      if (index == 0) {
+      if (serialLineIndex == 0) {
         continue;
       }
-      buffer[index] = '\0';
-      index = 0;
+      buffer[serialLineIndex] = '\0';
+      serialLineIndex = 0;
       return true;
     }
-    if (index < length - 1) {
-      buffer[index++] = c;
+    if (serialLineIndex < length - 1) {
+      buffer[serialLineIndex++] = c;
     }
   }
   return false;
@@ -459,25 +483,29 @@ void handleCommand(const char *line) {
   }
 
   if (strcmp(line, "ABORT") == 0 && state == STATE_WAIT_HEX) {
+    programPrepared = false;
     resetForNextDevice();
     return;
   }
 
   if (strcmp(line, "RESET_LOOP") == 0 && guiConnected) {
+    programPrepared = false;
     emitLog(F("RESET_LOOP_RECEIVED"));
     resetForNextDevice();
     return;
   }
 
-  if (strcmp(line, "CLEAR") == 0 && state == STATE_WAIT_HEX) {
-    completeClearRequest();
-    return;
-  }
-
-  if (strcmp(line, "READ_METADATA") == 0 && state == STATE_WAIT_HEX) {
-    completeMetadataReadRequest();
-    return;
-  }
+    if (strcmp(line, "CLEAR") == 0 && state == STATE_WAIT_HEX) {
+      Serial.println(F("ACK CLEAR"));
+      completeClearRequest();
+      return;
+    }
+  
+    if (strcmp(line, "READ_METADATA") == 0 && state == STATE_WAIT_HEX) {
+      Serial.println(F("ACK READ_METADATA"));
+      completeMetadataReadRequest();
+      return;
+    }
 }
 
 void processStateMachine() {
@@ -530,6 +558,8 @@ void processStateMachine() {
 }
 
 void processScanDevice() {
+  Serial.print(F("LOG SCAN_LATCHED_MV_"));
+  Serial.println(readLatchedMillivolts());
   if (!latchedIsHigh()) {
     latchedHighSince = 0;
     latchedLowSince = 0;
@@ -546,7 +576,7 @@ void processScanDevice() {
   }
   lastScanAt = millis();
 
-  bool valid = detectConnectedDevice();
+    bool valid = detectConnectedDevice();
   Serial.print(F("LOG SCAN_DEVICE_VALID_"));
   Serial.println(valid ? F("YES") : F("NO"));
   if (valid != lastDeviceValid) {
@@ -554,77 +584,90 @@ void processScanDevice() {
     lastDeviceValid = valid;
   }
 
-  if (valid) {
-    hexRequested = false;
-    setState(STATE_WAIT_HEX, F("SEND_HEX_FILE"));
+    if (valid) {
+      hexRequested = false;
+      actionRequested = false;
+      setState(STATE_WAIT_HEX, F("SEND_HEX_FILE"));
+    }
   }
-}
-
-void processWaitHex() {
-  emitLog(F("WAIT_HEX_ENTER"));
-  if (!hexRequested) {
-    emitLog(F("WAIT_HEX_REQUESTED"));
-    Serial.println(F("REQUEST HEX"));
-    hexRequested = true;
+  
+  void processWaitHex() {
+  if (!actionRequested) {
+    Serial.println(F("REQUEST ACTION"));
+    actionRequested = true;
   }
 
   while (Serial.available() > 0) {
-    Serial.print(F("LOG WAIT_HEX_AVAIL_"));
-    Serial.println(Serial.available());
-    int next = Serial.peek();
-    if (next == '\r' || next == '\n') {
-      emitLog(F("WAIT_HEX_PEEK_EOL"));
-      Serial.read();
-      continue;
-    }
-    Serial.print(F("LOG WAIT_HEX_PEEK_"));
-    Serial.println((char)next);
-    if (next == ':') {
-      bool success = runProgrammingCycle();
-      bool batteryPass = false;
-      battClearSince = 0;
-      if (success) {
-        emitResult(F("PROGRAM_OK"));
-      } else {
-        emitResult(F("PROGRAM_FAIL"));
+    if (hexRequested) {
+      int next = Serial.peek();
+      if (next == '\r' || next == '\n') {
+        Serial.read();
+        continue;
       }
+      if (next == ':') {
+        bool success = runProgrammingCycle();
+        bool batteryPass = false;
+        battClearSince = 0;
+        if (success) {
+          emitResult(F("PROGRAM_OK"));
+        } else {
+          emitResult(F("PROGRAM_FAIL"));
+        }
 
-      setBattOutput(LOW);
-      setLatchedOutput(LOW);
-      delay(50);
-      setBattAdc();
-      setLatchedAdc();
-      int battMv = sampleBattAverageMillivolts(100);
-      if (battMv <= BATT_FAIL_THRESHOLD_MV) {
-        batteryPass = true;
-        emitResult(F("BATTERY_OK"), battMv);
-      } else {
-        emitResult(F("BATTERY_FAIL"), battMv);
+        setBattOutput(LOW);
+        setLatchedOutput(LOW);
+        delay(50);
+        setBattAdc();
+        setLatchedAdc();
+        int battMv = sampleBattAverageMillivolts(100);
+        if (battMv <= BATT_FAIL_THRESHOLD_MV) {
+          batteryPass = true;
+          emitResult(F("BATTERY_OK"), battMv);
+        } else {
+          emitResult(F("BATTERY_FAIL"), battMv);
+        }
+
+        setState(STATE_WAIT_BATT_CLEAR, F("REMOVE_DEVICE"));
+        hexRequested = false;
+        actionRequested = false;
+        lastDeviceValid = success && batteryPass;
+        return;
       }
-
-      setState(STATE_WAIT_BATT_CLEAR, F("REMOVE_DEVICE"));
-      hexRequested = false;
-      lastDeviceValid = success && batteryPass;
-      return;
     }
 
     char line[96];
-    if (readSerialLine(line, sizeof(line))) {
-      Serial.print(F("LOG WAIT_HEX_RX_"));
-      Serial.println(line);
-      if (strcmp(line, "CLEAR") == 0) {
-        completeClearRequest();
-        return;
-      }
-      if (strcmp(line, "READ_METADATA") == 0) {
-        completeMetadataReadRequest();
-        return;
-      }
-      handleCommand(line);
-    } else {
-      emitLog(F("WAIT_HEX_READLINE_EMPTY"));
+    if (!readSerialLine(line, sizeof(line))) {
       return;
     }
+    Serial.print(F("LOG WAIT_HEX_RX_"));
+    Serial.println(line);
+    if (strcmp(line, "PROGRAM") == 0) {
+      if (!beginProgrammingSession()) {
+        battClearSince = 0;
+        emitResult(F("PROGRAM_FAIL"));
+        emitResult(F("BATTERY_OK"), 0);
+        setState(STATE_WAIT_BATT_CLEAR, F("REMOVE_DEVICE"));
+        hexRequested = false;
+        actionRequested = false;
+        lastDeviceValid = false;
+        return;
+      }
+      Serial.println(F("ACK PROGRAM"));
+      Serial.println(F("REQUEST HEX"));
+      hexRequested = true;
+      return;
+    }
+    if (strcmp(line, "CLEAR") == 0) {
+      Serial.println(F("ACK CLEAR"));
+      completeClearRequest();
+      return;
+    }
+    if (strcmp(line, "READ_METADATA") == 0) {
+      Serial.println(F("ACK READ_METADATA"));
+      completeMetadataReadRequest();
+      return;
+    }
+    handleCommand(line);
   }
 }
 
@@ -640,6 +683,7 @@ void completeClearRequest() {
 
   setState(STATE_WAIT_BATT_CLEAR, F("REMOVE_DEVICE"));
   hexRequested = false;
+  actionRequested = false;
   lastDeviceValid = success;
 }
 
@@ -655,11 +699,17 @@ void completeMetadataReadRequest() {
 
   setState(STATE_WAIT_BATT_CLEAR, F("REMOVE_DEVICE"));
   hexRequested = false;
+  actionRequested = false;
   lastDeviceValid = success;
 }
 
 bool runProgrammingCycle() {
   emitLog(F("PROGRAMMING"));
+  if (!programPrepared) {
+    emitLog(F("PROGRAM_NOT_PREPARED"));
+    return false;
+  }
+
   if (!start_tpi()) {
     finish();
     emitLog(F("TPI_START_FAILED"));
@@ -689,7 +739,42 @@ bool runProgrammingCycle() {
     }
   }
   finish();
+  programPrepared = false;
   return programmed && verified;
+}
+
+bool beginProgrammingSession() {
+  programPrepared = false;
+
+  if (!start_tpi()) {
+    finish();
+    emitLog(F("TPI_START_FAILED"));
+    return false;
+  }
+
+  if (!readDeviceIdentity(lastId1, lastId2, lastId3)) {
+    finish();
+    emitLog(F("DEVICE_ID_READ_FAILED"));
+    return false;
+  }
+
+  bool valid = (type != 0);
+  emitDevice(valid);
+  if (!valid) {
+    finish();
+    emitLog(F("INVALID_DEVICE"));
+    return false;
+  }
+
+  if (!eraseChip()) {
+    finish();
+    emitLog(F("ERASE_FAILED"));
+    return false;
+  }
+
+  finish();
+  programPrepared = true;
+  return true;
 }
 
 bool runClearCycle() {
@@ -795,8 +880,10 @@ bool detectConnectedDevice() {
     finish();
     return false;
   }
+  emitLog(F("SCAN_TPI_START_OK"));
 
   bool valid = readDeviceIdentity(lastId1, lastId2, lastId3);
+  emitRawDeviceId();
   finish();
   return valid;
 }
@@ -859,6 +946,7 @@ bool readDeviceIdentity(uint8_t &id1, uint8_t &id2, uint8_t &id3) {
   id3 = tpi_receive_byte();
 
   if (tpiTimedOut) {
+    emitLog(F("DEVICE_ID_TPI_TIMEOUT"));
     type = 0;
     return false;
   }
@@ -917,10 +1005,6 @@ boolean writeProgramFromSerial() {
   unsigned short tadrs = 0x4000;
   unsigned long pgmStartTime = millis();
   resetExpectedImage();
-  if (!eraseChip()) {
-    emitLog(F("ERASE_FAILED"));
-    return false;
-  }
 
   char words = (type != Tiny4_5 ? type : 1);
 
@@ -1051,16 +1135,17 @@ boolean writeProgramFromSerial() {
       return false;
     }
     chksm[0] = (char)c;
-    c = readHexChar();
-    if (c < 0) {
-      ERROR_data(TimeOut);
-      return false;
+      c = readHexChar();
+      if (c < 0) {
+        ERROR_data(TimeOut);
+        return false;
+      }
+      chksm[1] = (char)c;
+      Serial.println(F("ACK HEX"));
     }
-    chksm[1] = (char)c;
-  }
 
-  if (currentByte > 0) {
-    while (currentByte < 2 * words) {
+    if (currentByte > 0) {
+      while (currentByte < 2 * words) {
       data[currentByte++] = 0;
     }
     currentByte = 0;
