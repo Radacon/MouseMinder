@@ -1,0 +1,25 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "aa68da42-1986-4165-9237-b3cc31a8e321")
+	(paper "A4")
+	(lib_symbols)
+	(text "Objectives:\n1) Program ATTINY\n2) Test Functions\n	2.1) Test/Reset Button Functionality\n	2.2) Tap test (piezo sensor adc read)\n	2.3) Tap test (trigger, optional)\n3) HV Fuse reset 12V on RST line\n4) Pass/Fail Indicator\n"
+		(exclude_from_sim no)
+		(at 60.96 45.212 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a284a572-28dd-4bd0-9c6d-b6212cd58145")
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)

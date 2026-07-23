@@ -1,0 +1,98 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Padauk 13), page 1.
+Hexadecimal [24-Bits]
+
+Symbol Table
+
+    .__.$$$.                                                    =  002710 L
+    .__.ABS.                                                    =  000000 G
+    .__.CPU.                                                    =  000000 L
+    .__.H$L.                                                    =  000000 L
+    __bgtr                                                      =  000019 G
+    __clkmd                                                     =  000003 G
+  F __delay_loop_16                                                000006 GR
+  1 __delay_loop_16_PARM_1                                         000001 GR
+  F __delay_loop_32                                                000016 GR
+  1 __delay_loop_32_PARM_1                                         000003 GR
+  F __delay_loop_8                                                 000000 GR
+  1 __delay_loop_8_PARM_1                                          000000 GR
+    __eoscr                                                     =  00000A G
+    __flag                                                      =  000000 G
+    __gpcc                                                      =  00001A G
+    __gpcs                                                      =  00001E G
+    __ihrcr                                                     =  00000B G
+    __ilrcr                                                     =  00001F G
+    __integs                                                    =  00000C G
+    __inten                                                     =  000004 G
+  7 __interrupt_vect                                               000000 R
+    __intrq                                                     =  000005 G
+    __misc                                                      =  00001B G
+    __pa                                                        =  000010 G
+    __pac                                                       =  000011 G
+    __padier                                                    =  00000D G
+    __paph                                                      =  000012 G
+  F __sdcc_external_startup                                        00021E GR
+  A __sdcc_init_data                                               000000 R
+  7 __sdcc_program_startup                                         000000 R
+    __sp                                                        =  000002 G
+  5 __start__stack                                                 000000 R
+  4 __t16c                                                         000000 GR
+    __t16m                                                      =  000006 G
+    __tm2b                                                      =  000009 G
+    __tm2c                                                      =  00001C G
+    __tm2ct                                                     =  00001D G
+    __tm2s                                                      =  000017 G
+  F _activeAlert                                                   0001A8 R
+  1 _activeAlert_sloc2_1_0                                         00000F R
+  F _activeDelayMilliseconds                                       00003A R
+  1 _activeDelayMilliseconds_PARM_1                                000009 R
+  F _deepSleep                                                     000144 R
+  F _main                                                          000204 GR
+  F _piezoInput                                                    00002E R
+  F _setup                                                         000176 R
+  F _sleepTicks                                                    000076 R
+  1 _sleepTicks_PARM_1                                             00000B R
+  1 _sleepTicks_PARM_2                                             00000D R
+  2 _sleepTicks_sloc0_1_0                                          000000 R
+  F _startTone                                                     0000BE R
+  F _startupChirps                                                 0000F8 R
+  1 _startupChirps_sloc1_1_0                                       00000E R
+  1 _timer16Load                                                   000007 R
+  F _tonePulse                                                     0000D6 R
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Padauk 13), page 2.
+Hexadecimal [24-Bits]
+
+Symbol Table
+
+  F _waitForButtonRelease                                          00012A R
+    l_DATA                                                         ****** GX
+    l_OSEG                                                         ****** GX
+  D p                                                              000000 GR
+    s_DATA                                                         ****** GX
+    s_GSINIT                                                       ****** GX
+    s_OSEG                                                         ****** GX
+
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Padauk 13), page 3.
+Hexadecimal [24-Bits]
+
+Area Table
+
+   0 _CODE                                      size      0   flags    0
+   1 DATA                                       size     10   flags    0
+   2 OSEG                                       size      1   flags    4
+   3 RSEG                                       size      0   flags    8
+   4 RSEG0                                      size      2   flags    8
+   5 SSEG                                       size      1   flags    0
+   6 DABS                                       size      0   flags    8
+   7 HOME                                       size      2   flags    0
+   8 HEADER                                     size      0   flags    8
+   9 HEADER1                                    size      2   flags    8
+   A GSINIT                                     size     14   flags    0
+   B GSFINAL                                    size      2   flags    0
+   C PREG                                       size      0   flags    8
+   D PREG2                                      size      2   flags    8
+   E HEADER3                                    size     10   flags    8
+   F CODE                                       size    238   flags    0
+  10 CONST                                      size      0   flags    0
+  11 CABS                                       size      0   flags    8
+

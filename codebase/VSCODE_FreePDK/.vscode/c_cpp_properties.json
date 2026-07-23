@@ -1,0 +1,32 @@
+{
+    "configurations": [
+        {
+            "name": "SDCC",
+            "intelliSenseMode": "windows-clang-x64",
+            "compilerPath": "C:/Program Files/SDCC/bin/sdcc.exe",
+            "cStandard": "c11",
+            "includePath": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/include",
+                "C:/Program Files/SDCC/include"
+            ],
+            "forcedInclude": "${workspaceFolder}/sdcc_intellisense.h",
+            "defines": [
+                "PMS150C",
+                "F_CPU=3312",
+                "TARGET_VDD_MV=3300",
+                "__SDCC_pdk13"
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}",
+                    "${workspaceFolder}/include",
+                    "C:/Program Files/SDCC/include"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
+            }
+        }
+    ],
+    "version": 4
+}
