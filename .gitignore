@@ -58,5 +58,14 @@ Thumbs.db
 # =========================
 *.elf
 *.bin
+*.asm
+*.ihx
+*.lk
+*.lst
+*.map
+*.rel
+*.rst
+*.sym
+*.code-workspace
 
 private/

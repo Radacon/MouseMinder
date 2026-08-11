@@ -4,7 +4,7 @@
   PMS150C-U06
 
   PA6: sleep/wake pushbutton, externally pulled low, switch to VDD
-  PA4: LED, active low
+  PA4: LED, active high
   PA3: piezo input while quiet; Timer2 tone output while sounding
 */
 
@@ -15,27 +15,23 @@
 #include "auto_sysclock.h"
 #include "startup.h"
 #include "delay.h"
+#include "chirp_pattern.h"
+
+#if CHIRP_MASTER_CLOCK_HZ != F_CPU
+#error "chirp_pattern.h clock does not match the firmware F_CPU"
+#endif
+
+#if CHIRP_TIMER_DIVIDER != 1
+#error "The firmware chirp player currently requires timer divider 1"
+#endif
 
 /*------------------------------------------------------------------
   User tuning
  ------------------------------------------------------------------*/
 
-#define LED_PULSE_MS               20u
+#define LED_PULSE_MS               10u
 #define EVENT_SLEEP_MS           1000u
-
-#define PIEZO_TONE_MS              50u
-#define PIEZO_GAP_MS               50u
-#define STARTUP_BEEP_COUNT          3u
-#define LED_FLASHES_PER_BEEPS       4u
-
-/*
- * Timer2 period mode toggles PA3 at:
- *
- *   F_CPU / (2 * (PIEZO_TONE_BOUND + 1))
- *
- * 52 kHz / (2 * 6) = approximately 4.33 kHz.
- */
-#define PIEZO_TONE_BOUND            5u
+#define LED_FLASHES_PER_CHIRP       4u
 
 /*------------------------------------------------------------------
   Pins
@@ -49,8 +45,8 @@
 #define LED_MASK            (1u << LED_BIT)
 #define BUTTON_MASK         (1u << BUTTON_BIT)
 
-#define turnLedOn()         (PA &= (uint8_t)~LED_MASK)
-#define turnLedOff()        (PA |= LED_MASK)
+#define turnLedOn()         (PA |= LED_MASK)
+#define turnLedOff()        (PA &= (uint8_t)~LED_MASK)
 #define buttonIsPressed()   ((PA & BUTTON_MASK) != 0)
 
 /*------------------------------------------------------------------
@@ -80,7 +76,7 @@ static void piezoInput(void)
     PAC &= (uint8_t)~PIEZO_MASK;
 }
 
-static uint8_t activeDelayMilliseconds(uint16_t milliseconds)
+static uint8_t activeLedPulseDelay(void)
 {
     PADIER = BUTTON_MASK;
 
@@ -89,10 +85,7 @@ static uint8_t activeDelayMilliseconds(uint16_t milliseconds)
      * here matches the ATtiny's _delay_ms() cadence and avoids PMS150C
      * STOPEXE wake-up latency on short delays.
      */
-    if (milliseconds == PIEZO_GAP_MS)
-        _delay_ms(PIEZO_GAP_MS);
-    else
-        _delay_ms(LED_PULSE_MS);
+    _delay_ms(LED_PULSE_MS);
 
     return buttonIsPressed();
 }
@@ -132,40 +125,47 @@ static uint8_t sleepTicks(uint16_t ticks, uint8_t piezoWake)
   Piezo tone
  ------------------------------------------------------------------*/
 
-static void startTone(void)
+static void startTone(uint8_t timerDivisor)
 {
     /* Keep the PA6 button readable; PA3 is driven by Timer2. */
     PADIER = BUTTON_MASK;
     PAC |= PIEZO_MASK;
     TM2CT = 0;
-    TM2B = PIEZO_TONE_BOUND;
+    TM2B = (uint8_t)(timerDivisor - 1u);
     TM2S = TM2S_PRESCALE_NONE | TM2S_SCALE_NONE;
     TM2C = TM2C_CLK_ILRC | TM2C_MODE_PERIOD | TM2C_OUT_PA3;
 }
 
-static uint8_t tonePulse(void)
-{
-    startTone();
-    _delay_ms(PIEZO_TONE_MS);
-    piezoInput();
-
-    return buttonIsPressed();
-}
-
 static uint8_t startupChirps(void)
 {
-    uint8_t count = STARTUP_BEEP_COUNT;
+    uint16_t offset = 0;
+    uint8_t step = CHIRP_STEP_COUNT;
 
-    while (count--)
+    while (step--)
     {
-        if (tonePulse())
-            return 1;
+        uint8_t timerDivisor = chirpPattern[offset];
+        uint16_t duration = (uint16_t)chirpPattern[offset + 1u] |
+                            ((uint16_t)chirpPattern[offset + 2u] << 8);
+        offset += CHIRP_STEP_BYTES;
 
-        /* Match the ATtiny sequence: gaps only between startup chirps. */
-        if (count && activeDelayMilliseconds(PIEZO_GAP_MS))
-            return 1;
+        if (timerDivisor)
+            startTone(timerDivisor);
+        else
+            piezoInput();
+
+        PADIER = BUTTON_MASK;
+        while (duration--)
+        {
+            _delay_ms(1);
+            if (buttonIsPressed())
+            {
+                piezoInput();
+                return 1;
+            }
+        }
     }
 
+    piezoInput();
     return 0;
 }
 
@@ -224,7 +224,7 @@ static void deepSleep(void)
 static void setup(void)
 {
     /* LED off; button and piezo initially inputs. */
-    PA = LED_MASK;
+    PA = 0;
     PAC = LED_MASK;
     PAPH = 0;
     PADIER = 0;
@@ -256,7 +256,7 @@ static uint8_t activeAlert(void)
     {
         turnLedOn();
 
-        if (activeDelayMilliseconds(LED_PULSE_MS))
+        if (activeLedPulseDelay())
         {
             turnLedOff();
             return 1;
@@ -264,23 +264,17 @@ static uint8_t activeAlert(void)
 
         turnLedOff();
 
-        if (++flashCount >= LED_FLASHES_PER_BEEPS)
+        if (++flashCount >= LED_FLASHES_PER_CHIRP)
         {
             flashCount = 0;
 
-            if (tonePulse())
-                return 1;
-
-            if (activeDelayMilliseconds(PIEZO_GAP_MS))
-                return 1;
-
-            if (tonePulse())
+            if (startupChirps())
                 return 1;
         }
 
         /*
          * Match the ATtiny cadence: the approximately one-second sleep
-         * begins after the LED pulse and any scheduled pair of beeps.
+         * begins after the LED pulse and any scheduled chirp.
          */
         if (sleepMilliseconds(EVENT_SLEEP_MS, 0))
             return 1;

@@ -7,8 +7,8 @@
     ],
     "C_Cpp.default.defines": [
         "PMS150C",
-        "F_CPU=3312",
-        "TARGET_VDD_MV=3300",
+        "F_CPU=52000",
+        "TARGET_VDD_MV=2800",
         "__SDCC_pdk13"
     ],
     "C_Cpp.default.cStandard": "c11",

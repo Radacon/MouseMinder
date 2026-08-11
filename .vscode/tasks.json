@@ -1,0 +1,65 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "C/C++: sdcc.exe build active file",
+      "type": "process",
+      "command": "C:/Program Files/SDCC/bin/sdcc.exe",
+      "args": [
+        "-mpdk13",
+        "--std-sdcc11",
+        "--opt-code-size",
+        "-DPMS150C",
+        "-DF_CPU=52000",
+        "-DTARGET_VDD_MV=2800",
+        "-I${fileDirname}",
+        "-I${fileDirname}/include",
+        "--out-fmt-ihx",
+        "${file}",
+        "-o",
+        "${fileDirname}/.output/slowclocksleep_PMS150C_windows.ihx"
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "detail": "Build the active PMS150C source file with SDCC"
+    },
+    {
+      "label": "Upload PMS150C",
+      "type": "process",
+      "command": "C:/EASYPDKPROG/easypdkprog.exe",
+      "args": [
+        "-n",
+        "PMS150C",
+        "write",
+        "${fileDirname}/.output/slowclocksleep_PMS150C_windows.ihx"
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": [],
+      "detail": "Write the compiled firmware to a PMS150C with Easy PDK Programmer"
+    },
+    {
+      "label": "Build and Upload PMS150C",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "C/C++: sdcc.exe build active file",
+        "Upload PMS150C"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "detail": "Compile main.c, then write it to the PMS150C"
+    }
+  ]
+}

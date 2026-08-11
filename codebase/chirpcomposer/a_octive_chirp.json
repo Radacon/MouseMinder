@@ -1,0 +1,31 @@
+{
+  "format": "mouseminder-chirp-v1",
+  "master_clock_hz": 8000000,
+  "clock_divider": 64,
+  "steps": [
+    {
+      "frequency_hz": 440,
+      "duration_ms": 50
+    },
+    {
+      "frequency_hz": 880,
+      "duration_ms": 50
+    },
+    {
+      "frequency_hz": 0,
+      "duration_ms": 50
+    },
+    {
+      "frequency_hz": 440,
+      "duration_ms": 50
+    },
+    {
+      "frequency_hz": 880,
+      "duration_ms": 50
+    },
+    {
+      "frequency_hz": 0,
+      "duration_ms": 50
+    }
+  ]
+}

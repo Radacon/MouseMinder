@@ -35,6 +35,8 @@ $(BUILD_DIR)/%.rel: %.c
 	@mkdir -p $(dir $@)
 	$(COMPILE) -o $@ $<
 
+$(BUILD_DIR)/main.rel: chirp_pattern.h
+
 $(OUTPUT).ihx: $(OBJECTS)
 	@mkdir -p $(dir $(OUTPUT))
 	$(LINK) --out-fmt-ihx -o $(OUTPUT).ihx $(OBJECTS)

@@ -1,0 +1,32 @@
+{
+  "format": "mouseminder-chirp-v1",
+  "master_clock_hz": 52000,
+  "clock_divider": 1,
+  "title": "Resonance Test 4 - Irregular Resonance-Biased Dither",
+  "steps": [
+    { "frequency_hz": 1000, "duration_ms": 260 },
+    { "frequency_hz": 1450, "duration_ms": 45 },
+    { "frequency_hz": 4000, "duration_ms": 140 },
+    { "frequency_hz": 3650, "duration_ms": 45 },
+    { "frequency_hz": 1150, "duration_ms": 90 },
+    { "frequency_hz": 2800, "duration_ms": 55 },
+    { "frequency_hz": 1000, "duration_ms": 180 },
+    { "frequency_hz": 2200, "duration_ms": 40 },
+    { "frequency_hz": 4000, "duration_ms": 260 },
+    { "frequency_hz": 3100, "duration_ms": 50 },
+    { "frequency_hz": 1700, "duration_ms": 50 },
+    { "frequency_hz": 1000, "duration_ms": 110 },
+    { "frequency_hz": 4000, "duration_ms": 110 },
+    { "frequency_hz": 1250, "duration_ms": 55 },
+    { "frequency_hz": 2500, "duration_ms": 55 },
+    { "frequency_hz": 3750, "duration_ms": 55 },
+    { "frequency_hz": 4000, "duration_ms": 180 },
+    { "frequency_hz": 3350, "duration_ms": 40 },
+    { "frequency_hz": 2050, "duration_ms": 40 },
+    { "frequency_hz": 1000, "duration_ms": 260 },
+    { "frequency_hz": 1850, "duration_ms": 45 },
+    { "frequency_hz": 2950, "duration_ms": 45 },
+    { "frequency_hz": 4000, "duration_ms": 260 },
+    { "frequency_hz": 0, "duration_ms": 150 }
+  ]
+}

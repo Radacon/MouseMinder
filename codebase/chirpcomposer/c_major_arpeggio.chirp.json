@@ -1,0 +1,39 @@
+{
+  "format": "mouseminder-chirp-v1",
+  "master_clock_hz": 52000,
+  "clock_divider": 1,
+  "steps": [
+    {
+      "frequency_hz": 2000,
+      "duration_ms": 180
+    },
+    {
+      "frequency_hz": 2520,
+      "duration_ms": 180
+    },
+    {
+      "frequency_hz": 2997,
+      "duration_ms": 180
+    },
+    {
+      "frequency_hz": 4000,
+      "duration_ms": 300
+    },
+    {
+      "frequency_hz": 2997,
+      "duration_ms": 180
+    },
+    {
+      "frequency_hz": 2520,
+      "duration_ms": 180
+    },
+    {
+      "frequency_hz": 2000,
+      "duration_ms": 400
+    },
+    {
+      "frequency_hz": 0,
+      "duration_ms": 150
+    }
+  ]
+}

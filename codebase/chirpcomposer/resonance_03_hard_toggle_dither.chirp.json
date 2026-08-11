@@ -1,0 +1,31 @@
+{
+  "format": "mouseminder-chirp-v1",
+  "master_clock_hz": 52000,
+  "clock_divider": 1,
+  "title": "Resonance Test 3 - Hard Toggle with Dither",
+  "steps": [
+    { "frequency_hz": 1000, "duration_ms": 220 },
+    { "frequency_hz": 1800, "duration_ms": 35 },
+    { "frequency_hz": 2700, "duration_ms": 35 },
+    { "frequency_hz": 3500, "duration_ms": 35 },
+    { "frequency_hz": 4000, "duration_ms": 220 },
+    { "frequency_hz": 3200, "duration_ms": 35 },
+    { "frequency_hz": 2300, "duration_ms": 35 },
+    { "frequency_hz": 1500, "duration_ms": 35 },
+    { "frequency_hz": 1000, "duration_ms": 220 },
+    { "frequency_hz": 4000, "duration_ms": 220 },
+    { "frequency_hz": 1000, "duration_ms": 120 },
+    { "frequency_hz": 4000, "duration_ms": 120 },
+    { "frequency_hz": 1300, "duration_ms": 45 },
+    { "frequency_hz": 3700, "duration_ms": 45 },
+    { "frequency_hz": 1600, "duration_ms": 45 },
+    { "frequency_hz": 3400, "duration_ms": 45 },
+    { "frequency_hz": 1900, "duration_ms": 45 },
+    { "frequency_hz": 3100, "duration_ms": 45 },
+    { "frequency_hz": 2200, "duration_ms": 45 },
+    { "frequency_hz": 2800, "duration_ms": 45 },
+    { "frequency_hz": 1000, "duration_ms": 240 },
+    { "frequency_hz": 4000, "duration_ms": 240 },
+    { "frequency_hz": 0, "duration_ms": 120 }
+  ]
+}

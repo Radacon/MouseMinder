@@ -2,6 +2,52 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Build",
+      "type": "shell",
+      "command": "wsl",
+      "args": [
+        "make"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "C/C++: sdcc.exe build active file",
+      "type": "cppbuild",
+      "command": "C:/Program Files/SDCC/bin/sdcc.exe",
+      "args": [
+        "-mpdk13",
+        "--std-sdcc11",
+        "--opt-code-size",
+        "-DPMS150C",
+        "-DF_CPU=52000",
+        "-DTARGET_VDD_MV=2800",
+        "-I${workspaceFolder}",
+        "-I${workspaceFolder}/include",
+        "--out-fmt-ihx",
+        "${file}",
+        "-o",
+        "${workspaceFolder}/.output/slowclocksleep_PMS150C.ihx"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "detail": "SDCC Padauk PMS150C firmware build"
+    },
+    {
       "label": "Build and Program",
       "type": "shell",
       "command": "wsl",
@@ -12,7 +58,7 @@
       ],
       "group": {
         "kind": "build",
-        "isDefault": true
+        "isDefault": false
       },
       "problemMatcher": []
     }

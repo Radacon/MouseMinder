@@ -19,6 +19,7 @@ Symbol Table
     __flag                                                      =  000000 G
     __gpcc                                                      =  00001A G
     __gpcs                                                      =  00001E G
+    __gptrget                                                      ****** GX
     __ihrcr                                                     =  00000B G
     __ilrcr                                                     =  00001F G
     __integs                                                    =  00000C G
@@ -30,7 +31,7 @@ Symbol Table
     __pac                                                       =  000011 G
     __padier                                                    =  00000D G
     __paph                                                      =  000012 G
-  F __sdcc_external_startup                                        00021E GR
+  F __sdcc_external_startup                                        00029E GR
   A __sdcc_init_data                                               000000 R
   7 __sdcc_program_startup                                         000000 R
     __sp                                                        =  000002 G
@@ -41,29 +42,37 @@ Symbol Table
     __tm2c                                                      =  00001C G
     __tm2ct                                                     =  00001D G
     __tm2s                                                      =  000017 G
-  F _activeAlert                                                   0001A8 R
-  1 _activeAlert_sloc2_1_0                                         00000F R
+  F _activeAlert                                                   000228 R
+  1 _activeAlert_sloc8_1_0                                         00001A R
   F _activeDelayMilliseconds                                       00003A R
   1 _activeDelayMilliseconds_PARM_1                                000009 R
-  F _deepSleep                                                     000144 R
-  F _main                                                          000204 GR
+ 10 _chirpPattern                                                  000000 R
+  F _deepSleep                                                     0001C4 R
+  F _main                                                          000284 GR
   F _piezoInput                                                    00002E R
-  F _setup                                                         000176 R
+  F _setup                                                         0001F6 R
   F _sleepTicks                                                    000076 R
   1 _sleepTicks_PARM_1                                             00000B R
   1 _sleepTicks_PARM_2                                             00000D R
   2 _sleepTicks_sloc0_1_0                                          000000 R
   F _startTone                                                     0000BE R
-  F _startupChirps                                                 0000F8 R
-  1 _startupChirps_sloc1_1_0                                       00000E R
-  1 _timer16Load                                                   000007 R
-  F _tonePulse                                                     0000D6 R
+  1 _startTone_PARM_1                                              00000E R
+  F _startupChirps                                                 0000FE R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Padauk 13), page 2.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-  F _waitForButtonRelease                                          00012A R
+  1 _startupChirps_sloc1_1_0                                       00000F R
+  1 _startupChirps_sloc2_1_0                                       000011 R
+  1 _startupChirps_sloc3_1_0                                       000012 R
+  1 _startupChirps_sloc4_1_0                                       000013 R
+  1 _startupChirps_sloc5_1_0                                       000014 R
+  1 _startupChirps_sloc6_1_0                                       000016 R
+  1 _startupChirps_sloc7_1_0                                       000018 R
+  1 _timer16Load                                                   000007 R
+  F _tonePulse                                                     0000D8 R
+  F _waitForButtonRelease                                          0001AA R
     l_DATA                                                         ****** GX
     l_OSEG                                                         ****** GX
   D p                                                              000000 GR
@@ -78,7 +87,7 @@ Hexadecimal [24-Bits]
 Area Table
 
    0 _CODE                                      size      0   flags    0
-   1 DATA                                       size     10   flags    0
+   1 DATA                                       size     1B   flags    0
    2 OSEG                                       size      1   flags    4
    3 RSEG                                       size      0   flags    8
    4 RSEG0                                      size      2   flags    8
@@ -92,7 +101,7 @@ Area Table
    C PREG                                       size      0   flags    8
    D PREG2                                      size      2   flags    8
    E HEADER3                                    size     10   flags    8
-   F CODE                                       size    238   flags    0
-  10 CONST                                      size      0   flags    0
+   F CODE                                       size    2B8   flags    0
+  10 CONST                                      size     3C   flags    0
   11 CABS                                       size      0   flags    8
 

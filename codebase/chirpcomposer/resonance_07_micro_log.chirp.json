@@ -1,0 +1,14 @@
+{
+  "format": "mouseminder-chirp-v1",
+  "master_clock_hz": 52000,
+  "clock_divider": 1,
+  "title": "Resonance Test 7 - Micro Logarithmic Rise",
+  "steps": [
+    { "frequency_hz": 1000, "duration_ms": 14 },
+    { "frequency_hz": 1320, "duration_ms": 14 },
+    { "frequency_hz": 1740, "duration_ms": 14 },
+    { "frequency_hz": 2300, "duration_ms": 14 },
+    { "frequency_hz": 3030, "duration_ms": 14 },
+    { "frequency_hz": 4000, "duration_ms": 20 }
+  ]
+}

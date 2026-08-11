@@ -1,0 +1,18 @@
+{
+  "format": "mouseminder-chirp-v1",
+  "master_clock_hz": 52000,
+  "clock_divider": 1,
+  "title": "Conrad Variant 4 - Mirrored Pulse",
+  "steps": [
+    { "frequency_hz": 1000, "duration_ms": 40 },
+    { "frequency_hz": 0, "duration_ms": 15 },
+    { "frequency_hz": 4000, "duration_ms": 25 },
+    { "frequency_hz": 0, "duration_ms": 15 },
+    { "frequency_hz": 2200, "duration_ms": 20 },
+    { "frequency_hz": 0, "duration_ms": 15 },
+    { "frequency_hz": 4000, "duration_ms": 25 },
+    { "frequency_hz": 0, "duration_ms": 15 },
+    { "frequency_hz": 1000, "duration_ms": 40 },
+    { "frequency_hz": 0, "duration_ms": 25 }
+  ]
+}
