@@ -31,7 +31,7 @@ Symbol Table
     __pac                                                       =  000011 G
     __padier                                                    =  00000D G
     __paph                                                      =  000012 G
-  F __sdcc_external_startup                                        00029E GR
+  F __sdcc_external_startup                                        0002D4 GR
   A __sdcc_init_data                                               000000 R
   7 __sdcc_program_startup                                         000000 R
     __sp                                                        =  000002 G
@@ -42,37 +42,42 @@ Symbol Table
     __tm2c                                                      =  00001C G
     __tm2ct                                                     =  00001D G
     __tm2s                                                      =  000017 G
-  F _activeAlert                                                   000228 R
-  1 _activeAlert_sloc8_1_0                                         00001A R
-  F _activeDelayMilliseconds                                       00003A R
-  1 _activeDelayMilliseconds_PARM_1                                000009 R
+  F _activeAlert                                                   00027E R
+  1 _activeAlert_sloc12_1_0                                        000023 R
+  F _activeLedPulseDelay                                           00003A R
  10 _chirpPattern                                                  000000 R
-  F _deepSleep                                                     0001C4 R
-  F _main                                                          000284 GR
+  F _deepSleep                                                     00021A R
+  F _main                                                          0002BA GR
   F _piezoInput                                                    00002E R
-  F _setup                                                         0001F6 R
-  F _sleepTicks                                                    000076 R
-  1 _sleepTicks_PARM_1                                             00000B R
-  1 _sleepTicks_PARM_2                                             00000D R
-  2 _sleepTicks_sloc0_1_0                                          000000 R
-  F _startTone                                                     0000BE R
-  1 _startTone_PARM_1                                              00000E R
-  F _startupChirps                                                 0000FE R
+  F _setup                                                         00024C R
+  F _sleepMilliseconds                                             0000A2 R
+  1 _sleepMilliseconds_PARM_1                                      00000C R
+  1 _sleepMilliseconds_PARM_2                                      00000E R
+  1 _sleepMilliseconds_sloc1_1_0                                   00000F R
+  1 _sleepMilliseconds_sloc2_1_0                                   000011 R
+  1 _sleepMilliseconds_sloc3_1_0                                   000013 R
+  1 _sleepMilliseconds_sloc4_1_0                                   000015 R
+  F _sleepTicks                                                    00005A R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Padauk 13), page 2.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-  1 _startupChirps_sloc1_1_0                                       00000F R
-  1 _startupChirps_sloc2_1_0                                       000011 R
-  1 _startupChirps_sloc3_1_0                                       000012 R
-  1 _startupChirps_sloc4_1_0                                       000013 R
-  1 _startupChirps_sloc5_1_0                                       000014 R
-  1 _startupChirps_sloc6_1_0                                       000016 R
-  1 _startupChirps_sloc7_1_0                                       000018 R
+  1 _sleepTicks_PARM_1                                             000009 R
+  1 _sleepTicks_PARM_2                                             00000B R
+  2 _sleepTicks_sloc0_1_0                                          000000 R
+  F _startTone                                                     00013A R
+  1 _startTone_PARM_1                                              000017 R
+  F _startupChirps                                                 000154 R
+  1 _startupChirps_sloc10_1_0                                      00001F R
+  1 _startupChirps_sloc11_1_0                                      000021 R
+  1 _startupChirps_sloc5_1_0                                       000018 R
+  1 _startupChirps_sloc6_1_0                                       00001A R
+  1 _startupChirps_sloc7_1_0                                       00001B R
+  1 _startupChirps_sloc8_1_0                                       00001C R
+  1 _startupChirps_sloc9_1_0                                       00001D R
   1 _timer16Load                                                   000007 R
-  F _tonePulse                                                     0000D8 R
-  F _waitForButtonRelease                                          0001AA R
+  F _waitForButtonRelease                                          000200 R
     l_DATA                                                         ****** GX
     l_OSEG                                                         ****** GX
   D p                                                              000000 GR
@@ -87,7 +92,7 @@ Hexadecimal [24-Bits]
 Area Table
 
    0 _CODE                                      size      0   flags    0
-   1 DATA                                       size     1B   flags    0
+   1 DATA                                       size     24   flags    0
    2 OSEG                                       size      1   flags    4
    3 RSEG                                       size      0   flags    8
    4 RSEG0                                      size      2   flags    8
@@ -101,7 +106,7 @@ Area Table
    C PREG                                       size      0   flags    8
    D PREG2                                      size      2   flags    8
    E HEADER3                                    size     10   flags    8
-   F CODE                                       size    2B8   flags    0
+   F CODE                                       size    2EE   flags    0
   10 CONST                                      size     3C   flags    0
   11 CABS                                       size      0   flags    8
 

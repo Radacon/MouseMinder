@@ -34,18 +34,16 @@
     {
       "label": "Upload PMS150C",
       "type": "process",
-      "command": "C:/EASYPDKPROG/easypdkprog.exe",
+      "command": "wsl",
       "args": [
-        "-n",
-        "PMS150C",
-        "write",
-        "${fileDirname}/.output/slowclocksleep_PMS150C_windows.ihx"
+        "make",
+        "program"
       ],
       "options": {
-        "cwd": "${fileDirname}"
+        "cwd": "${workspaceFolder}/codebase/VSCODE_FreePDK"
       },
       "problemMatcher": [],
-      "detail": "Write the compiled firmware to a PMS150C with Easy PDK Programmer"
+      "detail": "Build and program using PROGRAM_FREQUENCY and PROGRAM_PHASE from the Makefile"
     },
     {
       "label": "Build and Upload PMS150C",

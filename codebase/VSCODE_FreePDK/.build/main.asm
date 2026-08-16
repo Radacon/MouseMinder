@@ -85,29 +85,39 @@ __delay_loop_32_PARM_1:
 	.ds 4
 _timer16Load:
 	.ds 2
-_activeDelayMilliseconds_PARM_1:
-	.ds 2
 _sleepTicks_PARM_1:
 	.ds 2
 _sleepTicks_PARM_2:
 	.ds 1
-_startTone_PARM_1:
-	.ds 1
-_startupChirps_sloc1_1_0:
+_sleepMilliseconds_PARM_1:
 	.ds 2
-_startupChirps_sloc2_1_0:
+_sleepMilliseconds_PARM_2:
 	.ds 1
-_startupChirps_sloc3_1_0:
-	.ds 1
-_startupChirps_sloc4_1_0:
+_sleepMilliseconds_sloc1_1_0:
+	.ds 2
+_sleepMilliseconds_sloc2_1_0:
+	.ds 2
+_sleepMilliseconds_sloc3_1_0:
+	.ds 2
+_sleepMilliseconds_sloc4_1_0:
+	.ds 2
+_startTone_PARM_1:
 	.ds 1
 _startupChirps_sloc5_1_0:
 	.ds 2
 _startupChirps_sloc6_1_0:
-	.ds 2
+	.ds 1
 _startupChirps_sloc7_1_0:
+	.ds 1
+_startupChirps_sloc8_1_0:
+	.ds 1
+_startupChirps_sloc9_1_0:
 	.ds 2
-_activeAlert_sloc8_1_0:
+_startupChirps_sloc10_1_0:
+	.ds 2
+_startupChirps_sloc11_1_0:
+	.ds 2
+_activeAlert_sloc12_1_0:
 	.ds 1
 ;--------------------------------------------------------
 ; overlayable items in ram
@@ -236,54 +246,36 @@ __delay_loop_32:
 00101$:
 ;	./include/delay.h: 95: }
 	ret
-;	main.c: 84: static void piezoInput(void)
+;	main.c: 76: static void piezoInput(void)
 ;	-----------------------------------------
 ;	 function piezoInput
 ;	-----------------------------------------
 _piezoInput:
-;	main.c: 86: TM2C = TM2C_CLK_DISABLE;
+;	main.c: 78: TM2C = TM2C_CLK_DISABLE;
 	mov	a, #0x00
 	mov.io	__tm2c, a
-;	main.c: 87: INTRQ &= (uint8_t)~INTRQ_TM2;
+;	main.c: 79: INTRQ &= (uint8_t)~INTRQ_TM2;
 	set0.io	__intrq, #6
-;	main.c: 88: PA &= (uint8_t)~PIEZO_MASK;
+;	main.c: 80: PA &= (uint8_t)~PIEZO_MASK;
 	set0.io	__pa, #3
-;	main.c: 89: PAC &= (uint8_t)~PIEZO_MASK;
+;	main.c: 81: PAC &= (uint8_t)~PIEZO_MASK;
 	set0.io	__pac, #3
-;	main.c: 90: }
+;	main.c: 82: }
 	ret
-;	main.c: 92: static uint8_t activeDelayMilliseconds(uint16_t milliseconds)
+;	main.c: 84: static uint8_t activeLedPulseDelay(void)
 ;	-----------------------------------------
-;	 function activeDelayMilliseconds
+;	 function activeLedPulseDelay
 ;	-----------------------------------------
-_activeDelayMilliseconds:
-;	main.c: 94: PADIER = BUTTON_MASK;
+_activeLedPulseDelay:
+;	main.c: 86: PADIER = BUTTON_MASK;
 	mov	a, #0x40
 	mov.io	__padier, a
-;	main.c: 101: if (milliseconds == PIEZO_GAP_MS)
-	mov	a, _activeDelayMilliseconds_PARM_1+1
-	mov	p, a
-	mov	a, _activeDelayMilliseconds_PARM_1+0
-	ceqsn	a, #0x32
-	goto	00102$
-	mov	a, p
-	ceqsn	a, #0x00
-	goto	00102$
-;	main.c: 102: _delay_ms(PIEZO_GAP_MS);
-	mov	a, #0x43
-	mov	__delay_loop_16_PARM_1+0, a
-	mov	a, #0x01
-	mov	__delay_loop_16_PARM_1+1, a
-	call	__delay_loop_16
-	goto	00103$
-00102$:
-;	main.c: 104: _delay_ms(LED_PULSE_MS);
-	mov	a, #0x80
+;	main.c: 93: _delay_ms(LED_PULSE_MS);
+	mov	a, #0x3f
 	mov	__delay_loop_16_PARM_1+0, a
 	clear	__delay_loop_16_PARM_1+1
 	call	__delay_loop_16
-00103$:
-;	main.c: 106: return buttonIsPressed();
+;	main.c: 95: return buttonIsPressed();
 	mov.io	a, __pa
 	clear	p
 	and	a, #0x40
@@ -293,30 +285,30 @@ _activeDelayMilliseconds:
 	mov	a, #0x00
 	slc	a
 	xor	a, #0x01
-;	main.c: 107: }
+;	main.c: 96: }
 	ret
-;	main.c: 109: static uint8_t sleepTicks(uint16_t ticks, uint8_t piezoWake)
+;	main.c: 98: static uint8_t sleepTicks(uint16_t ticks, uint8_t piezoWake)
 ;	-----------------------------------------
 ;	 function sleepTicks
 ;	-----------------------------------------
 _sleepTicks:
-;	main.c: 113: T16M = (uint8_t)TIMER16_SLEEP_CONFIG;
+;	main.c: 102: T16M = (uint8_t)TIMER16_SLEEP_CONFIG;
 	mov	a, #0xc7
 	mov.io	__t16m, a
-;	main.c: 114: timer16Load = (uint16_t)(65535u - ticks + 1u);
+;	main.c: 103: timer16Load = (uint16_t)(32768u - ticks);
 	mov	a, #0x00
 	sub	a, _sleepTicks_PARM_1+0
 	mov	_timer16Load+0, a
-	mov	a, #0x00
+	mov	a, #0x80
 	subc	a, _sleepTicks_PARM_1+1
 	mov	_timer16Load+1, a
-;	main.c: 117: __endasm;
+;	main.c: 106: __endasm;
 	stt16	_timer16Load
-;	main.c: 118: INTEGS |= INTEGS_T16_FALLING;
-	set1.io	__integs, #4
-;	main.c: 119: INTRQ &= (uint8_t)~INTRQ_T16;
+;	main.c: 107: INTEGS &= (uint8_t)~INTEGS_T16_FALLING;
+	set0.io	__integs, #4
+;	main.c: 108: INTRQ &= (uint8_t)~INTRQ_T16;
 	set0.io	__intrq, #2
-;	main.c: 126: (piezoWake ? PIEZO_MASK : (uint8_t)0u));
+;	main.c: 115: (piezoWake ? PIEZO_MASK : (uint8_t)0u));
 	mov	a, _sleepTicks_PARM_2+0
 	ceqsn	a, #0x00
 	goto	00109$
@@ -329,9 +321,9 @@ _sleepTicks:
 00104$:
 	or	a, #0x40
 	mov.io	__padier, a
-;	main.c: 130: __endasm;
+;	main.c: 119: __endasm;
 	stopexe
-;	main.c: 133: buttonPressed = buttonIsPressed();
+;	main.c: 122: buttonPressed = buttonIsPressed();
 	mov.io	a, __pa
 	clear	p
 	and	a, #0x40
@@ -342,98 +334,168 @@ _sleepTicks:
 	slc	a
 	xor	a, #0x01
 	mov	_sleepTicks_sloc0_1_0+0, a
-;	main.c: 134: PADIER = 0;
+;	main.c: 123: PADIER = 0;
 	mov	a, #0x00
 	mov.io	__padier, a
-;	main.c: 135: INTRQ &= (uint8_t)~INTRQ_T16;
+;	main.c: 124: INTRQ &= (uint8_t)~INTRQ_T16;
 	set0.io	__intrq, #2
-;	main.c: 137: return buttonPressed;
+;	main.c: 126: return buttonPressed;
 	mov	a, _sleepTicks_sloc0_1_0+0
-;	main.c: 138: }
+;	main.c: 127: }
 	ret
-;	main.c: 144: static void startTone(uint8_t timerDivisor)
+;	main.c: 129: static uint8_t sleepMilliseconds(uint16_t milliseconds, uint8_t piezoWake)
+;	-----------------------------------------
+;	 function sleepMilliseconds
+;	-----------------------------------------
+_sleepMilliseconds:
+;	main.c: 133: while (milliseconds > 500u)
+00103$:
+	mov	a, _sleepMilliseconds_PARM_1+0
+	mov	_sleepMilliseconds_sloc1_1_0+0, a
+	mov	a, _sleepMilliseconds_PARM_1+1
+	mov	_sleepMilliseconds_sloc1_1_0+1, a
+	mov	a, #0xf4
+	sub	a, _sleepMilliseconds_sloc1_1_0+0
+	mov	a, #0x01
+	subc	a, _sleepMilliseconds_sloc1_1_0+1
+	t1sn.io	f, c
+	goto	00105$
+;	main.c: 135: if (sleepTicks((uint16_t)(F_CPU / 2u), piezoWake))
+	mov	a, #0x90
+	mov	_sleepTicks_PARM_1+0, a
+	mov	a, #0x65
+	mov	_sleepTicks_PARM_1+1, a
+	mov	a, _sleepMilliseconds_PARM_2+0
+	mov	_sleepTicks_PARM_2+0, a
+	call	_sleepTicks
+	ceqsn	a, #0x00
+	goto	00126$
+	goto	00102$
+00126$:
+;	main.c: 136: return 1;
+	ret	#0x01
+00102$:
+;	main.c: 138: milliseconds -= 500u;
+	mov	a, _sleepMilliseconds_sloc1_1_0+0
+	sub	a, #0xf4
+	mov	p, a
+	mov	a, _sleepMilliseconds_sloc1_1_0+1
+	subc	a
+	sub	a, #0x01
+	mov	_sleepMilliseconds_PARM_1+1, a
+	mov	a, p
+	mov	_sleepMilliseconds_PARM_1+0, a
+	goto	00103$
+00105$:
+;	main.c: 141: if (!milliseconds)
+	mov	a, _sleepMilliseconds_PARM_1+0
+	or	a, _sleepMilliseconds_PARM_1+1
+	ceqsn	a, #0x00
+	goto	00107$
+;	main.c: 142: return 0;
+	ret	#0x00
+00107$:
+;	main.c: 145: ticks = (uint16_t)((milliseconds << 5) +
+	mov	a, _sleepMilliseconds_PARM_1+0
+	mov	_sleepMilliseconds_sloc2_1_0+0, a
+	mov	a, _sleepMilliseconds_PARM_1+1
+	mov	_sleepMilliseconds_sloc2_1_0+1, a
+	mov	a, #5
+00127$:
+	sl	_sleepMilliseconds_sloc2_1_0+0
+	slc	_sleepMilliseconds_sloc2_1_0+1
+	dzsn	a
+	goto	00127$
+;	main.c: 146: (milliseconds << 4) +
+	mov	a, _sleepMilliseconds_PARM_1+0
+	mov	_sleepMilliseconds_sloc3_1_0+0, a
+	mov	a, _sleepMilliseconds_PARM_1+1
+	mov	_sleepMilliseconds_sloc3_1_0+1, a
+	mov	a, #4
+00128$:
+	sl	_sleepMilliseconds_sloc3_1_0+0
+	slc	_sleepMilliseconds_sloc3_1_0+1
+	dzsn	a
+	goto	00128$
+	mov	a, _sleepMilliseconds_sloc2_1_0+0
+	add	a, _sleepMilliseconds_sloc3_1_0+0
+	mov	_sleepMilliseconds_sloc4_1_0+0, a
+	mov	a, _sleepMilliseconds_sloc2_1_0+1
+	addc	a, _sleepMilliseconds_sloc3_1_0+1
+	mov	_sleepMilliseconds_sloc4_1_0+1, a
+;	main.c: 147: (milliseconds << 2));
+	mov	a, _sleepMilliseconds_PARM_1+1
+	mov	p, a
+	mov	a, _sleepMilliseconds_PARM_1+0
+	sl	a
+	slc	p
+	sl	a
+	slc	p
+	add	a, _sleepMilliseconds_sloc4_1_0+0
+	mov	_sleepTicks_PARM_1+0, a
+	mov	a, _sleepMilliseconds_sloc4_1_0+1
+	addc	a, p
+	mov	_sleepTicks_PARM_1+1, a
+;	main.c: 149: return sleepTicks(ticks, piezoWake);
+	mov	a, _sleepMilliseconds_PARM_2+0
+	mov	_sleepTicks_PARM_2+0, a
+	goto	_sleepTicks
+;	main.c: 150: }
+	ret
+;	main.c: 156: static void startTone(uint8_t timerDivisor)
 ;	-----------------------------------------
 ;	 function startTone
 ;	-----------------------------------------
 _startTone:
-;	main.c: 147: PADIER = BUTTON_MASK;
+;	main.c: 159: PADIER = BUTTON_MASK;
 	mov	a, #0x40
 	mov.io	__padier, a
-;	main.c: 148: PAC |= PIEZO_MASK;
+;	main.c: 160: PAC |= PIEZO_MASK;
 	set1.io	__pac, #3
-;	main.c: 149: TM2CT = 0;
+;	main.c: 161: TM2CT = 0;
 	mov	a, #0x00
 	mov.io	__tm2ct, a
-;	main.c: 150: TM2B = (uint8_t)(timerDivisor - 1u);
+;	main.c: 162: TM2B = (uint8_t)(timerDivisor - 1u);
 	mov	a, _startTone_PARM_1+0
 	sub	a, #0x01
 	mov.io	__tm2b, a
-;	main.c: 151: TM2S = TM2S_PRESCALE_NONE | TM2S_SCALE_NONE;
+;	main.c: 163: TM2S = TM2S_PRESCALE_NONE | TM2S_SCALE_NONE;
 	mov	a, #0x00
 	mov.io	__tm2s, a
-;	main.c: 152: TM2C = TM2C_CLK_ILRC | TM2C_MODE_PERIOD | TM2C_OUT_PA3;
+;	main.c: 164: TM2C = TM2C_CLK_ILRC | TM2C_MODE_PERIOD | TM2C_OUT_PA3;
 	mov	a, #0x48
 	mov.io	__tm2c, a
-;	main.c: 153: }
+;	main.c: 165: }
 	ret
-;	main.c: 155: static uint8_t tonePulse(void)
-;	-----------------------------------------
-;	 function tonePulse
-;	-----------------------------------------
-_tonePulse:
-;	main.c: 157: startTone(PIEZO_TONE_BOUND + 1u);
-	mov	a, #0x06
-	mov	_startTone_PARM_1+0, a
-	call	_startTone
-;	main.c: 158: _delay_ms(PIEZO_TONE_MS);
-	mov	a, #0x43
-	mov	__delay_loop_16_PARM_1+0, a
-	mov	a, #0x01
-	mov	__delay_loop_16_PARM_1+1, a
-	call	__delay_loop_16
-;	main.c: 159: piezoInput();
-	call	_piezoInput
-;	main.c: 161: return buttonIsPressed();
-	mov.io	a, __pa
-	clear	p
-	and	a, #0x40
-	clear	p
-	or	a, p
-	sub	a, #0x01
-	mov	a, #0x00
-	slc	a
-	xor	a, #0x01
-;	main.c: 162: }
-	ret
-;	main.c: 164: static uint8_t startupChirps(void)
+;	main.c: 167: static uint8_t startupChirps(void)
 ;	-----------------------------------------
 ;	 function startupChirps
 ;	-----------------------------------------
 _startupChirps:
-;	main.c: 166: uint16_t offset = 0;
-	clear	_startupChirps_sloc1_1_0+0
-	clear	_startupChirps_sloc1_1_0+1
-;	main.c: 169: while (step--)
+;	main.c: 169: uint16_t offset = 0;
+	clear	_startupChirps_sloc5_1_0+0
+	clear	_startupChirps_sloc5_1_0+1
+;	main.c: 172: while (step--)
 	mov	a, #0x0a
-	mov	_startupChirps_sloc2_1_0+0, a
+	mov	_startupChirps_sloc6_1_0+0, a
 00109$:
-	mov	a, _startupChirps_sloc2_1_0+0
-	dec	_startupChirps_sloc2_1_0+0
+	mov	a, _startupChirps_sloc6_1_0+0
+	dec	_startupChirps_sloc6_1_0+0
 	ceqsn	a, #0x00
 	goto	00138$
 	goto	00111$
 00138$:
-;	main.c: 171: uint8_t timerDivisor = chirpPattern[offset];
+;	main.c: 174: uint8_t timerDivisor = chirpPattern[offset];
 	mov	a, #<(_chirpPattern + 0)
-	add	a, _startupChirps_sloc1_1_0+0
+	add	a, _startupChirps_sloc5_1_0+0
 	mov	p, a
 	mov	a, #>(_chirpPattern + 0x8000 + 0)
-	addc	a, _startupChirps_sloc1_1_0+1
+	addc	a, _startupChirps_sloc5_1_0+1
 	call	__gptrget
-	mov	_startupChirps_sloc3_1_0+0, a
-;	main.c: 172: uint16_t duration = (uint16_t)chirpPattern[offset + 1u] |
-	mov	a, _startupChirps_sloc1_1_0+0
-	mov	_startupChirps_sloc4_1_0+0, a
+	mov	_startupChirps_sloc7_1_0+0, a
+;	main.c: 175: uint16_t duration = (uint16_t)chirpPattern[offset + 1u] |
+	mov	a, _startupChirps_sloc5_1_0+0
+	mov	_startupChirps_sloc8_1_0+0, a
 	add	a, #0x01
 	add	a, #<(_chirpPattern + 0)
 	mov	p, a
@@ -441,9 +503,9 @@ _startupChirps:
 	addc	a
 	add	a, #>(_chirpPattern + 0x8000 + 0)
 	call	__gptrget
-	mov	_startupChirps_sloc5_1_0+0, a
-	clear	_startupChirps_sloc5_1_0+1
-	mov	a, _startupChirps_sloc4_1_0+0
+	mov	_startupChirps_sloc9_1_0+0, a
+	clear	_startupChirps_sloc9_1_0+1
+	mov	a, _startupChirps_sloc8_1_0+0
 	add	a, #0x02
 	add	a, #<(_chirpPattern + 0)
 	mov	p, a
@@ -453,118 +515,118 @@ _startupChirps:
 	call	__gptrget
 	mov	p, a
 	mov	a, #0x00
-	or	a, _startupChirps_sloc5_1_0+0
-	mov	_startupChirps_sloc6_1_0+0, a
+	or	a, _startupChirps_sloc9_1_0+0
+	mov	_startupChirps_sloc10_1_0+0, a
 	mov	a, p
-	or	a, _startupChirps_sloc5_1_0+1
-	mov	_startupChirps_sloc6_1_0+1, a
-;	main.c: 174: offset += CHIRP_STEP_BYTES;
-	mov	a, _startupChirps_sloc1_1_0+0
+	or	a, _startupChirps_sloc9_1_0+1
+	mov	_startupChirps_sloc10_1_0+1, a
+;	main.c: 177: offset += CHIRP_STEP_BYTES;
+	mov	a, _startupChirps_sloc5_1_0+0
 	add	a, #0x03
 	mov	p, a
-	mov	a, _startupChirps_sloc1_1_0+1
+	mov	a, _startupChirps_sloc5_1_0+1
 	addc	a
-	mov	_startupChirps_sloc1_1_0+1, a
+	mov	_startupChirps_sloc5_1_0+1, a
 	mov	a, p
-	mov	_startupChirps_sloc1_1_0+0, a
-;	main.c: 176: if (timerDivisor)
-	mov	a, _startupChirps_sloc3_1_0+0
+	mov	_startupChirps_sloc5_1_0+0, a
+;	main.c: 179: if (timerDivisor)
+	mov	a, _startupChirps_sloc7_1_0+0
 	ceqsn	a, #0x00
 	goto	00139$
 	goto	00102$
 00139$:
-;	main.c: 177: startTone(timerDivisor);
-	mov	a, _startupChirps_sloc3_1_0+0
+;	main.c: 180: startTone(timerDivisor);
+	mov	a, _startupChirps_sloc7_1_0+0
 	mov	_startTone_PARM_1+0, a
 	call	_startTone
 	goto	00103$
 00102$:
-;	main.c: 179: piezoInput();
+;	main.c: 182: piezoInput();
 	call	_piezoInput
 00103$:
-;	main.c: 181: PADIER = BUTTON_MASK;
+;	main.c: 184: PADIER = BUTTON_MASK;
 	mov	a, #0x40
 	mov.io	__padier, a
-;	main.c: 182: while (duration--)
-	mov	a, _startupChirps_sloc6_1_0+0
-	mov	_startupChirps_sloc7_1_0+0, a
-	mov	a, _startupChirps_sloc6_1_0+1
-	mov	_startupChirps_sloc7_1_0+1, a
+;	main.c: 185: while (duration--)
+	mov	a, _startupChirps_sloc10_1_0+0
+	mov	_startupChirps_sloc11_1_0+0, a
+	mov	a, _startupChirps_sloc10_1_0+1
+	mov	_startupChirps_sloc11_1_0+1, a
 00106$:
-	mov	a, _startupChirps_sloc7_1_0+1
+	mov	a, _startupChirps_sloc11_1_0+1
 	mov	p, a
-	mov	a, _startupChirps_sloc7_1_0+0
-	dec	_startupChirps_sloc7_1_0+0
-	subc	_startupChirps_sloc7_1_0+1
+	mov	a, _startupChirps_sloc11_1_0+0
+	dec	_startupChirps_sloc11_1_0+0
+	subc	_startupChirps_sloc11_1_0+1
 	or	a, p
 	ceqsn	a, #0x00
 	goto	00140$
 	goto	00109$
 00140$:
-;	main.c: 184: _delay_ms(1);
+;	main.c: 187: _delay_ms(1);
 	mov	a, #0x05
 	mov	__delay_loop_16_PARM_1+0, a
 	clear	__delay_loop_16_PARM_1+1
 	call	__delay_loop_16
-;	main.c: 185: if (buttonIsPressed())
+;	main.c: 188: if (buttonIsPressed())
 	mov.io	a, __pa
 	mov	p, a
 	t1sn	p, #6
 	goto	00106$
-;	main.c: 187: piezoInput();
+;	main.c: 190: piezoInput();
 	call	_piezoInput
-;	main.c: 188: return 1;
+;	main.c: 191: return 1;
 	ret	#0x01
 00111$:
-;	main.c: 193: piezoInput();
+;	main.c: 196: piezoInput();
 	call	_piezoInput
-;	main.c: 194: return 0;
-;	main.c: 195: }
+;	main.c: 197: return 0;
+;	main.c: 198: }
 	ret	#0x00
-;	main.c: 201: static void waitForButtonRelease(void)
+;	main.c: 204: static void waitForButtonRelease(void)
 ;	-----------------------------------------
 ;	 function waitForButtonRelease
 ;	-----------------------------------------
 _waitForButtonRelease:
-;	main.c: 203: PADIER = BUTTON_MASK;
+;	main.c: 206: PADIER = BUTTON_MASK;
 	mov	a, #0x40
 	mov.io	__padier, a
-;	main.c: 205: while (buttonIsPressed())
+;	main.c: 208: while (buttonIsPressed())
 00101$:
 	mov.io	a, __pa
 	mov	p, a
 	t1sn	p, #6
 	goto	00103$
-;	main.c: 207: T16M = T16M_CLK_DISABLE;
+;	main.c: 210: T16M = T16M_CLK_DISABLE;
 	mov	a, #0x00
 	mov.io	__t16m, a
-;	main.c: 211: __endasm;
+;	main.c: 214: __endasm;
 	stopexe
 	goto	00101$
 00103$:
-;	main.c: 214: PADIER = 0;
+;	main.c: 217: PADIER = 0;
 	mov	a, #0x00
 	mov.io	__padier, a
-;	main.c: 215: }
+;	main.c: 218: }
 	ret
-;	main.c: 217: static void deepSleep(void)
+;	main.c: 220: static void deepSleep(void)
 ;	-----------------------------------------
 ;	 function deepSleep
 ;	-----------------------------------------
 _deepSleep:
-;	main.c: 221: turnLedOff();
-	set1.io	__pa, #4
-;	main.c: 222: piezoInput();
+;	main.c: 224: turnLedOff();
+	set0.io	__pa, #4
+;	main.c: 225: piezoInput();
 	call	_piezoInput
-;	main.c: 223: T16M = T16M_CLK_DISABLE;
+;	main.c: 226: T16M = T16M_CLK_DISABLE;
 	mov	a, #0x00
 	mov.io	__t16m, a
-;	main.c: 230: PADIER = BUTTON_MASK | PIEZO_MASK;
+;	main.c: 233: PADIER = BUTTON_MASK | PIEZO_MASK;
 	mov	a, #0x48
 	mov.io	__padier, a
-;	main.c: 234: __endasm;
+;	main.c: 237: __endasm;
 	stopsys
-;	main.c: 237: buttonPressed = buttonIsPressed();
+;	main.c: 240: buttonPressed = buttonIsPressed();
 	mov.io	a, __pa
 	clear	p
 	and	a, #0x40
@@ -574,183 +636,159 @@ _deepSleep:
 	mov	a, #0x00
 	slc	a
 	xor	a, #0x01
-;	main.c: 238: PADIER = 0;
+;	main.c: 241: PADIER = 0;
 	push	af
 	mov	a, #0x00
 	mov.io	__padier, a
 	pop	af
-;	main.c: 241: if (buttonPressed)
+;	main.c: 244: if (buttonPressed)
 	ceqsn	a, #0x00
 	goto	00109$
 	goto	00103$
 00109$:
-;	main.c: 242: waitForButtonRelease();
+;	main.c: 245: waitForButtonRelease();
 	goto	_waitForButtonRelease
 00103$:
-;	main.c: 243: }
+;	main.c: 246: }
 	ret
-;	main.c: 249: static void setup(void)
+;	main.c: 252: static void setup(void)
 ;	-----------------------------------------
 ;	 function setup
 ;	-----------------------------------------
 _setup:
-;	main.c: 252: PA = LED_MASK;
-	mov	a, #0x10
+;	main.c: 255: PA = 0;
+	mov	a, #0x00
 	mov.io	__pa, a
-;	main.c: 253: PAC = LED_MASK;
+;	main.c: 256: PAC = LED_MASK;
 	mov	a, #0x10
 	mov.io	__pac, a
-;	main.c: 254: PAPH = 0;
+;	main.c: 257: PAPH = 0;
 	mov	a, #0x00
 	mov.io	__paph, a
-;	main.c: 255: PADIER = 0;
+;	main.c: 258: PADIER = 0;
 	mov	a, #0x00
 	mov.io	__padier, a
-;	main.c: 257: GPCC = 0;
+;	main.c: 260: GPCC = 0;
 	mov	a, #0x00
 	mov.io	__gpcc, a
-;	main.c: 258: GPCS = 0;
+;	main.c: 261: GPCS = 0;
 	mov	a, #0x00
 	mov.io	__gpcs, a
-;	main.c: 259: TM2C = 0;
+;	main.c: 262: TM2C = 0;
 	mov	a, #0x00
 	mov.io	__tm2c, a
-;	main.c: 260: T16M = 0;
+;	main.c: 263: T16M = 0;
 	mov	a, #0x00
 	mov.io	__t16m, a
-;	main.c: 262: MISC |= MISC_LVR_DISABLE;
+;	main.c: 265: MISC |= MISC_LVR_DISABLE;
 	set1.io	__misc, #2
-;	main.c: 270: CLKMD_ENABLE_IHRC);
+;	main.c: 273: CLKMD_ENABLE_IHRC);
 	mov.io	a, __clkmd
 	and	a, #0xec
 	mov.io	__clkmd, a
-;	main.c: 272: INTEN = 0;
+;	main.c: 275: INTEN = 0;
 	mov	a, #0x00
 	mov.io	__inten, a
-;	main.c: 273: INTRQ = 0;
+;	main.c: 276: INTRQ = 0;
 	mov	a, #0x00
 	mov.io	__intrq, a
-;	main.c: 274: }
+;	main.c: 277: }
 	ret
-;	main.c: 276: static uint8_t activeAlert(void)
+;	main.c: 279: static uint8_t activeAlert(void)
 ;	-----------------------------------------
 ;	 function activeAlert
 ;	-----------------------------------------
 _activeAlert:
-;	main.c: 278: uint8_t flashCount = 0;
-	clear	_activeAlert_sloc8_1_0+0
-;	main.c: 280: while (1)
-00114$:
-;	main.c: 282: turnLedOn();
-	set0.io	__pa, #4
-;	main.c: 284: if (activeDelayMilliseconds(LED_PULSE_MS))
-	mov	a, #0x14
-	mov	_activeDelayMilliseconds_PARM_1+0, a
-	clear	_activeDelayMilliseconds_PARM_1+1
-	call	_activeDelayMilliseconds
-	ceqsn	a, #0x00
-	goto	00146$
-	goto	00102$
-00146$:
-;	main.c: 286: turnLedOff();
+;	main.c: 281: uint8_t flashCount = 0;
+	clear	_activeAlert_sloc12_1_0+0
+;	main.c: 283: while (1)
+00110$:
+;	main.c: 285: turnLedOn();
 	set1.io	__pa, #4
-;	main.c: 287: return 1;
+;	main.c: 287: if (activeLedPulseDelay())
+	call	_activeLedPulseDelay
+	ceqsn	a, #0x00
+	goto	00134$
+	goto	00102$
+00134$:
+;	main.c: 289: turnLedOff();
+	set0.io	__pa, #4
+;	main.c: 290: return 1;
 	ret	#0x01
 00102$:
-;	main.c: 290: turnLedOff();
-	set1.io	__pa, #4
-;	main.c: 292: if (++flashCount >= LED_FLASHES_PER_BEEPS)
-	inc	_activeAlert_sloc8_1_0+0
-	mov	a, _activeAlert_sloc8_1_0+0
-	sub	a, #0x04
+;	main.c: 293: turnLedOff();
+	set0.io	__pa, #4
+;	main.c: 295: if (++flashCount >= LED_FLASHES_PER_CHIRP)
+	inc	_activeAlert_sloc12_1_0+0
+	mov	a, _activeAlert_sloc12_1_0+0
+	sub	a, #0x05
 	t0sn.io	f, c
-	goto	00110$
-;	main.c: 294: flashCount = 0;
-	clear	_activeAlert_sloc8_1_0+0
-;	main.c: 296: if (tonePulse())
-	call	_tonePulse
-	ceqsn	a, #0x00
-	goto	00147$
-	goto	00104$
-00147$:
-;	main.c: 297: return 1;
-	ret	#0x01
-00104$:
-;	main.c: 299: if (activeDelayMilliseconds(PIEZO_GAP_MS))
-	mov	a, #0x32
-	mov	_activeDelayMilliseconds_PARM_1+0, a
-	clear	_activeDelayMilliseconds_PARM_1+1
-	call	_activeDelayMilliseconds
-	ceqsn	a, #0x00
-	goto	00148$
 	goto	00106$
-00148$:
+;	main.c: 297: flashCount = 0;
+	clear	_activeAlert_sloc12_1_0+0
+;	main.c: 299: if (startupChirps())
+	call	_startupChirps
+	ceqsn	a, #0x00
+	goto	00135$
+	goto	00106$
+00135$:
 ;	main.c: 300: return 1;
 	ret	#0x01
 00106$:
-;	main.c: 302: if (tonePulse())
-	call	_tonePulse
+;	main.c: 307: if (sleepMilliseconds(EVENT_SLEEP_MS, 0))
+	mov	a, #0xe8
+	mov	_sleepMilliseconds_PARM_1+0, a
+	mov	a, #0x03
+	mov	_sleepMilliseconds_PARM_1+1, a
+	clear	_sleepMilliseconds_PARM_2+0
+	call	_sleepMilliseconds
 	ceqsn	a, #0x00
-	goto	00149$
+	goto	00136$
 	goto	00110$
-00149$:
-;	main.c: 303: return 1;
+00136$:
+;	main.c: 308: return 1;
+;	main.c: 310: }
 	ret	#0x01
-00110$:
-;	main.c: 310: if (sleepMilliseconds(EVENT_SLEEP_MS, 0))
-	mov	a, #0x20
-	mov	_sleepTicks_PARM_1+0, a
-	mov	a, #0xcb
-	mov	_sleepTicks_PARM_1+1, a
-	clear	_sleepTicks_PARM_2+0
-	call	_sleepTicks
-	ceqsn	a, #0x00
-	goto	00150$
-	goto	00114$
-00150$:
-;	main.c: 311: return 1;
-;	main.c: 313: }
-	ret	#0x01
-;	main.c: 315: void main(void)
+;	main.c: 312: void main(void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	main.c: 317: setup();
+;	main.c: 314: setup();
 	call	_setup
-;	main.c: 319: while (1)
+;	main.c: 316: while (1)
 00104$:
-;	main.c: 322: if (startupChirps())
+;	main.c: 319: if (startupChirps())
 	call	_startupChirps
 	ceqsn	a, #0x00
 	goto	00116$
 	goto	00102$
 00116$:
-;	main.c: 324: waitForButtonRelease();
+;	main.c: 321: waitForButtonRelease();
 	call	_waitForButtonRelease
-;	main.c: 325: deepSleep();
+;	main.c: 322: deepSleep();
 	call	_deepSleep
-;	main.c: 326: continue;
+;	main.c: 323: continue;
 	goto	00104$
 00102$:
-;	main.c: 329: activeAlert();
+;	main.c: 326: activeAlert();
 	call	_activeAlert
-;	main.c: 330: waitForButtonRelease();
+;	main.c: 327: waitForButtonRelease();
 	call	_waitForButtonRelease
-;	main.c: 331: deepSleep();
+;	main.c: 328: deepSleep();
 	call	_deepSleep
 	goto	00104$
-;	main.c: 333: }
+;	main.c: 330: }
 	ret
-;	main.c: 339: unsigned char STARTUP_FUNCTION(void)
+;	main.c: 336: unsigned char STARTUP_FUNCTION(void)
 ;	-----------------------------------------
 ;	 function _sdcc_external_startup
 ;	-----------------------------------------
 __sdcc_external_startup:
-;	main.c: 341: AUTO_INIT_SYSCLOCK();
+;	main.c: 338: AUTO_INIT_SYSCLOCK();
 	mov	a, #0xf4
 	mov.io	__clkmd, a
-;	main.c: 342: AUTO_CALIBRATE_SYSCLOCK(TARGET_VDD_MV);
+;	main.c: 339: AUTO_CALIBRATE_SYSCLOCK(TARGET_VDD_MV);
 	and	a, #'R'                       
 	and	a, #'C'                       
 	and	a, #(2)            
@@ -761,8 +799,8 @@ __sdcc_external_startup:
 	and	a, #((2800))     
 	and	a, #((2800)>>8)  
 	and	a, #(0x1f)             
-;	main.c: 344: return 0;
-;	main.c: 345: }
+;	main.c: 341: return 0;
+;	main.c: 342: }
 	ret	#0x00
 	.area CODE
 	.area CONST

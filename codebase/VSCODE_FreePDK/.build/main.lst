@@ -85,716 +85,754 @@
       000003                         85 	.ds 4
       000007                         86 _timer16Load:
       000007                         87 	.ds 2
-      000009                         88 _activeDelayMilliseconds_PARM_1:
+      000009                         88 _sleepTicks_PARM_1:
       000009                         89 	.ds 2
-      00000B                         90 _sleepTicks_PARM_1:
-      00000B                         91 	.ds 2
-      00000D                         92 _sleepTicks_PARM_2:
-      00000D                         93 	.ds 1
-      00000E                         94 _startTone_PARM_1:
+      00000B                         90 _sleepTicks_PARM_2:
+      00000B                         91 	.ds 1
+      00000C                         92 _sleepMilliseconds_PARM_1:
+      00000C                         93 	.ds 2
+      00000E                         94 _sleepMilliseconds_PARM_2:
       00000E                         95 	.ds 1
-      00000F                         96 _startupChirps_sloc1_1_0:
+      00000F                         96 _sleepMilliseconds_sloc1_1_0:
       00000F                         97 	.ds 2
-      000011                         98 _startupChirps_sloc2_1_0:
-      000011                         99 	.ds 1
-      000012                        100 _startupChirps_sloc3_1_0:
-      000012                        101 	.ds 1
-      000013                        102 _startupChirps_sloc4_1_0:
-      000013                        103 	.ds 1
-      000014                        104 _startupChirps_sloc5_1_0:
-      000014                        105 	.ds 2
-      000016                        106 _startupChirps_sloc6_1_0:
-      000016                        107 	.ds 2
-      000018                        108 _startupChirps_sloc7_1_0:
-      000018                        109 	.ds 2
-      00001A                        110 _activeAlert_sloc8_1_0:
-      00001A                        111 	.ds 1
-                                    112 ;--------------------------------------------------------
-                                    113 ; overlayable items in ram
-                                    114 ;--------------------------------------------------------
-                                    115 	.area	OSEG (OVR,DATA)
-      000000                        116 _sleepTicks_sloc0_1_0:
-      000000                        117 	.ds 1
-                                    118 ;--------------------------------------------------------
-                                    119 ; Stack segment in internal ram
-                                    120 ;--------------------------------------------------------
-                                    121 	.area	SSEG
-      000000                        122 __start__stack:
-      000000                        123 	.ds	1
-                                    124 
-                                    125 ;--------------------------------------------------------
-                                    126 ; absolute external ram data
-                                    127 ;--------------------------------------------------------
-                                    128 	.area DABS (ABS)
-                                    129 ;--------------------------------------------------------
-                                    130 ; interrupt vector
-                                    131 ;--------------------------------------------------------
-                                    132 	.area HOME
-      000000                        133 __interrupt_vect:
-                                    134 	.area	HEADER (ABS)
-      000020                        135 	.org	 0x0020
-      000020 3B 00                  136 	reti
+      000011                         98 _sleepMilliseconds_sloc2_1_0:
+      000011                         99 	.ds 2
+      000013                        100 _sleepMilliseconds_sloc3_1_0:
+      000013                        101 	.ds 2
+      000015                        102 _sleepMilliseconds_sloc4_1_0:
+      000015                        103 	.ds 2
+      000017                        104 _startTone_PARM_1:
+      000017                        105 	.ds 1
+      000018                        106 _startupChirps_sloc5_1_0:
+      000018                        107 	.ds 2
+      00001A                        108 _startupChirps_sloc6_1_0:
+      00001A                        109 	.ds 1
+      00001B                        110 _startupChirps_sloc7_1_0:
+      00001B                        111 	.ds 1
+      00001C                        112 _startupChirps_sloc8_1_0:
+      00001C                        113 	.ds 1
+      00001D                        114 _startupChirps_sloc9_1_0:
+      00001D                        115 	.ds 2
+      00001F                        116 _startupChirps_sloc10_1_0:
+      00001F                        117 	.ds 2
+      000021                        118 _startupChirps_sloc11_1_0:
+      000021                        119 	.ds 2
+      000023                        120 _activeAlert_sloc12_1_0:
+      000023                        121 	.ds 1
+                                    122 ;--------------------------------------------------------
+                                    123 ; overlayable items in ram
+                                    124 ;--------------------------------------------------------
+                                    125 	.area	OSEG (OVR,DATA)
+      000000                        126 _sleepTicks_sloc0_1_0:
+      000000                        127 	.ds 1
+                                    128 ;--------------------------------------------------------
+                                    129 ; Stack segment in internal ram
+                                    130 ;--------------------------------------------------------
+                                    131 	.area	SSEG
+      000000                        132 __start__stack:
+      000000                        133 	.ds	1
+                                    134 
+                                    135 ;--------------------------------------------------------
+                                    136 ; absolute external ram data
                                     137 ;--------------------------------------------------------
-                                    138 ; global & static initialisations
+                                    138 	.area DABS (ABS)
                                     139 ;--------------------------------------------------------
-                                    140 	.area HOME
-                                    141 	.area GSINIT
-                                    142 	.area GSFINAL
-                                    143 	.area GSINIT
-                                    144 	.area	PREG (ABS)
-      000000                        145 	.org 0x00
-      000000                        146 p::
-      000000                        147 	.ds 2
-                                    148 	.area	HEADER (ABS)
-      000000                        149 	.org 0x0000
-      000000 00 00                  150 	nop
-      000002r81r09                  151 	clear	p+1
-      000004r00r17                  152 	mov	a, #s_OSEG
-      000006r01r10                  153 	add	a, #l_OSEG + 1
-      000008 FE 14                  154 	and	a, #0xfe
-      00000A 82 00                  155 	mov.io	sp, a
-      00000Cr9Er1E                  156 	call	__sdcc_external_startup
-      00000Er00r18                  157 	goto	s_GSINIT
-                                    158 	.area GSINIT
-      000000                        159 __sdcc_init_data:
-      000000r00r17                  160 	mov	a, #s_DATA
-      000002rC0r05                  161 	mov	p, a
-      000004r0Er18                  162 	goto	00002$
-      000006                        163 00001$:
-      000006 00 17                  164 	mov	a, #0x00
-      000008rE0r00                  165 	idxm	p, a
-      00000Ar00r09                  166 	inc	p
-      00000Cr00r17                  167 	mov	a, #s_DATA
-      00000E                        168 00002$:
-      00000Er00r10                  169 	add	a, #l_DATA
-      000010r80r0B                  170 	ceqsn	a, p
-      000012r06r18                  171 	goto	00001$
-                                    172 	.area GSFINAL
-      000000r00r18                  173 	goto	__sdcc_program_startup
-                                    174 ;--------------------------------------------------------
-                                    175 ; Home
-                                    176 ;--------------------------------------------------------
-                                    177 	.area HOME
-                                    178 	.area HOME
-      000000                        179 __sdcc_program_startup:
-      000000r84r1A                  180 	goto	_main
-                                    181 ;	return from main will return to caller
-                                    182 ;--------------------------------------------------------
-                                    183 ; code
+                                    140 ; interrupt vector
+                                    141 ;--------------------------------------------------------
+                                    142 	.area HOME
+      000000                        143 __interrupt_vect:
+                                    144 	.area	HEADER (ABS)
+      000020                        145 	.org	 0x0020
+      000020 3B 00                  146 	reti
+                                    147 ;--------------------------------------------------------
+                                    148 ; global & static initialisations
+                                    149 ;--------------------------------------------------------
+                                    150 	.area HOME
+                                    151 	.area GSINIT
+                                    152 	.area GSFINAL
+                                    153 	.area GSINIT
+                                    154 	.area	PREG (ABS)
+      000000                        155 	.org 0x00
+      000000                        156 p::
+      000000                        157 	.ds 2
+                                    158 	.area	HEADER (ABS)
+      000000                        159 	.org 0x0000
+      000000 00 00                  160 	nop
+      000002r81r09                  161 	clear	p+1
+      000004r00r17                  162 	mov	a, #s_OSEG
+      000006r01r10                  163 	add	a, #l_OSEG + 1
+      000008 FE 14                  164 	and	a, #0xfe
+      00000A 82 00                  165 	mov.io	sp, a
+      00000CrD4r1E                  166 	call	__sdcc_external_startup
+      00000Er00r18                  167 	goto	s_GSINIT
+                                    168 	.area GSINIT
+      000000                        169 __sdcc_init_data:
+      000000r00r17                  170 	mov	a, #s_DATA
+      000002rC0r05                  171 	mov	p, a
+      000004r0Er18                  172 	goto	00002$
+      000006                        173 00001$:
+      000006 00 17                  174 	mov	a, #0x00
+      000008rE0r00                  175 	idxm	p, a
+      00000Ar00r09                  176 	inc	p
+      00000Cr00r17                  177 	mov	a, #s_DATA
+      00000E                        178 00002$:
+      00000Er00r10                  179 	add	a, #l_DATA
+      000010r80r0B                  180 	ceqsn	a, p
+      000012r06r18                  181 	goto	00001$
+                                    182 	.area GSFINAL
+      000000r00r18                  183 	goto	__sdcc_program_startup
                                     184 ;--------------------------------------------------------
-                                    185 	.area CODE
-                                    186 ;	./include/delay.h: 34: void _delay_loop_8(uint8_t loop_ctr) {
-                                    187 ;	-----------------------------------------
-                                    188 ;	 function _delay_loop_8
-                                    189 ;	-----------------------------------------
-      000000                        190 __delay_loop_8:
-                                    191 ;	./include/delay.h: 44: __endasm;
-      000000                        192 	00001$:
-                                    193 ; 4 cycles per loop
-      000000rC0r08                  194 	dzsn	__delay_loop_8_PARM_1 ; 1 cycle + 1 cycle for final skip
-      000002r00r18                  195 	goto	00001$ ; 2 cycles
-      000004                        196 00101$:
-                                    197 ;	./include/delay.h: 45: }
-      000004 3A 00                  198 	ret
-                                    199 ;	./include/delay.h: 48: void _delay_loop_16(uint16_t loop_ctr) {
-                                    200 ;	-----------------------------------------
-                                    201 ;	 function _delay_loop_16
-                                    202 ;	-----------------------------------------
-      000006                        203 __delay_loop_16:
-                                    204 ;	./include/delay.h: 65: __endasm;
-      000006                        205 	00001$:
-                                    206 ; 8 cycles per loop
-      000006 00 00                  207 	nop	; 1 cycle
-      000008r41r09                  208 	dec	__delay_loop_16_PARM_1+0 ; 1 cycle
-      00000Ar42r08                  209 	subc	__delay_loop_16_PARM_1+1 ; 1 cycle
-      00000CrC1r07                  210 	mov	a, __delay_loop_16_PARM_1+0 ; 1 cycle
-      00000Er42r07                  211 	or	a, __delay_loop_16_PARM_1+1 ; 1 cycle
-      000010 00 0D                  212 	t1sn.io	f, z ; 1 cycle + 1 cycle for final skip
-      000012r06r18                  213 	goto	00001$ ; 2 cycles
-      000014                        214 00101$:
-                                    215 ;	./include/delay.h: 66: }
-      000014 3A 00                  216 	ret
-                                    217 ;	./include/delay.h: 69: void _delay_loop_32(uint32_t loop_ctr) {
-                                    218 ;	-----------------------------------------
-                                    219 ;	 function _delay_loop_32
-                                    220 ;	-----------------------------------------
-      000016                        221 __delay_loop_32:
-                                    222 ;	./include/delay.h: 94: __endasm;
-      000016                        223 	00001$:
-                                    224 ; 12 cycles per loop
-      000016 00 00                  225 	nop	; 1 cycle
-      000018r43r09                  226 	dec	__delay_loop_32_PARM_1+0 ; 1 cycle
-      00001Ar44r08                  227 	subc	__delay_loop_32_PARM_1+1 ; 1 cycle
-      00001Cr45r08                  228 	subc	__delay_loop_32_PARM_1+2 ; 1 cycle
-      00001Er46r08                  229 	subc	__delay_loop_32_PARM_1+3 ; 1 cycle
-      000020rC3r07                  230 	mov	a, __delay_loop_32_PARM_1+0 ; 1 cycle
-      000022r44r07                  231 	or	a, __delay_loop_32_PARM_1+1 ; 1 cycle
-      000024r45r07                  232 	or	a, __delay_loop_32_PARM_1+2 ; 1 cycle
-      000026r46r07                  233 	or	a, __delay_loop_32_PARM_1+3 ; 1 cycle
-      000028 00 0D                  234 	t1sn.io	f, z ; 1 cycle + 1 cycle for final skip
-      00002Ar16r18                  235 	goto	00001$ ; 2 cycles
-      00002C                        236 00101$:
-                                    237 ;	./include/delay.h: 95: }
-      00002C 3A 00                  238 	ret
-                                    239 ;	main.c: 84: static void piezoInput(void)
-                                    240 ;	-----------------------------------------
-                                    241 ;	 function piezoInput
-                                    242 ;	-----------------------------------------
-      00002E                        243 _piezoInput:
-                                    244 ;	main.c: 86: TM2C = TM2C_CLK_DISABLE;
-      00002E 00 17                  245 	mov	a, #0x00
-      000030 9C 00                  246 	mov.io	__tm2c, a
-                                    247 ;	main.c: 87: INTRQ &= (uint8_t)~INTRQ_TM2;
-      000032 C5 0E                  248 	set0.io	__intrq, #6
-                                    249 ;	main.c: 88: PA &= (uint8_t)~PIEZO_MASK;
-      000034 70 0E                  250 	set0.io	__pa, #3
-                                    251 ;	main.c: 89: PAC &= (uint8_t)~PIEZO_MASK;
-      000036 71 0E                  252 	set0.io	__pac, #3
-                                    253 ;	main.c: 90: }
-      000038 3A 00                  254 	ret
-                                    255 ;	main.c: 92: static uint8_t activeDelayMilliseconds(uint16_t milliseconds)
-                                    256 ;	-----------------------------------------
-                                    257 ;	 function activeDelayMilliseconds
-                                    258 ;	-----------------------------------------
-      00003A                        259 _activeDelayMilliseconds:
-                                    260 ;	main.c: 94: PADIER = BUTTON_MASK;
-      00003A 40 17                  261 	mov	a, #0x40
-      00003C 8D 00                  262 	mov.io	__padier, a
-                                    263 ;	main.c: 101: if (milliseconds == PIEZO_GAP_MS)
-      00003ErCAr07                  264 	mov	a, _activeDelayMilliseconds_PARM_1+1
-      000040rC0r05                  265 	mov	p, a
-      000042rC9r07                  266 	mov	a, _activeDelayMilliseconds_PARM_1+0
-      000044 32 12                  267 	ceqsn	a, #0x32
-      000046r5Ar18                  268 	goto	00102$
-      000048rC0r07                  269 	mov	a, p
-      00004A 00 12                  270 	ceqsn	a, #0x00
-      00004Cr5Ar18                  271 	goto	00102$
-                                    272 ;	main.c: 102: _delay_ms(PIEZO_GAP_MS);
-      00004E 43 17                  273 	mov	a, #0x43
-      000050rC1r05                  274 	mov	__delay_loop_16_PARM_1+0, a
-      000052 01 17                  275 	mov	a, #0x01
-      000054rC2r05                  276 	mov	__delay_loop_16_PARM_1+1, a
-      000056r06r1C                  277 	call	__delay_loop_16
-      000058r62r18                  278 	goto	00103$
-      00005A                        279 00102$:
-                                    280 ;	main.c: 104: _delay_ms(LED_PULSE_MS);
-      00005A 80 17                  281 	mov	a, #0x80
-      00005CrC1r05                  282 	mov	__delay_loop_16_PARM_1+0, a
-      00005Er82r09                  283 	clear	__delay_loop_16_PARM_1+1
-      000060r06r1C                  284 	call	__delay_loop_16
-      000062                        285 00103$:
-                                    286 ;	main.c: 106: return buttonIsPressed();
-      000062 B0 00                  287 	mov.io	a, __pa
-      000064r80r09                  288 	clear	p
-      000066 40 14                  289 	and	a, #0x40
-      000068r80r09                  290 	clear	p
-      00006Ar40r07                  291 	or	a, p
-      00006C 01 11                  292 	sub	a, #0x01
-      00006E 00 17                  293 	mov	a, #0x00
-      000070 1D 00                  294 	slc	a
-      000072 01 16                  295 	xor	a, #0x01
-                                    296 ;	main.c: 107: }
-      000074 3A 00                  297 	ret
-                                    298 ;	main.c: 109: static uint8_t sleepTicks(uint16_t ticks, uint8_t piezoWake)
-                                    299 ;	-----------------------------------------
-                                    300 ;	 function sleepTicks
-                                    301 ;	-----------------------------------------
-      000076                        302 _sleepTicks:
-                                    303 ;	main.c: 113: T16M = (uint8_t)TIMER16_SLEEP_CONFIG;
-      000076 C7 17                  304 	mov	a, #0xc7
-      000078 86 00                  305 	mov.io	__t16m, a
-                                    306 ;	main.c: 114: timer16Load = (uint16_t)(65535u - ticks + 1u);
-      00007A 00 17                  307 	mov	a, #0x00
-      00007Cr4Br06                  308 	sub	a, _sleepTicks_PARM_1+0
-      00007ErC7r05                  309 	mov	_timer16Load+0, a
-      000080 00 17                  310 	mov	a, #0x00
-      000082rCCr06                  311 	subc	a, _sleepTicks_PARM_1+1
-      000084rC8r05                  312 	mov	_timer16Load+1, a
-                                    313 ;	main.c: 117: __endasm;
-      000086rC6r00                  314 	stt16	_timer16Load
-                                    315 ;	main.c: 118: INTEGS |= INTEGS_T16_FALLING;
-      000088 8C 0F                  316 	set1.io	__integs, #4
-                                    317 ;	main.c: 119: INTRQ &= (uint8_t)~INTRQ_T16;
-      00008A 45 0E                  318 	set0.io	__intrq, #2
-                                    319 ;	main.c: 126: (piezoWake ? PIEZO_MASK : (uint8_t)0u));
-      00008CrCDr07                  320 	mov	a, _sleepTicks_PARM_2+0
-      00008E 00 12                  321 	ceqsn	a, #0x00
-      000090r94r18                  322 	goto	00109$
-      000092r98r18                  323 	goto	00103$
-      000094                        324 00109$:
-      000094 08 17                  325 	mov	a, #0x08
-      000096r9Ar18                  326 	goto	00104$
-      000098                        327 00103$:
-      000098 00 17                  328 	mov	a, #0x00
-      00009A                        329 00104$:
-      00009A 40 15                  330 	or	a, #0x40
-      00009C 8D 00                  331 	mov.io	__padier, a
-                                    332 ;	main.c: 130: __endasm;
-      00009E 37 00                  333 	stopexe
-                                    334 ;	main.c: 133: buttonPressed = buttonIsPressed();
-      0000A0 B0 00                  335 	mov.io	a, __pa
-      0000A2r80r09                  336 	clear	p
-      0000A4 40 14                  337 	and	a, #0x40
-      0000A6r80r09                  338 	clear	p
-      0000A8r40r07                  339 	or	a, p
-      0000AA 01 11                  340 	sub	a, #0x01
-      0000AC 00 17                  341 	mov	a, #0x00
-      0000AE 1D 00                  342 	slc	a
-      0000B0 01 16                  343 	xor	a, #0x01
-      0000B2rC0r05                  344 	mov	_sleepTicks_sloc0_1_0+0, a
-                                    345 ;	main.c: 134: PADIER = 0;
-      0000B4 00 17                  346 	mov	a, #0x00
-      0000B6 8D 00                  347 	mov.io	__padier, a
-                                    348 ;	main.c: 135: INTRQ &= (uint8_t)~INTRQ_T16;
-      0000B8 45 0E                  349 	set0.io	__intrq, #2
-                                    350 ;	main.c: 137: return buttonPressed;
-      0000BArC0r07                  351 	mov	a, _sleepTicks_sloc0_1_0+0
-                                    352 ;	main.c: 138: }
-      0000BC 3A 00                  353 	ret
-                                    354 ;	main.c: 144: static void startTone(uint8_t timerDivisor)
-                                    355 ;	-----------------------------------------
-                                    356 ;	 function startTone
-                                    357 ;	-----------------------------------------
-      0000BE                        358 _startTone:
-                                    359 ;	main.c: 147: PADIER = BUTTON_MASK;
-      0000BE 40 17                  360 	mov	a, #0x40
-      0000C0 8D 00                  361 	mov.io	__padier, a
-                                    362 ;	main.c: 148: PAC |= PIEZO_MASK;
-      0000C2 71 0F                  363 	set1.io	__pac, #3
-                                    364 ;	main.c: 149: TM2CT = 0;
-      0000C4 00 17                  365 	mov	a, #0x00
-      0000C6 9D 00                  366 	mov.io	__tm2ct, a
-                                    367 ;	main.c: 150: TM2B = (uint8_t)(timerDivisor - 1u);
-      0000C8rCEr07                  368 	mov	a, _startTone_PARM_1+0
-      0000CA 01 11                  369 	sub	a, #0x01
-      0000CC 89 00                  370 	mov.io	__tm2b, a
-                                    371 ;	main.c: 151: TM2S = TM2S_PRESCALE_NONE | TM2S_SCALE_NONE;
-      0000CE 00 17                  372 	mov	a, #0x00
-      0000D0 97 00                  373 	mov.io	__tm2s, a
-                                    374 ;	main.c: 152: TM2C = TM2C_CLK_ILRC | TM2C_MODE_PERIOD | TM2C_OUT_PA3;
-      0000D2 48 17                  375 	mov	a, #0x48
-      0000D4 9C 00                  376 	mov.io	__tm2c, a
-                                    377 ;	main.c: 153: }
-      0000D6 3A 00                  378 	ret
-                                    379 ;	main.c: 155: static uint8_t tonePulse(void)
-                                    380 ;	-----------------------------------------
-                                    381 ;	 function tonePulse
-                                    382 ;	-----------------------------------------
-      0000D8                        383 _tonePulse:
-                                    384 ;	main.c: 157: startTone(PIEZO_TONE_BOUND + 1u);
-      0000D8 06 17                  385 	mov	a, #0x06
-      0000DArCEr05                  386 	mov	_startTone_PARM_1+0, a
-      0000DCrBEr1C                  387 	call	_startTone
-                                    388 ;	main.c: 158: _delay_ms(PIEZO_TONE_MS);
-      0000DE 43 17                  389 	mov	a, #0x43
-      0000E0rC1r05                  390 	mov	__delay_loop_16_PARM_1+0, a
-      0000E2 01 17                  391 	mov	a, #0x01
-      0000E4rC2r05                  392 	mov	__delay_loop_16_PARM_1+1, a
-      0000E6r06r1C                  393 	call	__delay_loop_16
-                                    394 ;	main.c: 159: piezoInput();
-      0000E8r2Er1C                  395 	call	_piezoInput
-                                    396 ;	main.c: 161: return buttonIsPressed();
-      0000EA B0 00                  397 	mov.io	a, __pa
-      0000ECr80r09                  398 	clear	p
-      0000EE 40 14                  399 	and	a, #0x40
-      0000F0r80r09                  400 	clear	p
-      0000F2r40r07                  401 	or	a, p
-      0000F4 01 11                  402 	sub	a, #0x01
-      0000F6 00 17                  403 	mov	a, #0x00
-      0000F8 1D 00                  404 	slc	a
-      0000FA 01 16                  405 	xor	a, #0x01
-                                    406 ;	main.c: 162: }
-      0000FC 3A 00                  407 	ret
-                                    408 ;	main.c: 164: static uint8_t startupChirps(void)
-                                    409 ;	-----------------------------------------
-                                    410 ;	 function startupChirps
-                                    411 ;	-----------------------------------------
-      0000FE                        412 _startupChirps:
-                                    413 ;	main.c: 166: uint16_t offset = 0;
-      0000FEr8Fr09                  414 	clear	_startupChirps_sloc1_1_0+0
-      000100r90r09                  415 	clear	_startupChirps_sloc1_1_0+1
-                                    416 ;	main.c: 169: while (step--)
-      000102 0A 17                  417 	mov	a, #0x0a
-      000104rD1r05                  418 	mov	_startupChirps_sloc2_1_0+0, a
-      000106                        419 00109$:
-      000106rD1r07                  420 	mov	a, _startupChirps_sloc2_1_0+0
-      000108r51r09                  421 	dec	_startupChirps_sloc2_1_0+0
-      00010A 00 12                  422 	ceqsn	a, #0x00
-      00010Cr10r19                  423 	goto	00138$
-      00010ErA6r19                  424 	goto	00111$
-      000110                        425 00138$:
-                                    426 ;	main.c: 171: uint8_t timerDivisor = chirpPattern[offset];
-      000110r00r17                  427 	mov	a, #<(_chirpPattern + 0)
-      000112r0Fr06                  428 	add	a, _startupChirps_sloc1_1_0+0
-      000114rC0r05                  429 	mov	p, a
-      000116r00r17                  430 	mov	a, #>(_chirpPattern + 0x8000 + 0)
-      000118r90r06                  431 	addc	a, _startupChirps_sloc1_1_0+1
-      00011Ar00r1C                  432 	call	__gptrget
-      00011CrD2r05                  433 	mov	_startupChirps_sloc3_1_0+0, a
-                                    434 ;	main.c: 172: uint16_t duration = (uint16_t)chirpPattern[offset + 1u] |
-      00011ErCFr07                  435 	mov	a, _startupChirps_sloc1_1_0+0
-      000120rD3r05                  436 	mov	_startupChirps_sloc4_1_0+0, a
-      000122 01 10                  437 	add	a, #0x01
-      000124r00r10                  438 	add	a, #<(_chirpPattern + 0)
-      000126rC0r05                  439 	mov	p, a
-      000128 00 17                  440 	mov	a, #0x00
-      00012A 10 00                  441 	addc	a
-      00012Cr00r10                  442 	add	a, #>(_chirpPattern + 0x8000 + 0)
-      00012Er00r1C                  443 	call	__gptrget
-      000130rD4r05                  444 	mov	_startupChirps_sloc5_1_0+0, a
-      000132r95r09                  445 	clear	_startupChirps_sloc5_1_0+1
-      000134rD3r07                  446 	mov	a, _startupChirps_sloc4_1_0+0
-      000136 02 10                  447 	add	a, #0x02
-      000138r00r10                  448 	add	a, #<(_chirpPattern + 0)
-      00013ArC0r05                  449 	mov	p, a
-      00013C 00 17                  450 	mov	a, #0x00
-      00013E 10 00                  451 	addc	a
-      000140r00r10                  452 	add	a, #>(_chirpPattern + 0x8000 + 0)
-      000142r00r1C                  453 	call	__gptrget
-      000144rC0r05                  454 	mov	p, a
-      000146 00 17                  455 	mov	a, #0x00
-      000148r54r07                  456 	or	a, _startupChirps_sloc5_1_0+0
-      00014ArD6r05                  457 	mov	_startupChirps_sloc6_1_0+0, a
-      00014CrC0r07                  458 	mov	a, p
-      00014Er55r07                  459 	or	a, _startupChirps_sloc5_1_0+1
-      000150rD7r05                  460 	mov	_startupChirps_sloc6_1_0+1, a
-                                    461 ;	main.c: 174: offset += CHIRP_STEP_BYTES;
-      000152rCFr07                  462 	mov	a, _startupChirps_sloc1_1_0+0
-      000154 03 10                  463 	add	a, #0x03
-      000156rC0r05                  464 	mov	p, a
-      000158rD0r07                  465 	mov	a, _startupChirps_sloc1_1_0+1
-      00015A 10 00                  466 	addc	a
-      00015CrD0r05                  467 	mov	_startupChirps_sloc1_1_0+1, a
-      00015ErC0r07                  468 	mov	a, p
-      000160rCFr05                  469 	mov	_startupChirps_sloc1_1_0+0, a
-                                    470 ;	main.c: 176: if (timerDivisor)
-      000162rD2r07                  471 	mov	a, _startupChirps_sloc3_1_0+0
-      000164 00 12                  472 	ceqsn	a, #0x00
-      000166r6Ar19                  473 	goto	00139$
-      000168r72r19                  474 	goto	00102$
-      00016A                        475 00139$:
-                                    476 ;	main.c: 177: startTone(timerDivisor);
-      00016ArD2r07                  477 	mov	a, _startupChirps_sloc3_1_0+0
-      00016CrCEr05                  478 	mov	_startTone_PARM_1+0, a
-      00016ErBEr1C                  479 	call	_startTone
-      000170r74r19                  480 	goto	00103$
-      000172                        481 00102$:
-                                    482 ;	main.c: 179: piezoInput();
-      000172r2Er1C                  483 	call	_piezoInput
-      000174                        484 00103$:
-                                    485 ;	main.c: 181: PADIER = BUTTON_MASK;
-      000174 40 17                  486 	mov	a, #0x40
-      000176 8D 00                  487 	mov.io	__padier, a
-                                    488 ;	main.c: 182: while (duration--)
-      000178rD6r07                  489 	mov	a, _startupChirps_sloc6_1_0+0
-      00017ArD8r05                  490 	mov	_startupChirps_sloc7_1_0+0, a
-      00017CrD7r07                  491 	mov	a, _startupChirps_sloc6_1_0+1
-      00017ErD9r05                  492 	mov	_startupChirps_sloc7_1_0+1, a
-      000180                        493 00106$:
-      000180rD9r07                  494 	mov	a, _startupChirps_sloc7_1_0+1
-      000182rC0r05                  495 	mov	p, a
-      000184rD8r07                  496 	mov	a, _startupChirps_sloc7_1_0+0
-      000186r58r09                  497 	dec	_startupChirps_sloc7_1_0+0
-      000188r59r08                  498 	subc	_startupChirps_sloc7_1_0+1
-      00018Ar40r07                  499 	or	a, p
-      00018C 00 12                  500 	ceqsn	a, #0x00
-      00018Er92r19                  501 	goto	00140$
-      000190r06r19                  502 	goto	00109$
-      000192                        503 00140$:
-                                    504 ;	main.c: 184: _delay_ms(1);
-      000192 05 17                  505 	mov	a, #0x05
-      000194rC1r05                  506 	mov	__delay_loop_16_PARM_1+0, a
-      000196r82r09                  507 	clear	__delay_loop_16_PARM_1+1
-      000198r06r1C                  508 	call	__delay_loop_16
-                                    509 ;	main.c: 185: if (buttonIsPressed())
-      00019A B0 00                  510 	mov.io	a, __pa
-      00019CrC0r05                  511 	mov	p, a
-      00019ErD0r02                  512 	t1sn	p, #6
-      0001A0r80r19                  513 	goto	00106$
-                                    514 ;	main.c: 187: piezoInput();
-      0001A2r2Er1C                  515 	call	_piezoInput
-                                    516 ;	main.c: 188: return 1;
-      0001A4 01 01                  517 	ret	#0x01
-      0001A6                        518 00111$:
-                                    519 ;	main.c: 193: piezoInput();
-      0001A6r2Er1C                  520 	call	_piezoInput
-                                    521 ;	main.c: 194: return 0;
-                                    522 ;	main.c: 195: }
-      0001A8 00 01                  523 	ret	#0x00
-                                    524 ;	main.c: 201: static void waitForButtonRelease(void)
-                                    525 ;	-----------------------------------------
-                                    526 ;	 function waitForButtonRelease
-                                    527 ;	-----------------------------------------
-      0001AA                        528 _waitForButtonRelease:
-                                    529 ;	main.c: 203: PADIER = BUTTON_MASK;
-      0001AA 40 17                  530 	mov	a, #0x40
-      0001AC 8D 00                  531 	mov.io	__padier, a
-                                    532 ;	main.c: 205: while (buttonIsPressed())
-      0001AE                        533 00101$:
-      0001AE B0 00                  534 	mov.io	a, __pa
-      0001B0rC0r05                  535 	mov	p, a
-      0001B2rD0r02                  536 	t1sn	p, #6
-      0001B4rBEr19                  537 	goto	00103$
-                                    538 ;	main.c: 207: T16M = T16M_CLK_DISABLE;
-      0001B6 00 17                  539 	mov	a, #0x00
-      0001B8 86 00                  540 	mov.io	__t16m, a
-                                    541 ;	main.c: 211: __endasm;
-      0001BA 37 00                  542 	stopexe
-      0001BCrAEr19                  543 	goto	00101$
-      0001BE                        544 00103$:
-                                    545 ;	main.c: 214: PADIER = 0;
-      0001BE 00 17                  546 	mov	a, #0x00
-      0001C0 8D 00                  547 	mov.io	__padier, a
-                                    548 ;	main.c: 215: }
-      0001C2 3A 00                  549 	ret
-                                    550 ;	main.c: 217: static void deepSleep(void)
-                                    551 ;	-----------------------------------------
-                                    552 ;	 function deepSleep
-                                    553 ;	-----------------------------------------
-      0001C4                        554 _deepSleep:
-                                    555 ;	main.c: 221: turnLedOff();
-      0001C4 90 0F                  556 	set1.io	__pa, #4
-                                    557 ;	main.c: 222: piezoInput();
-      0001C6r2Er1C                  558 	call	_piezoInput
-                                    559 ;	main.c: 223: T16M = T16M_CLK_DISABLE;
-      0001C8 00 17                  560 	mov	a, #0x00
-      0001CA 86 00                  561 	mov.io	__t16m, a
-                                    562 ;	main.c: 230: PADIER = BUTTON_MASK | PIEZO_MASK;
-      0001CC 48 17                  563 	mov	a, #0x48
-      0001CE 8D 00                  564 	mov.io	__padier, a
-                                    565 ;	main.c: 234: __endasm;
-      0001D0 36 00                  566 	stopsys
-                                    567 ;	main.c: 237: buttonPressed = buttonIsPressed();
-      0001D2 B0 00                  568 	mov.io	a, __pa
-      0001D4r80r09                  569 	clear	p
-      0001D6 40 14                  570 	and	a, #0x40
-      0001D8r80r09                  571 	clear	p
-      0001DAr40r07                  572 	or	a, p
-      0001DC 01 11                  573 	sub	a, #0x01
-      0001DE 00 17                  574 	mov	a, #0x00
-      0001E0 1D 00                  575 	slc	a
-      0001E2 01 16                  576 	xor	a, #0x01
-                                    577 ;	main.c: 238: PADIER = 0;
-      0001E4 32 00                  578 	push	af
-      0001E6 00 17                  579 	mov	a, #0x00
-      0001E8 8D 00                  580 	mov.io	__padier, a
-      0001EA 33 00                  581 	pop	af
-                                    582 ;	main.c: 241: if (buttonPressed)
-      0001EC 00 12                  583 	ceqsn	a, #0x00
-      0001EErF2r19                  584 	goto	00109$
-      0001F0rF4r19                  585 	goto	00103$
-      0001F2                        586 00109$:
-                                    587 ;	main.c: 242: waitForButtonRelease();
-      0001F2rAAr19                  588 	goto	_waitForButtonRelease
-      0001F4                        589 00103$:
-                                    590 ;	main.c: 243: }
-      0001F4 3A 00                  591 	ret
-                                    592 ;	main.c: 249: static void setup(void)
-                                    593 ;	-----------------------------------------
-                                    594 ;	 function setup
-                                    595 ;	-----------------------------------------
-      0001F6                        596 _setup:
-                                    597 ;	main.c: 252: PA = LED_MASK;
-      0001F6 10 17                  598 	mov	a, #0x10
-      0001F8 90 00                  599 	mov.io	__pa, a
-                                    600 ;	main.c: 253: PAC = LED_MASK;
-      0001FA 10 17                  601 	mov	a, #0x10
-      0001FC 91 00                  602 	mov.io	__pac, a
-                                    603 ;	main.c: 254: PAPH = 0;
-      0001FE 00 17                  604 	mov	a, #0x00
-      000200 92 00                  605 	mov.io	__paph, a
-                                    606 ;	main.c: 255: PADIER = 0;
-      000202 00 17                  607 	mov	a, #0x00
-      000204 8D 00                  608 	mov.io	__padier, a
-                                    609 ;	main.c: 257: GPCC = 0;
-      000206 00 17                  610 	mov	a, #0x00
-      000208 9A 00                  611 	mov.io	__gpcc, a
-                                    612 ;	main.c: 258: GPCS = 0;
-      00020A 00 17                  613 	mov	a, #0x00
-      00020C 9E 00                  614 	mov.io	__gpcs, a
-                                    615 ;	main.c: 259: TM2C = 0;
-      00020E 00 17                  616 	mov	a, #0x00
-      000210 9C 00                  617 	mov.io	__tm2c, a
-                                    618 ;	main.c: 260: T16M = 0;
-      000212 00 17                  619 	mov	a, #0x00
-      000214 86 00                  620 	mov.io	__t16m, a
-                                    621 ;	main.c: 262: MISC |= MISC_LVR_DISABLE;
-      000216 5B 0F                  622 	set1.io	__misc, #2
-                                    623 ;	main.c: 270: CLKMD_ENABLE_IHRC);
-      000218 A3 00                  624 	mov.io	a, __clkmd
-      00021A EC 14                  625 	and	a, #0xec
-      00021C 83 00                  626 	mov.io	__clkmd, a
-                                    627 ;	main.c: 272: INTEN = 0;
-      00021E 00 17                  628 	mov	a, #0x00
-      000220 84 00                  629 	mov.io	__inten, a
-                                    630 ;	main.c: 273: INTRQ = 0;
-      000222 00 17                  631 	mov	a, #0x00
-      000224 85 00                  632 	mov.io	__intrq, a
-                                    633 ;	main.c: 274: }
-      000226 3A 00                  634 	ret
-                                    635 ;	main.c: 276: static uint8_t activeAlert(void)
-                                    636 ;	-----------------------------------------
-                                    637 ;	 function activeAlert
-                                    638 ;	-----------------------------------------
-      000228                        639 _activeAlert:
-                                    640 ;	main.c: 278: uint8_t flashCount = 0;
-      000228r9Ar09                  641 	clear	_activeAlert_sloc8_1_0+0
-                                    642 ;	main.c: 280: while (1)
-      00022A                        643 00114$:
-                                    644 ;	main.c: 282: turnLedOn();
-      00022A 90 0E                  645 	set0.io	__pa, #4
-                                    646 ;	main.c: 284: if (activeDelayMilliseconds(LED_PULSE_MS))
-      00022C 14 17                  647 	mov	a, #0x14
-      00022ErC9r05                  648 	mov	_activeDelayMilliseconds_PARM_1+0, a
-      000230r8Ar09                  649 	clear	_activeDelayMilliseconds_PARM_1+1
-      000232r3Ar1C                  650 	call	_activeDelayMilliseconds
-      000234 00 12                  651 	ceqsn	a, #0x00
-      000236r3Ar1A                  652 	goto	00146$
-      000238r3Er1A                  653 	goto	00102$
-      00023A                        654 00146$:
-                                    655 ;	main.c: 286: turnLedOff();
-      00023A 90 0F                  656 	set1.io	__pa, #4
-                                    657 ;	main.c: 287: return 1;
-      00023C 01 01                  658 	ret	#0x01
-      00023E                        659 00102$:
-                                    660 ;	main.c: 290: turnLedOff();
-      00023E 90 0F                  661 	set1.io	__pa, #4
-                                    662 ;	main.c: 292: if (++flashCount >= LED_FLASHES_PER_BEEPS)
-      000240r1Ar09                  663 	inc	_activeAlert_sloc8_1_0+0
-      000242rDAr07                  664 	mov	a, _activeAlert_sloc8_1_0+0
-      000244 04 11                  665 	sub	a, #0x04
-      000246 20 0C                  666 	t0sn.io	f, c
-      000248r70r1A                  667 	goto	00110$
-                                    668 ;	main.c: 294: flashCount = 0;
-      00024Ar9Ar09                  669 	clear	_activeAlert_sloc8_1_0+0
-                                    670 ;	main.c: 296: if (tonePulse())
-      00024CrD8r1C                  671 	call	_tonePulse
-      00024E 00 12                  672 	ceqsn	a, #0x00
-      000250r54r1A                  673 	goto	00147$
-      000252r56r1A                  674 	goto	00104$
-      000254                        675 00147$:
-                                    676 ;	main.c: 297: return 1;
-      000254 01 01                  677 	ret	#0x01
-      000256                        678 00104$:
-                                    679 ;	main.c: 299: if (activeDelayMilliseconds(PIEZO_GAP_MS))
-      000256 32 17                  680 	mov	a, #0x32
-      000258rC9r05                  681 	mov	_activeDelayMilliseconds_PARM_1+0, a
-      00025Ar8Ar09                  682 	clear	_activeDelayMilliseconds_PARM_1+1
-      00025Cr3Ar1C                  683 	call	_activeDelayMilliseconds
-      00025E 00 12                  684 	ceqsn	a, #0x00
-      000260r64r1A                  685 	goto	00148$
-      000262r66r1A                  686 	goto	00106$
-      000264                        687 00148$:
-                                    688 ;	main.c: 300: return 1;
-      000264 01 01                  689 	ret	#0x01
-      000266                        690 00106$:
-                                    691 ;	main.c: 302: if (tonePulse())
-      000266rD8r1C                  692 	call	_tonePulse
-      000268 00 12                  693 	ceqsn	a, #0x00
-      00026Ar6Er1A                  694 	goto	00149$
-      00026Cr70r1A                  695 	goto	00110$
-      00026E                        696 00149$:
-                                    697 ;	main.c: 303: return 1;
-      00026E 01 01                  698 	ret	#0x01
-      000270                        699 00110$:
-                                    700 ;	main.c: 310: if (sleepMilliseconds(EVENT_SLEEP_MS, 0))
-      000270 20 17                  701 	mov	a, #0x20
-      000272rCBr05                  702 	mov	_sleepTicks_PARM_1+0, a
-      000274 CB 17                  703 	mov	a, #0xcb
-      000276rCCr05                  704 	mov	_sleepTicks_PARM_1+1, a
-      000278r8Dr09                  705 	clear	_sleepTicks_PARM_2+0
-      00027Ar76r1C                  706 	call	_sleepTicks
-      00027C 00 12                  707 	ceqsn	a, #0x00
-      00027Er82r1A                  708 	goto	00150$
-      000280r2Ar1A                  709 	goto	00114$
-      000282                        710 00150$:
-                                    711 ;	main.c: 311: return 1;
-                                    712 ;	main.c: 313: }
-      000282 01 01                  713 	ret	#0x01
-                                    714 ;	main.c: 315: void main(void)
-                                    715 ;	-----------------------------------------
-                                    716 ;	 function main
-                                    717 ;	-----------------------------------------
-      000284                        718 _main:
-                                    719 ;	main.c: 317: setup();
-      000284rF6r1D                  720 	call	_setup
-                                    721 ;	main.c: 319: while (1)
-      000286                        722 00104$:
-                                    723 ;	main.c: 322: if (startupChirps())
-      000286rFEr1C                  724 	call	_startupChirps
-      000288 00 12                  725 	ceqsn	a, #0x00
-      00028Ar8Er1A                  726 	goto	00116$
-      00028Cr94r1A                  727 	goto	00102$
-      00028E                        728 00116$:
-                                    729 ;	main.c: 324: waitForButtonRelease();
-      00028ErAAr1D                  730 	call	_waitForButtonRelease
-                                    731 ;	main.c: 325: deepSleep();
-      000290rC4r1D                  732 	call	_deepSleep
-                                    733 ;	main.c: 326: continue;
-      000292r86r1A                  734 	goto	00104$
-      000294                        735 00102$:
-                                    736 ;	main.c: 329: activeAlert();
-      000294r28r1E                  737 	call	_activeAlert
-                                    738 ;	main.c: 330: waitForButtonRelease();
-      000296rAAr1D                  739 	call	_waitForButtonRelease
-                                    740 ;	main.c: 331: deepSleep();
-      000298rC4r1D                  741 	call	_deepSleep
-      00029Ar86r1A                  742 	goto	00104$
-                                    743 ;	main.c: 333: }
-      00029C 3A 00                  744 	ret
-                                    745 ;	main.c: 339: unsigned char STARTUP_FUNCTION(void)
-                                    746 ;	-----------------------------------------
-                                    747 ;	 function _sdcc_external_startup
-                                    748 ;	-----------------------------------------
-      00029E                        749 __sdcc_external_startup:
-                                    750 ;	main.c: 341: AUTO_INIT_SYSCLOCK();
-      00029E F4 17                  751 	mov	a, #0xf4
-      0002A0 83 00                  752 	mov.io	__clkmd, a
-                                    753 ;	main.c: 342: AUTO_CALIBRATE_SYSCLOCK(TARGET_VDD_MV);
-      0002A2 52 14                  754 	and	a, #'R'                       
-      0002A4 43 14                  755 	and	a, #'C'                       
-      0002A6 02 14                  756 	and	a, #(2)            
-      0002A8 20 14                  757 	and	a, #((52000))     
-      0002AA CB 14                  758 	and	a, #((52000)>>8)  
-      0002AC 00 14                  759 	and	a, #((52000)>>16) 
-      0002AE 00 14                  760 	and	a, #((52000)>>24) 
-      0002B0 F0 14                  761 	and	a, #((2800))     
-      0002B2 0A 14                  762 	and	a, #((2800)>>8)  
-      0002B4 1F 14                  763 	and	a, #(0x1f)             
-                                    764 ;	main.c: 344: return 0;
-                                    765 ;	main.c: 345: }
-      0002B6 00 01                  766 	ret	#0x00
-                                    767 	.area CODE
-                                    768 	.area CONST
-      000000                        769 _chirpPattern:
-      000000 1A 01                  770 	ret #0x1a	; 26
-      000002 28 01                  771 	ret #0x28	; 40
-      000004 00 01                  772 	ret #0x00	; 0
-      000006 00 01                  773 	ret #0x00	; 0
-      000008 0F 01                  774 	ret #0x0f	; 15
-      00000A 00 01                  775 	ret #0x00	; 0
-      00000C 06 01                  776 	ret #0x06	; 6
-      00000E 19 01                  777 	ret #0x19	; 25
-      000010 00 01                  778 	ret #0x00	; 0
-      000012 00 01                  779 	ret #0x00	; 0
-      000014 0F 01                  780 	ret #0x0f	; 15
-      000016 00 01                  781 	ret #0x00	; 0
-      000018 1A 01                  782 	ret #0x1a	; 26
-      00001A 14 01                  783 	ret #0x14	; 20
-      00001C 00 01                  784 	ret #0x00	; 0
-      00001E 00 01                  785 	ret #0x00	; 0
-      000020 0F 01                  786 	ret #0x0f	; 15
-      000022 00 01                  787 	ret #0x00	; 0
-      000024 06 01                  788 	ret #0x06	; 6
-      000026 19 01                  789 	ret #0x19	; 25
-      000028 00 01                  790 	ret #0x00	; 0
-      00002A 00 01                  791 	ret #0x00	; 0
-      00002C 0F 01                  792 	ret #0x0f	; 15
-      00002E 00 01                  793 	ret #0x00	; 0
-      000030 1A 01                  794 	ret #0x1a	; 26
-      000032 28 01                  795 	ret #0x28	; 40
-      000034 00 01                  796 	ret #0x00	; 0
-      000036 00 01                  797 	ret #0x00	; 0
-      000038 19 01                  798 	ret #0x19	; 25
-      00003A 00 01                  799 	ret #0x00	; 0
-                                    800 	.area CABS (ABS)
+                                    185 ; Home
+                                    186 ;--------------------------------------------------------
+                                    187 	.area HOME
+                                    188 	.area HOME
+      000000                        189 __sdcc_program_startup:
+      000000rBAr1A                  190 	goto	_main
+                                    191 ;	return from main will return to caller
+                                    192 ;--------------------------------------------------------
+                                    193 ; code
+                                    194 ;--------------------------------------------------------
+                                    195 	.area CODE
+                                    196 ;	./include/delay.h: 34: void _delay_loop_8(uint8_t loop_ctr) {
+                                    197 ;	-----------------------------------------
+                                    198 ;	 function _delay_loop_8
+                                    199 ;	-----------------------------------------
+      000000                        200 __delay_loop_8:
+                                    201 ;	./include/delay.h: 44: __endasm;
+      000000                        202 	00001$:
+                                    203 ; 4 cycles per loop
+      000000rC0r08                  204 	dzsn	__delay_loop_8_PARM_1 ; 1 cycle + 1 cycle for final skip
+      000002r00r18                  205 	goto	00001$ ; 2 cycles
+      000004                        206 00101$:
+                                    207 ;	./include/delay.h: 45: }
+      000004 3A 00                  208 	ret
+                                    209 ;	./include/delay.h: 48: void _delay_loop_16(uint16_t loop_ctr) {
+                                    210 ;	-----------------------------------------
+                                    211 ;	 function _delay_loop_16
+                                    212 ;	-----------------------------------------
+      000006                        213 __delay_loop_16:
+                                    214 ;	./include/delay.h: 65: __endasm;
+      000006                        215 	00001$:
+                                    216 ; 8 cycles per loop
+      000006 00 00                  217 	nop	; 1 cycle
+      000008r41r09                  218 	dec	__delay_loop_16_PARM_1+0 ; 1 cycle
+      00000Ar42r08                  219 	subc	__delay_loop_16_PARM_1+1 ; 1 cycle
+      00000CrC1r07                  220 	mov	a, __delay_loop_16_PARM_1+0 ; 1 cycle
+      00000Er42r07                  221 	or	a, __delay_loop_16_PARM_1+1 ; 1 cycle
+      000010 00 0D                  222 	t1sn.io	f, z ; 1 cycle + 1 cycle for final skip
+      000012r06r18                  223 	goto	00001$ ; 2 cycles
+      000014                        224 00101$:
+                                    225 ;	./include/delay.h: 66: }
+      000014 3A 00                  226 	ret
+                                    227 ;	./include/delay.h: 69: void _delay_loop_32(uint32_t loop_ctr) {
+                                    228 ;	-----------------------------------------
+                                    229 ;	 function _delay_loop_32
+                                    230 ;	-----------------------------------------
+      000016                        231 __delay_loop_32:
+                                    232 ;	./include/delay.h: 94: __endasm;
+      000016                        233 	00001$:
+                                    234 ; 12 cycles per loop
+      000016 00 00                  235 	nop	; 1 cycle
+      000018r43r09                  236 	dec	__delay_loop_32_PARM_1+0 ; 1 cycle
+      00001Ar44r08                  237 	subc	__delay_loop_32_PARM_1+1 ; 1 cycle
+      00001Cr45r08                  238 	subc	__delay_loop_32_PARM_1+2 ; 1 cycle
+      00001Er46r08                  239 	subc	__delay_loop_32_PARM_1+3 ; 1 cycle
+      000020rC3r07                  240 	mov	a, __delay_loop_32_PARM_1+0 ; 1 cycle
+      000022r44r07                  241 	or	a, __delay_loop_32_PARM_1+1 ; 1 cycle
+      000024r45r07                  242 	or	a, __delay_loop_32_PARM_1+2 ; 1 cycle
+      000026r46r07                  243 	or	a, __delay_loop_32_PARM_1+3 ; 1 cycle
+      000028 00 0D                  244 	t1sn.io	f, z ; 1 cycle + 1 cycle for final skip
+      00002Ar16r18                  245 	goto	00001$ ; 2 cycles
+      00002C                        246 00101$:
+                                    247 ;	./include/delay.h: 95: }
+      00002C 3A 00                  248 	ret
+                                    249 ;	main.c: 76: static void piezoInput(void)
+                                    250 ;	-----------------------------------------
+                                    251 ;	 function piezoInput
+                                    252 ;	-----------------------------------------
+      00002E                        253 _piezoInput:
+                                    254 ;	main.c: 78: TM2C = TM2C_CLK_DISABLE;
+      00002E 00 17                  255 	mov	a, #0x00
+      000030 9C 00                  256 	mov.io	__tm2c, a
+                                    257 ;	main.c: 79: INTRQ &= (uint8_t)~INTRQ_TM2;
+      000032 C5 0E                  258 	set0.io	__intrq, #6
+                                    259 ;	main.c: 80: PA &= (uint8_t)~PIEZO_MASK;
+      000034 70 0E                  260 	set0.io	__pa, #3
+                                    261 ;	main.c: 81: PAC &= (uint8_t)~PIEZO_MASK;
+      000036 71 0E                  262 	set0.io	__pac, #3
+                                    263 ;	main.c: 82: }
+      000038 3A 00                  264 	ret
+                                    265 ;	main.c: 84: static uint8_t activeLedPulseDelay(void)
+                                    266 ;	-----------------------------------------
+                                    267 ;	 function activeLedPulseDelay
+                                    268 ;	-----------------------------------------
+      00003A                        269 _activeLedPulseDelay:
+                                    270 ;	main.c: 86: PADIER = BUTTON_MASK;
+      00003A 40 17                  271 	mov	a, #0x40
+      00003C 8D 00                  272 	mov.io	__padier, a
+                                    273 ;	main.c: 93: _delay_ms(LED_PULSE_MS);
+      00003E 3F 17                  274 	mov	a, #0x3f
+      000040rC1r05                  275 	mov	__delay_loop_16_PARM_1+0, a
+      000042r82r09                  276 	clear	__delay_loop_16_PARM_1+1
+      000044r06r1C                  277 	call	__delay_loop_16
+                                    278 ;	main.c: 95: return buttonIsPressed();
+      000046 B0 00                  279 	mov.io	a, __pa
+      000048r80r09                  280 	clear	p
+      00004A 40 14                  281 	and	a, #0x40
+      00004Cr80r09                  282 	clear	p
+      00004Er40r07                  283 	or	a, p
+      000050 01 11                  284 	sub	a, #0x01
+      000052 00 17                  285 	mov	a, #0x00
+      000054 1D 00                  286 	slc	a
+      000056 01 16                  287 	xor	a, #0x01
+                                    288 ;	main.c: 96: }
+      000058 3A 00                  289 	ret
+                                    290 ;	main.c: 98: static uint8_t sleepTicks(uint16_t ticks, uint8_t piezoWake)
+                                    291 ;	-----------------------------------------
+                                    292 ;	 function sleepTicks
+                                    293 ;	-----------------------------------------
+      00005A                        294 _sleepTicks:
+                                    295 ;	main.c: 102: T16M = (uint8_t)TIMER16_SLEEP_CONFIG;
+      00005A C7 17                  296 	mov	a, #0xc7
+      00005C 86 00                  297 	mov.io	__t16m, a
+                                    298 ;	main.c: 103: timer16Load = (uint16_t)(32768u - ticks);
+      00005E 00 17                  299 	mov	a, #0x00
+      000060r49r06                  300 	sub	a, _sleepTicks_PARM_1+0
+      000062rC7r05                  301 	mov	_timer16Load+0, a
+      000064 80 17                  302 	mov	a, #0x80
+      000066rCAr06                  303 	subc	a, _sleepTicks_PARM_1+1
+      000068rC8r05                  304 	mov	_timer16Load+1, a
+                                    305 ;	main.c: 106: __endasm;
+      00006ArC6r00                  306 	stt16	_timer16Load
+                                    307 ;	main.c: 107: INTEGS &= (uint8_t)~INTEGS_T16_FALLING;
+      00006C 8C 0E                  308 	set0.io	__integs, #4
+                                    309 ;	main.c: 108: INTRQ &= (uint8_t)~INTRQ_T16;
+      00006E 45 0E                  310 	set0.io	__intrq, #2
+                                    311 ;	main.c: 115: (piezoWake ? PIEZO_MASK : (uint8_t)0u));
+      000070rCBr07                  312 	mov	a, _sleepTicks_PARM_2+0
+      000072 00 12                  313 	ceqsn	a, #0x00
+      000074r78r18                  314 	goto	00109$
+      000076r7Cr18                  315 	goto	00103$
+      000078                        316 00109$:
+      000078 08 17                  317 	mov	a, #0x08
+      00007Ar7Er18                  318 	goto	00104$
+      00007C                        319 00103$:
+      00007C 00 17                  320 	mov	a, #0x00
+      00007E                        321 00104$:
+      00007E 40 15                  322 	or	a, #0x40
+      000080 8D 00                  323 	mov.io	__padier, a
+                                    324 ;	main.c: 119: __endasm;
+      000082 37 00                  325 	stopexe
+                                    326 ;	main.c: 122: buttonPressed = buttonIsPressed();
+      000084 B0 00                  327 	mov.io	a, __pa
+      000086r80r09                  328 	clear	p
+      000088 40 14                  329 	and	a, #0x40
+      00008Ar80r09                  330 	clear	p
+      00008Cr40r07                  331 	or	a, p
+      00008E 01 11                  332 	sub	a, #0x01
+      000090 00 17                  333 	mov	a, #0x00
+      000092 1D 00                  334 	slc	a
+      000094 01 16                  335 	xor	a, #0x01
+      000096rC0r05                  336 	mov	_sleepTicks_sloc0_1_0+0, a
+                                    337 ;	main.c: 123: PADIER = 0;
+      000098 00 17                  338 	mov	a, #0x00
+      00009A 8D 00                  339 	mov.io	__padier, a
+                                    340 ;	main.c: 124: INTRQ &= (uint8_t)~INTRQ_T16;
+      00009C 45 0E                  341 	set0.io	__intrq, #2
+                                    342 ;	main.c: 126: return buttonPressed;
+      00009ErC0r07                  343 	mov	a, _sleepTicks_sloc0_1_0+0
+                                    344 ;	main.c: 127: }
+      0000A0 3A 00                  345 	ret
+                                    346 ;	main.c: 129: static uint8_t sleepMilliseconds(uint16_t milliseconds, uint8_t piezoWake)
+                                    347 ;	-----------------------------------------
+                                    348 ;	 function sleepMilliseconds
+                                    349 ;	-----------------------------------------
+      0000A2                        350 _sleepMilliseconds:
+                                    351 ;	main.c: 133: while (milliseconds > 500u)
+      0000A2                        352 00103$:
+      0000A2rCCr07                  353 	mov	a, _sleepMilliseconds_PARM_1+0
+      0000A4rCFr05                  354 	mov	_sleepMilliseconds_sloc1_1_0+0, a
+      0000A6rCDr07                  355 	mov	a, _sleepMilliseconds_PARM_1+1
+      0000A8rD0r05                  356 	mov	_sleepMilliseconds_sloc1_1_0+1, a
+      0000AA F4 17                  357 	mov	a, #0xf4
+      0000ACr4Fr06                  358 	sub	a, _sleepMilliseconds_sloc1_1_0+0
+      0000AE 01 17                  359 	mov	a, #0x01
+      0000B0rD0r06                  360 	subc	a, _sleepMilliseconds_sloc1_1_0+1
+      0000B2 20 0D                  361 	t1sn.io	f, c
+      0000B4rE0r18                  362 	goto	00105$
+                                    363 ;	main.c: 135: if (sleepTicks((uint16_t)(F_CPU / 2u), piezoWake))
+      0000B6 90 17                  364 	mov	a, #0x90
+      0000B8rC9r05                  365 	mov	_sleepTicks_PARM_1+0, a
+      0000BA 65 17                  366 	mov	a, #0x65
+      0000BCrCAr05                  367 	mov	_sleepTicks_PARM_1+1, a
+      0000BErCEr07                  368 	mov	a, _sleepMilliseconds_PARM_2+0
+      0000C0rCBr05                  369 	mov	_sleepTicks_PARM_2+0, a
+      0000C2r5Ar1C                  370 	call	_sleepTicks
+      0000C4 00 12                  371 	ceqsn	a, #0x00
+      0000C6rCAr18                  372 	goto	00126$
+      0000C8rCCr18                  373 	goto	00102$
+      0000CA                        374 00126$:
+                                    375 ;	main.c: 136: return 1;
+      0000CA 01 01                  376 	ret	#0x01
+      0000CC                        377 00102$:
+                                    378 ;	main.c: 138: milliseconds -= 500u;
+      0000CCrCFr07                  379 	mov	a, _sleepMilliseconds_sloc1_1_0+0
+      0000CE F4 11                  380 	sub	a, #0xf4
+      0000D0rC0r05                  381 	mov	p, a
+      0000D2rD0r07                  382 	mov	a, _sleepMilliseconds_sloc1_1_0+1
+      0000D4 11 00                  383 	subc	a
+      0000D6 01 11                  384 	sub	a, #0x01
+      0000D8rCDr05                  385 	mov	_sleepMilliseconds_PARM_1+1, a
+      0000DArC0r07                  386 	mov	a, p
+      0000DCrCCr05                  387 	mov	_sleepMilliseconds_PARM_1+0, a
+      0000DErA2r18                  388 	goto	00103$
+      0000E0                        389 00105$:
+                                    390 ;	main.c: 141: if (!milliseconds)
+      0000E0rCCr07                  391 	mov	a, _sleepMilliseconds_PARM_1+0
+      0000E2r4Dr07                  392 	or	a, _sleepMilliseconds_PARM_1+1
+      0000E4 00 12                  393 	ceqsn	a, #0x00
+      0000E6rEAr18                  394 	goto	00107$
+                                    395 ;	main.c: 142: return 0;
+      0000E8 00 01                  396 	ret	#0x00
+      0000EA                        397 00107$:
+                                    398 ;	main.c: 145: ticks = (uint16_t)((milliseconds << 5) +
+      0000EArCCr07                  399 	mov	a, _sleepMilliseconds_PARM_1+0
+      0000ECrD1r05                  400 	mov	_sleepMilliseconds_sloc2_1_0+0, a
+      0000EErCDr07                  401 	mov	a, _sleepMilliseconds_PARM_1+1
+      0000F0rD2r05                  402 	mov	_sleepMilliseconds_sloc2_1_0+1, a
+      0000F2 05 17                  403 	mov	a, #5
+      0000F4                        404 00127$:
+      0000F4rD1r0A                  405 	sl	_sleepMilliseconds_sloc2_1_0+0
+      0000F6r52r0B                  406 	slc	_sleepMilliseconds_sloc2_1_0+1
+      0000F8 13 00                  407 	dzsn	a
+      0000FArF4r18                  408 	goto	00127$
+                                    409 ;	main.c: 146: (milliseconds << 4) +
+      0000FCrCCr07                  410 	mov	a, _sleepMilliseconds_PARM_1+0
+      0000FErD3r05                  411 	mov	_sleepMilliseconds_sloc3_1_0+0, a
+      000100rCDr07                  412 	mov	a, _sleepMilliseconds_PARM_1+1
+      000102rD4r05                  413 	mov	_sleepMilliseconds_sloc3_1_0+1, a
+      000104 04 17                  414 	mov	a, #4
+      000106                        415 00128$:
+      000106rD3r0A                  416 	sl	_sleepMilliseconds_sloc3_1_0+0
+      000108r54r0B                  417 	slc	_sleepMilliseconds_sloc3_1_0+1
+      00010A 13 00                  418 	dzsn	a
+      00010Cr06r19                  419 	goto	00128$
+      00010ErD1r07                  420 	mov	a, _sleepMilliseconds_sloc2_1_0+0
+      000110r13r06                  421 	add	a, _sleepMilliseconds_sloc3_1_0+0
+      000112rD5r05                  422 	mov	_sleepMilliseconds_sloc4_1_0+0, a
+      000114rD2r07                  423 	mov	a, _sleepMilliseconds_sloc2_1_0+1
+      000116r94r06                  424 	addc	a, _sleepMilliseconds_sloc3_1_0+1
+      000118rD6r05                  425 	mov	_sleepMilliseconds_sloc4_1_0+1, a
+                                    426 ;	main.c: 147: (milliseconds << 2));
+      00011ArCDr07                  427 	mov	a, _sleepMilliseconds_PARM_1+1
+      00011CrC0r05                  428 	mov	p, a
+      00011ErCCr07                  429 	mov	a, _sleepMilliseconds_PARM_1+0
+      000120 1B 00                  430 	sl	a
+      000122r40r0B                  431 	slc	p
+      000124 1B 00                  432 	sl	a
+      000126r40r0B                  433 	slc	p
+      000128r15r06                  434 	add	a, _sleepMilliseconds_sloc4_1_0+0
+      00012ArC9r05                  435 	mov	_sleepTicks_PARM_1+0, a
+      00012CrD6r07                  436 	mov	a, _sleepMilliseconds_sloc4_1_0+1
+      00012Er80r06                  437 	addc	a, p
+      000130rCAr05                  438 	mov	_sleepTicks_PARM_1+1, a
+                                    439 ;	main.c: 149: return sleepTicks(ticks, piezoWake);
+      000132rCEr07                  440 	mov	a, _sleepMilliseconds_PARM_2+0
+      000134rCBr05                  441 	mov	_sleepTicks_PARM_2+0, a
+      000136r5Ar18                  442 	goto	_sleepTicks
+                                    443 ;	main.c: 150: }
+      000138 3A 00                  444 	ret
+                                    445 ;	main.c: 156: static void startTone(uint8_t timerDivisor)
+                                    446 ;	-----------------------------------------
+                                    447 ;	 function startTone
+                                    448 ;	-----------------------------------------
+      00013A                        449 _startTone:
+                                    450 ;	main.c: 159: PADIER = BUTTON_MASK;
+      00013A 40 17                  451 	mov	a, #0x40
+      00013C 8D 00                  452 	mov.io	__padier, a
+                                    453 ;	main.c: 160: PAC |= PIEZO_MASK;
+      00013E 71 0F                  454 	set1.io	__pac, #3
+                                    455 ;	main.c: 161: TM2CT = 0;
+      000140 00 17                  456 	mov	a, #0x00
+      000142 9D 00                  457 	mov.io	__tm2ct, a
+                                    458 ;	main.c: 162: TM2B = (uint8_t)(timerDivisor - 1u);
+      000144rD7r07                  459 	mov	a, _startTone_PARM_1+0
+      000146 01 11                  460 	sub	a, #0x01
+      000148 89 00                  461 	mov.io	__tm2b, a
+                                    462 ;	main.c: 163: TM2S = TM2S_PRESCALE_NONE | TM2S_SCALE_NONE;
+      00014A 00 17                  463 	mov	a, #0x00
+      00014C 97 00                  464 	mov.io	__tm2s, a
+                                    465 ;	main.c: 164: TM2C = TM2C_CLK_ILRC | TM2C_MODE_PERIOD | TM2C_OUT_PA3;
+      00014E 48 17                  466 	mov	a, #0x48
+      000150 9C 00                  467 	mov.io	__tm2c, a
+                                    468 ;	main.c: 165: }
+      000152 3A 00                  469 	ret
+                                    470 ;	main.c: 167: static uint8_t startupChirps(void)
+                                    471 ;	-----------------------------------------
+                                    472 ;	 function startupChirps
+                                    473 ;	-----------------------------------------
+      000154                        474 _startupChirps:
+                                    475 ;	main.c: 169: uint16_t offset = 0;
+      000154r98r09                  476 	clear	_startupChirps_sloc5_1_0+0
+      000156r99r09                  477 	clear	_startupChirps_sloc5_1_0+1
+                                    478 ;	main.c: 172: while (step--)
+      000158 0A 17                  479 	mov	a, #0x0a
+      00015ArDAr05                  480 	mov	_startupChirps_sloc6_1_0+0, a
+      00015C                        481 00109$:
+      00015CrDAr07                  482 	mov	a, _startupChirps_sloc6_1_0+0
+      00015Er5Ar09                  483 	dec	_startupChirps_sloc6_1_0+0
+      000160 00 12                  484 	ceqsn	a, #0x00
+      000162r66r19                  485 	goto	00138$
+      000164rFCr19                  486 	goto	00111$
+      000166                        487 00138$:
+                                    488 ;	main.c: 174: uint8_t timerDivisor = chirpPattern[offset];
+      000166r00r17                  489 	mov	a, #<(_chirpPattern + 0)
+      000168r18r06                  490 	add	a, _startupChirps_sloc5_1_0+0
+      00016ArC0r05                  491 	mov	p, a
+      00016Cr00r17                  492 	mov	a, #>(_chirpPattern + 0x8000 + 0)
+      00016Er99r06                  493 	addc	a, _startupChirps_sloc5_1_0+1
+      000170r00r1C                  494 	call	__gptrget
+      000172rDBr05                  495 	mov	_startupChirps_sloc7_1_0+0, a
+                                    496 ;	main.c: 175: uint16_t duration = (uint16_t)chirpPattern[offset + 1u] |
+      000174rD8r07                  497 	mov	a, _startupChirps_sloc5_1_0+0
+      000176rDCr05                  498 	mov	_startupChirps_sloc8_1_0+0, a
+      000178 01 10                  499 	add	a, #0x01
+      00017Ar00r10                  500 	add	a, #<(_chirpPattern + 0)
+      00017CrC0r05                  501 	mov	p, a
+      00017E 00 17                  502 	mov	a, #0x00
+      000180 10 00                  503 	addc	a
+      000182r00r10                  504 	add	a, #>(_chirpPattern + 0x8000 + 0)
+      000184r00r1C                  505 	call	__gptrget
+      000186rDDr05                  506 	mov	_startupChirps_sloc9_1_0+0, a
+      000188r9Er09                  507 	clear	_startupChirps_sloc9_1_0+1
+      00018ArDCr07                  508 	mov	a, _startupChirps_sloc8_1_0+0
+      00018C 02 10                  509 	add	a, #0x02
+      00018Er00r10                  510 	add	a, #<(_chirpPattern + 0)
+      000190rC0r05                  511 	mov	p, a
+      000192 00 17                  512 	mov	a, #0x00
+      000194 10 00                  513 	addc	a
+      000196r00r10                  514 	add	a, #>(_chirpPattern + 0x8000 + 0)
+      000198r00r1C                  515 	call	__gptrget
+      00019ArC0r05                  516 	mov	p, a
+      00019C 00 17                  517 	mov	a, #0x00
+      00019Er5Dr07                  518 	or	a, _startupChirps_sloc9_1_0+0
+      0001A0rDFr05                  519 	mov	_startupChirps_sloc10_1_0+0, a
+      0001A2rC0r07                  520 	mov	a, p
+      0001A4r5Er07                  521 	or	a, _startupChirps_sloc9_1_0+1
+      0001A6rE0r05                  522 	mov	_startupChirps_sloc10_1_0+1, a
+                                    523 ;	main.c: 177: offset += CHIRP_STEP_BYTES;
+      0001A8rD8r07                  524 	mov	a, _startupChirps_sloc5_1_0+0
+      0001AA 03 10                  525 	add	a, #0x03
+      0001ACrC0r05                  526 	mov	p, a
+      0001AErD9r07                  527 	mov	a, _startupChirps_sloc5_1_0+1
+      0001B0 10 00                  528 	addc	a
+      0001B2rD9r05                  529 	mov	_startupChirps_sloc5_1_0+1, a
+      0001B4rC0r07                  530 	mov	a, p
+      0001B6rD8r05                  531 	mov	_startupChirps_sloc5_1_0+0, a
+                                    532 ;	main.c: 179: if (timerDivisor)
+      0001B8rDBr07                  533 	mov	a, _startupChirps_sloc7_1_0+0
+      0001BA 00 12                  534 	ceqsn	a, #0x00
+      0001BCrC0r19                  535 	goto	00139$
+      0001BErC8r19                  536 	goto	00102$
+      0001C0                        537 00139$:
+                                    538 ;	main.c: 180: startTone(timerDivisor);
+      0001C0rDBr07                  539 	mov	a, _startupChirps_sloc7_1_0+0
+      0001C2rD7r05                  540 	mov	_startTone_PARM_1+0, a
+      0001C4r3Ar1D                  541 	call	_startTone
+      0001C6rCAr19                  542 	goto	00103$
+      0001C8                        543 00102$:
+                                    544 ;	main.c: 182: piezoInput();
+      0001C8r2Er1C                  545 	call	_piezoInput
+      0001CA                        546 00103$:
+                                    547 ;	main.c: 184: PADIER = BUTTON_MASK;
+      0001CA 40 17                  548 	mov	a, #0x40
+      0001CC 8D 00                  549 	mov.io	__padier, a
+                                    550 ;	main.c: 185: while (duration--)
+      0001CErDFr07                  551 	mov	a, _startupChirps_sloc10_1_0+0
+      0001D0rE1r05                  552 	mov	_startupChirps_sloc11_1_0+0, a
+      0001D2rE0r07                  553 	mov	a, _startupChirps_sloc10_1_0+1
+      0001D4rE2r05                  554 	mov	_startupChirps_sloc11_1_0+1, a
+      0001D6                        555 00106$:
+      0001D6rE2r07                  556 	mov	a, _startupChirps_sloc11_1_0+1
+      0001D8rC0r05                  557 	mov	p, a
+      0001DArE1r07                  558 	mov	a, _startupChirps_sloc11_1_0+0
+      0001DCr61r09                  559 	dec	_startupChirps_sloc11_1_0+0
+      0001DEr62r08                  560 	subc	_startupChirps_sloc11_1_0+1
+      0001E0r40r07                  561 	or	a, p
+      0001E2 00 12                  562 	ceqsn	a, #0x00
+      0001E4rE8r19                  563 	goto	00140$
+      0001E6r5Cr19                  564 	goto	00109$
+      0001E8                        565 00140$:
+                                    566 ;	main.c: 187: _delay_ms(1);
+      0001E8 05 17                  567 	mov	a, #0x05
+      0001EArC1r05                  568 	mov	__delay_loop_16_PARM_1+0, a
+      0001ECr82r09                  569 	clear	__delay_loop_16_PARM_1+1
+      0001EEr06r1C                  570 	call	__delay_loop_16
+                                    571 ;	main.c: 188: if (buttonIsPressed())
+      0001F0 B0 00                  572 	mov.io	a, __pa
+      0001F2rC0r05                  573 	mov	p, a
+      0001F4rD0r02                  574 	t1sn	p, #6
+      0001F6rD6r19                  575 	goto	00106$
+                                    576 ;	main.c: 190: piezoInput();
+      0001F8r2Er1C                  577 	call	_piezoInput
+                                    578 ;	main.c: 191: return 1;
+      0001FA 01 01                  579 	ret	#0x01
+      0001FC                        580 00111$:
+                                    581 ;	main.c: 196: piezoInput();
+      0001FCr2Er1C                  582 	call	_piezoInput
+                                    583 ;	main.c: 197: return 0;
+                                    584 ;	main.c: 198: }
+      0001FE 00 01                  585 	ret	#0x00
+                                    586 ;	main.c: 204: static void waitForButtonRelease(void)
+                                    587 ;	-----------------------------------------
+                                    588 ;	 function waitForButtonRelease
+                                    589 ;	-----------------------------------------
+      000200                        590 _waitForButtonRelease:
+                                    591 ;	main.c: 206: PADIER = BUTTON_MASK;
+      000200 40 17                  592 	mov	a, #0x40
+      000202 8D 00                  593 	mov.io	__padier, a
+                                    594 ;	main.c: 208: while (buttonIsPressed())
+      000204                        595 00101$:
+      000204 B0 00                  596 	mov.io	a, __pa
+      000206rC0r05                  597 	mov	p, a
+      000208rD0r02                  598 	t1sn	p, #6
+      00020Ar14r1A                  599 	goto	00103$
+                                    600 ;	main.c: 210: T16M = T16M_CLK_DISABLE;
+      00020C 00 17                  601 	mov	a, #0x00
+      00020E 86 00                  602 	mov.io	__t16m, a
+                                    603 ;	main.c: 214: __endasm;
+      000210 37 00                  604 	stopexe
+      000212r04r1A                  605 	goto	00101$
+      000214                        606 00103$:
+                                    607 ;	main.c: 217: PADIER = 0;
+      000214 00 17                  608 	mov	a, #0x00
+      000216 8D 00                  609 	mov.io	__padier, a
+                                    610 ;	main.c: 218: }
+      000218 3A 00                  611 	ret
+                                    612 ;	main.c: 220: static void deepSleep(void)
+                                    613 ;	-----------------------------------------
+                                    614 ;	 function deepSleep
+                                    615 ;	-----------------------------------------
+      00021A                        616 _deepSleep:
+                                    617 ;	main.c: 224: turnLedOff();
+      00021A 90 0E                  618 	set0.io	__pa, #4
+                                    619 ;	main.c: 225: piezoInput();
+      00021Cr2Er1C                  620 	call	_piezoInput
+                                    621 ;	main.c: 226: T16M = T16M_CLK_DISABLE;
+      00021E 00 17                  622 	mov	a, #0x00
+      000220 86 00                  623 	mov.io	__t16m, a
+                                    624 ;	main.c: 233: PADIER = BUTTON_MASK | PIEZO_MASK;
+      000222 48 17                  625 	mov	a, #0x48
+      000224 8D 00                  626 	mov.io	__padier, a
+                                    627 ;	main.c: 237: __endasm;
+      000226 36 00                  628 	stopsys
+                                    629 ;	main.c: 240: buttonPressed = buttonIsPressed();
+      000228 B0 00                  630 	mov.io	a, __pa
+      00022Ar80r09                  631 	clear	p
+      00022C 40 14                  632 	and	a, #0x40
+      00022Er80r09                  633 	clear	p
+      000230r40r07                  634 	or	a, p
+      000232 01 11                  635 	sub	a, #0x01
+      000234 00 17                  636 	mov	a, #0x00
+      000236 1D 00                  637 	slc	a
+      000238 01 16                  638 	xor	a, #0x01
+                                    639 ;	main.c: 241: PADIER = 0;
+      00023A 32 00                  640 	push	af
+      00023C 00 17                  641 	mov	a, #0x00
+      00023E 8D 00                  642 	mov.io	__padier, a
+      000240 33 00                  643 	pop	af
+                                    644 ;	main.c: 244: if (buttonPressed)
+      000242 00 12                  645 	ceqsn	a, #0x00
+      000244r48r1A                  646 	goto	00109$
+      000246r4Ar1A                  647 	goto	00103$
+      000248                        648 00109$:
+                                    649 ;	main.c: 245: waitForButtonRelease();
+      000248r00r1A                  650 	goto	_waitForButtonRelease
+      00024A                        651 00103$:
+                                    652 ;	main.c: 246: }
+      00024A 3A 00                  653 	ret
+                                    654 ;	main.c: 252: static void setup(void)
+                                    655 ;	-----------------------------------------
+                                    656 ;	 function setup
+                                    657 ;	-----------------------------------------
+      00024C                        658 _setup:
+                                    659 ;	main.c: 255: PA = 0;
+      00024C 00 17                  660 	mov	a, #0x00
+      00024E 90 00                  661 	mov.io	__pa, a
+                                    662 ;	main.c: 256: PAC = LED_MASK;
+      000250 10 17                  663 	mov	a, #0x10
+      000252 91 00                  664 	mov.io	__pac, a
+                                    665 ;	main.c: 257: PAPH = 0;
+      000254 00 17                  666 	mov	a, #0x00
+      000256 92 00                  667 	mov.io	__paph, a
+                                    668 ;	main.c: 258: PADIER = 0;
+      000258 00 17                  669 	mov	a, #0x00
+      00025A 8D 00                  670 	mov.io	__padier, a
+                                    671 ;	main.c: 260: GPCC = 0;
+      00025C 00 17                  672 	mov	a, #0x00
+      00025E 9A 00                  673 	mov.io	__gpcc, a
+                                    674 ;	main.c: 261: GPCS = 0;
+      000260 00 17                  675 	mov	a, #0x00
+      000262 9E 00                  676 	mov.io	__gpcs, a
+                                    677 ;	main.c: 262: TM2C = 0;
+      000264 00 17                  678 	mov	a, #0x00
+      000266 9C 00                  679 	mov.io	__tm2c, a
+                                    680 ;	main.c: 263: T16M = 0;
+      000268 00 17                  681 	mov	a, #0x00
+      00026A 86 00                  682 	mov.io	__t16m, a
+                                    683 ;	main.c: 265: MISC |= MISC_LVR_DISABLE;
+      00026C 5B 0F                  684 	set1.io	__misc, #2
+                                    685 ;	main.c: 273: CLKMD_ENABLE_IHRC);
+      00026E A3 00                  686 	mov.io	a, __clkmd
+      000270 EC 14                  687 	and	a, #0xec
+      000272 83 00                  688 	mov.io	__clkmd, a
+                                    689 ;	main.c: 275: INTEN = 0;
+      000274 00 17                  690 	mov	a, #0x00
+      000276 84 00                  691 	mov.io	__inten, a
+                                    692 ;	main.c: 276: INTRQ = 0;
+      000278 00 17                  693 	mov	a, #0x00
+      00027A 85 00                  694 	mov.io	__intrq, a
+                                    695 ;	main.c: 277: }
+      00027C 3A 00                  696 	ret
+                                    697 ;	main.c: 279: static uint8_t activeAlert(void)
+                                    698 ;	-----------------------------------------
+                                    699 ;	 function activeAlert
+                                    700 ;	-----------------------------------------
+      00027E                        701 _activeAlert:
+                                    702 ;	main.c: 281: uint8_t flashCount = 0;
+      00027ErA3r09                  703 	clear	_activeAlert_sloc12_1_0+0
+                                    704 ;	main.c: 283: while (1)
+      000280                        705 00110$:
+                                    706 ;	main.c: 285: turnLedOn();
+      000280 90 0F                  707 	set1.io	__pa, #4
+                                    708 ;	main.c: 287: if (activeLedPulseDelay())
+      000282r3Ar1C                  709 	call	_activeLedPulseDelay
+      000284 00 12                  710 	ceqsn	a, #0x00
+      000286r8Ar1A                  711 	goto	00134$
+      000288r8Er1A                  712 	goto	00102$
+      00028A                        713 00134$:
+                                    714 ;	main.c: 289: turnLedOff();
+      00028A 90 0E                  715 	set0.io	__pa, #4
+                                    716 ;	main.c: 290: return 1;
+      00028C 01 01                  717 	ret	#0x01
+      00028E                        718 00102$:
+                                    719 ;	main.c: 293: turnLedOff();
+      00028E 90 0E                  720 	set0.io	__pa, #4
+                                    721 ;	main.c: 295: if (++flashCount >= LED_FLASHES_PER_CHIRP)
+      000290r23r09                  722 	inc	_activeAlert_sloc12_1_0+0
+      000292rE3r07                  723 	mov	a, _activeAlert_sloc12_1_0+0
+      000294 05 11                  724 	sub	a, #0x05
+      000296 20 0C                  725 	t0sn.io	f, c
+      000298rA6r1A                  726 	goto	00106$
+                                    727 ;	main.c: 297: flashCount = 0;
+      00029ArA3r09                  728 	clear	_activeAlert_sloc12_1_0+0
+                                    729 ;	main.c: 299: if (startupChirps())
+      00029Cr54r1D                  730 	call	_startupChirps
+      00029E 00 12                  731 	ceqsn	a, #0x00
+      0002A0rA4r1A                  732 	goto	00135$
+      0002A2rA6r1A                  733 	goto	00106$
+      0002A4                        734 00135$:
+                                    735 ;	main.c: 300: return 1;
+      0002A4 01 01                  736 	ret	#0x01
+      0002A6                        737 00106$:
+                                    738 ;	main.c: 307: if (sleepMilliseconds(EVENT_SLEEP_MS, 0))
+      0002A6 E8 17                  739 	mov	a, #0xe8
+      0002A8rCCr05                  740 	mov	_sleepMilliseconds_PARM_1+0, a
+      0002AA 03 17                  741 	mov	a, #0x03
+      0002ACrCDr05                  742 	mov	_sleepMilliseconds_PARM_1+1, a
+      0002AEr8Er09                  743 	clear	_sleepMilliseconds_PARM_2+0
+      0002B0rA2r1C                  744 	call	_sleepMilliseconds
+      0002B2 00 12                  745 	ceqsn	a, #0x00
+      0002B4rB8r1A                  746 	goto	00136$
+      0002B6r80r1A                  747 	goto	00110$
+      0002B8                        748 00136$:
+                                    749 ;	main.c: 308: return 1;
+                                    750 ;	main.c: 310: }
+      0002B8 01 01                  751 	ret	#0x01
+                                    752 ;	main.c: 312: void main(void)
+                                    753 ;	-----------------------------------------
+                                    754 ;	 function main
+                                    755 ;	-----------------------------------------
+      0002BA                        756 _main:
+                                    757 ;	main.c: 314: setup();
+      0002BAr4Cr1E                  758 	call	_setup
+                                    759 ;	main.c: 316: while (1)
+      0002BC                        760 00104$:
+                                    761 ;	main.c: 319: if (startupChirps())
+      0002BCr54r1D                  762 	call	_startupChirps
+      0002BE 00 12                  763 	ceqsn	a, #0x00
+      0002C0rC4r1A                  764 	goto	00116$
+      0002C2rCAr1A                  765 	goto	00102$
+      0002C4                        766 00116$:
+                                    767 ;	main.c: 321: waitForButtonRelease();
+      0002C4r00r1E                  768 	call	_waitForButtonRelease
+                                    769 ;	main.c: 322: deepSleep();
+      0002C6r1Ar1E                  770 	call	_deepSleep
+                                    771 ;	main.c: 323: continue;
+      0002C8rBCr1A                  772 	goto	00104$
+      0002CA                        773 00102$:
+                                    774 ;	main.c: 326: activeAlert();
+      0002CAr7Er1E                  775 	call	_activeAlert
+                                    776 ;	main.c: 327: waitForButtonRelease();
+      0002CCr00r1E                  777 	call	_waitForButtonRelease
+                                    778 ;	main.c: 328: deepSleep();
+      0002CEr1Ar1E                  779 	call	_deepSleep
+      0002D0rBCr1A                  780 	goto	00104$
+                                    781 ;	main.c: 330: }
+      0002D2 3A 00                  782 	ret
+                                    783 ;	main.c: 336: unsigned char STARTUP_FUNCTION(void)
+                                    784 ;	-----------------------------------------
+                                    785 ;	 function _sdcc_external_startup
+                                    786 ;	-----------------------------------------
+      0002D4                        787 __sdcc_external_startup:
+                                    788 ;	main.c: 338: AUTO_INIT_SYSCLOCK();
+      0002D4 F4 17                  789 	mov	a, #0xf4
+      0002D6 83 00                  790 	mov.io	__clkmd, a
+                                    791 ;	main.c: 339: AUTO_CALIBRATE_SYSCLOCK(TARGET_VDD_MV);
+      0002D8 52 14                  792 	and	a, #'R'                       
+      0002DA 43 14                  793 	and	a, #'C'                       
+      0002DC 02 14                  794 	and	a, #(2)            
+      0002DE 20 14                  795 	and	a, #((52000))     
+      0002E0 CB 14                  796 	and	a, #((52000)>>8)  
+      0002E2 00 14                  797 	and	a, #((52000)>>16) 
+      0002E4 00 14                  798 	and	a, #((52000)>>24) 
+      0002E6 F0 14                  799 	and	a, #((2800))     
+      0002E8 0A 14                  800 	and	a, #((2800)>>8)  
+      0002EA 1F 14                  801 	and	a, #(0x1f)             
+                                    802 ;	main.c: 341: return 0;
+                                    803 ;	main.c: 342: }
+      0002EC 00 01                  804 	ret	#0x00
+                                    805 	.area CODE
+                                    806 	.area CONST
+      000000                        807 _chirpPattern:
+      000000 1A 01                  808 	ret #0x1a	; 26
+      000002 28 01                  809 	ret #0x28	; 40
+      000004 00 01                  810 	ret #0x00	; 0
+      000006 00 01                  811 	ret #0x00	; 0
+      000008 0F 01                  812 	ret #0x0f	; 15
+      00000A 00 01                  813 	ret #0x00	; 0
+      00000C 06 01                  814 	ret #0x06	; 6
+      00000E 19 01                  815 	ret #0x19	; 25
+      000010 00 01                  816 	ret #0x00	; 0
+      000012 00 01                  817 	ret #0x00	; 0
+      000014 0F 01                  818 	ret #0x0f	; 15
+      000016 00 01                  819 	ret #0x00	; 0
+      000018 1A 01                  820 	ret #0x1a	; 26
+      00001A 14 01                  821 	ret #0x14	; 20
+      00001C 00 01                  822 	ret #0x00	; 0
+      00001E 00 01                  823 	ret #0x00	; 0
+      000020 0F 01                  824 	ret #0x0f	; 15
+      000022 00 01                  825 	ret #0x00	; 0
+      000024 06 01                  826 	ret #0x06	; 6
+      000026 19 01                  827 	ret #0x19	; 25
+      000028 00 01                  828 	ret #0x00	; 0
+      00002A 00 01                  829 	ret #0x00	; 0
+      00002C 0F 01                  830 	ret #0x0f	; 15
+      00002E 00 01                  831 	ret #0x00	; 0
+      000030 1A 01                  832 	ret #0x1a	; 26
+      000032 28 01                  833 	ret #0x28	; 40
+      000034 00 01                  834 	ret #0x00	; 0
+      000036 00 01                  835 	ret #0x00	; 0
+      000038 19 01                  836 	ret #0x19	; 25
+      00003A 00 01                  837 	ret #0x00	; 0
+                                    838 	.area CABS (ABS)

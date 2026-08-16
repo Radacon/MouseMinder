@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build and upload Easy PDK firmware",
+            "type": "shell",
+            "command": "$env:Path = 'C:\\msys64\\ucrt64\\bin;C:\\msys64\\usr\\bin;' + $env:Path; & 'C:\\msys64\\usr\\bin\\make.exe' -j4; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; & 'C:\\msys64\\ucrt64\\bin\\dfu-util.exe' -d 0483:df11 -a 0 --dfuse-address 0x08000000:leave -D 'build\\EASYPDKPROG.bin'; exit $LASTEXITCODE",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": "$gcc",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "clear": true
+            }
+        }
+    ]
+}

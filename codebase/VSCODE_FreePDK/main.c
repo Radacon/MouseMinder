@@ -31,7 +31,7 @@
 
 #define LED_PULSE_MS               10u
 #define EVENT_SLEEP_MS           1000u
-#define LED_FLASHES_PER_CHIRP       4u
+#define LED_FLASHES_PER_CHIRP       5u
 
 /*------------------------------------------------------------------
   Pins
@@ -54,17 +54,22 @@
  ------------------------------------------------------------------*/
 
 /*
- * Timer16 uses undivided ILRC and wakes on the falling edge of bit 15.
- * Loading 65536 - ticks therefore gives a delay of "ticks" ILRC clocks.
+ * Timer16 uses undivided ILRC and wakes on the rising edge of bit 15.
+ * Each preload stays below 0x8000, making that rising edge the next bit-15
+ * transition.  Longer delays are split into 500 ms sleeps below.
  */
 #define TIMER16_SLEEP_CONFIG \
     (T16M_CLK_ILRC | T16M_CLK_DIV1 | T16M_INTSRC_15BIT)
 
-#define MS_TO_ILRC_TICKS(ms) \
-    ((uint16_t)(((uint32_t)(ms) * (uint32_t)F_CPU + 999u) / 1000u))
+#if (F_CPU % 1000u) != 0
+#error "Timer16 millisecond sleeps require F_CPU divisible by 1000"
+#endif
 
-#define sleepMilliseconds(ms, piezoWake) \
-    sleepTicks(MS_TO_ILRC_TICKS(ms), piezoWake)
+#define ILRC_TICKS_PER_MS (F_CPU / 1000u)
+
+#if ILRC_TICKS_PER_MS != 52u
+#error "Update millisecondsToTicks for the configured F_CPU"
+#endif
 
 static uint16_t timer16Load;
 
@@ -95,11 +100,11 @@ static uint8_t sleepTicks(uint16_t ticks, uint8_t piezoWake)
     uint8_t buttonPressed;
 
     T16M = (uint8_t)TIMER16_SLEEP_CONFIG;
-    timer16Load = (uint16_t)(65535u - ticks + 1u);
+    timer16Load = (uint16_t)(32768u - ticks);
     __asm
         stt16 _timer16Load
     __endasm;
-    INTEGS |= INTEGS_T16_FALLING;
+    INTEGS &= (uint8_t)~INTEGS_T16_FALLING;
     INTRQ &= (uint8_t)~INTRQ_T16;
 
     /*
@@ -119,6 +124,29 @@ static uint8_t sleepTicks(uint16_t ticks, uint8_t piezoWake)
     INTRQ &= (uint8_t)~INTRQ_T16;
 
     return buttonPressed;
+}
+
+static uint8_t sleepMilliseconds(uint16_t milliseconds, uint8_t piezoWake)
+{
+    uint16_t ticks;
+
+    while (milliseconds > 500u)
+    {
+        if (sleepTicks((uint16_t)(F_CPU / 2u), piezoWake))
+            return 1;
+
+        milliseconds -= 500u;
+    }
+
+    if (!milliseconds)
+        return 0;
+
+    /* 52 ticks/ms = 32 + 16 + 4; avoid SDCC's multiply helper. */
+    ticks = (uint16_t)((milliseconds << 5) +
+                       (milliseconds << 4) +
+                       (milliseconds << 2));
+
+    return sleepTicks(ticks, piezoWake);
 }
 
 /*------------------------------------------------------------------

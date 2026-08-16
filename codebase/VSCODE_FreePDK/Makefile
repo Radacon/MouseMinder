@@ -25,6 +25,8 @@ OBJECTS = $(patsubst %.c,$(BUILD_DIR)/%.rel,$(SOURCES))
 COMPILE = sdcc -m$(ARCH) -c --std-sdcc11 --opt-code-size -D$(DEVICE) -DF_CPU=$(F_CPU) -DTARGET_VDD_MV=$(TARGET_VDD_MV) -I. -I$(ROOT_DIR)/include
 LINK = sdcc -m$(ARCH)
 EASYPDKPROG = /mnt/c/EASYPDKPROG/easypdkprog.exe
+PROGRAM_FREQUENCY = 10000
+PROGRAM_PHASE = 20
 
 # symbolic targets:
 all: size
@@ -53,7 +55,7 @@ size: build
 	@stat -L --printf "Size of $(OUTPUT_NAME).bin: %s bytes\n" $(OUTPUT).bin
 
 program: size
-	$(EASYPDKPROG) -n $(DEVICE) write $(OUTPUT).ihx
+	$(EASYPDKPROG) --frequency $(PROGRAM_FREQUENCY) --phase $(PROGRAM_PHASE) -n $(DEVICE) write $(OUTPUT).ihx
 
 run:
 	$(EASYPDKPROG) -r $(TARGET_VDD) start
