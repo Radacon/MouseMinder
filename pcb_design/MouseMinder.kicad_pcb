@@ -1282,7 +1282,7 @@
 			(uuid "18685584-12e8-4691-b925-d6fd3019f908")
 		)
 		(embedded_fonts no)
-		(model "${KICAD9_3DMODEL_DIR}/Button_Switch_SMD.3dshapes/SW_Push_1P1T_XKB_TS-1187A.step"
+		(model "${CUSTOM_3D_MODELS}/LCK_tactile_switch_H18_detailed.step"
 			(offset
 				(xyz 0 0 0)
 			)
