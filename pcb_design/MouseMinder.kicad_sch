@@ -33629,7 +33629,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLC_MPN" "C2909627"
+		(property "JLC_MPN" "C14663"
 			(at 256.54 26.67 0)
 			(effects
 				(font
@@ -33638,7 +33638,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "C2909627"
+		(property "MPN" "C14663"
 			(at 256.54 26.67 0)
 			(effects
 				(font
@@ -34030,7 +34030,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "C2785067"
+		(property "MPN" "C22775"
 			(at 149.86 63.5 90)
 			(effects
 				(font
@@ -34039,7 +34039,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLC_MPN" "C2785067"
+		(property "JLC_MPN" "C22775"
 			(at 149.86 63.5 90)
 			(effects
 				(font
@@ -34312,7 +34312,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "C2785067"
+		(property "MPN" "C22775"
 			(at 138.43 102.87 90)
 			(effects
 				(font
@@ -34321,7 +34321,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLC_MPN" "C2785067"
+		(property "JLC_MPN" "C22775"
 			(at 138.43 102.87 90)
 			(effects
 				(font
@@ -34482,7 +34482,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "C2785067"
+		(property "MPN" "C22775"
 			(at 138.43 99.06 90)
 			(effects
 				(font
@@ -34491,7 +34491,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLC_MPN" "C2785067"
+		(property "JLC_MPN" "C22775"
 			(at 138.43 99.06 90)
 			(effects
 				(font

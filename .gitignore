@@ -69,3 +69,6 @@ Thumbs.db
 *.code-workspace
 
 private/
+
+# Generated PCB panels and production-ready manufacturing packages.
+pcb_design/panelization/

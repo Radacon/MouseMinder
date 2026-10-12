@@ -1,0 +1,57 @@
+{
+  "layout": {
+    "type": "grid",
+    "rows": 4,
+    "cols": 5,
+    "hspace": "2mm",
+    "vspace": "2mm",
+    "renamenet": "Board_{n}-{orig}",
+    "renameref": "Board_{n}-{orig}"
+  },
+  "tabs": {
+    "type": "spacing",
+    "spacing": "15mm",
+    "hwidth": "4mm",
+    "vwidth": "4mm"
+  },
+  "cuts": {
+    "type": "mousebites",
+    "drill": "0.5mm",
+    "spacing": "0.8mm",
+    "offset": "0mm",
+    "prolong": "0.5mm"
+  },
+  "framing": {
+    "type": "frame",
+    "width": "10mm",
+    "hspace": "2mm",
+    "vspace": "2mm",
+    "cuts": "both",
+    "chamfer": "1mm",
+    "maxtotalwidth": "250mm",
+    "maxtotalheight": "250mm"
+  },
+  "tooling": {
+    "type": "3hole",
+    "hoffset": "7mm",
+    "voffset": "7mm",
+    "size": "2mm",
+    "paste": false,
+    "soldermaskmargin": "1mm"
+  },
+  "fiducials": {
+    "type": "3fid",
+    "hoffset": "3.85mm",
+    "voffset": "3.85mm",
+    "coppersize": "1mm",
+    "opening": "2mm",
+    "paste": false
+  },
+  "post": {
+    "type": "auto",
+    "origin": "tl",
+    "refillzones": true,
+    "dimensions": true,
+    "edgewidth": "0.1mm"
+  }
+}
