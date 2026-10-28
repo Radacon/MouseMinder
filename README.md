@@ -127,3 +127,13 @@ If you are picking up the project fresh, start with:
 - `pcb_design/MouseMinder.kicad_pcb`
 - `codebase/ardu_tiny_toaster.ino`
 - `codebase/gui.py`
+
+## PMS150C Firmware Releases
+
+Production PMS150C firmware is published only from tags named `firmware-vMAJOR.MINOR.PATCH` that point to a commit already on `main`. The tag-only GitHub Actions workflow builds `codebase/VSCODE_FreePDK` and publishes three immutable release assets:
+
+- `slowclocksleep_PMS150C.bin`
+- `slowclocksleep_PMS150C.bin.sha256`
+- `mouseminder-firmware.json`
+
+The manifest records the full commit, build toolchain, PMS150C memory contract, calibration target, asset size, and SHA-256. The production programmer must still require explicit WordPress administrator approval and verify the downloaded binary against the approved manifest before programming.
