@@ -1,6 +1,13 @@
 import unittest
 
-from create_firmware_release import inspect_binary
+from create_firmware_release import (
+    LEGAL_WORDS,
+    METADATA_END_WORD,
+    METADATA_START_WORD,
+    build_reserved_image,
+    goto_word,
+    inspect_binary,
+)
 
 
 class FirmwareReleaseTests(unittest.TestCase):
@@ -23,6 +30,19 @@ class FirmwareReleaseTests(unittest.TestCase):
     def test_rejects_trailing_host_blank_words(self):
         with self.assertRaisesRegex(ValueError, "trailing host blank"):
             inspect_binary(b"\x01\x00\xff\xff")
+
+    def test_build_reserves_metadata_region_with_execution_guards(self):
+        source = b"\x01\x00\x02\x00"
+        image = build_reserved_image(source, 1)
+        self.assertEqual(len(image), LEGAL_WORDS * 2)
+        self.assertEqual(image[:4], source)
+        self.assertEqual(int.from_bytes(image[METADATA_START_WORD * 2:METADATA_START_WORD * 2 + 2], "little"), goto_word(METADATA_START_WORD))
+        self.assertEqual(int.from_bytes(image[METADATA_END_WORD * 2:METADATA_END_WORD * 2 + 2], "little"), goto_word(METADATA_END_WORD))
+        self.assertEqual(image[(METADATA_START_WORD + 1) * 2:(METADATA_START_WORD + 2) * 2], b"\xff\xff")
+
+    def test_rejects_code_collision_with_metadata_region(self):
+        with self.assertRaisesRegex(ValueError, "collides"):
+            build_reserved_image(b"\x01\x00", METADATA_START_WORD)
 
 
 if __name__ == "__main__":

@@ -28,6 +28,11 @@ EASYPDKPROG = /mnt/c/EASYPDKPROG/easypdkprog.exe
 PROGRAM_FREQUENCY = 40000
 PROGRAM_PHASE = 10
 
+# The tagged-release packager fails closed if linked code reaches this word.
+# Words 0x300..0x3F5 are reserved for per-unit production metadata.
+METADATA_START_WORD = 0x300
+METADATA_END_WORD = 0x3F5
+
 # symbolic targets:
 all: size
 
