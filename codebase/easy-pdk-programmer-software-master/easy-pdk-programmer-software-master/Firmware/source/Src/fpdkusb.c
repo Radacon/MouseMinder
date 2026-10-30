@@ -29,6 +29,12 @@ static const uint32_t FPDK_LED_UART_RX = 1;
 static const uint32_t FPDK_LED_UART_TX = 2;
 static const uint32_t FPDK_LED_IC      = 3;
 
+#define MOUSEMINDER_PMS150C_ID12BIT       0x0A16U
+#define MOUSEMINDER_PRESENCE_SAMPLES      3U
+#define MOUSEMINDER_PRESENCE_VPP_MV    4500U
+#define MOUSEMINDER_PRESENCE_VDD_MV    2000U
+#define MOUSEMINDER_PRESENCE_DATA_BITS    16U
+
 static uint8_t  _packetbuf[256+2];
 static uint32_t _packetbufpos = 0;
 
@@ -202,6 +208,28 @@ bool _FPDKUSB_HandleCmd(const FPDKPROTO_CMD cmd, const uint8_t* dat, const uint3
           return false;
 
         _FPDKUSB_Ack( ((uint8_t*)_ic_rw_buffer) + data_offs, outlen);
+      }
+      break;
+
+    case FPDKPROTO_CMD_DETECTPMS150C:
+      {
+        if( len != 0 ) return false;
+        uint32_t last_ic_id = 0;
+        uint32_t matching_samples = 0;
+        FPDK_SetLed(FPDK_LED_IC,true);
+        for( uint32_t sample = 0; sample < MOUSEMINDER_PRESENCE_SAMPLES; sample++ )
+        {
+          last_ic_id = FPDK_DetectIC(FPDK_IC_OTP1_2,
+                                      MOUSEMINDER_PRESENCE_VPP_MV,
+                                      MOUSEMINDER_PRESENCE_VDD_MV,
+                                      MOUSEMINDER_PRESENCE_DATA_BITS);
+          if( ((last_ic_id >> 6U) & 0x0FFFU) == MOUSEMINDER_PMS150C_ID12BIT )
+            matching_samples++;
+        }
+        FPDK_SetLed(FPDK_LED_IC,false);
+        uint32_t r[] = {last_ic_id & 0x7FFFFFFFU, matching_samples,
+                        MOUSEMINDER_PRESENCE_SAMPLES, FPDK_IC_OTP1_2};
+        _FPDKUSB_Ack((uint8_t*)&r, sizeof(r));
       }
       break;
 

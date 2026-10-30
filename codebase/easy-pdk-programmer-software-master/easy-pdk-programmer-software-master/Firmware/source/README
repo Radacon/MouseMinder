@@ -34,3 +34,20 @@ Update firmware on Easy PDK Programmer:
 6. UNPLUG USB from Easy PDK programmer
 
 
+MouseMinder PMS150C presence extension
+--------------------------------------
+
+Protocol 1.5 adds command `N` with an empty payload. The firmware performs
+three targeted PMS150C probes at 4.5 V VPP / 2.0 V VDD and returns four
+little-endian uint32 values:
+
+1. Last raw IC response
+2. Number of samples matching PMS150C ID 0xA16
+3. Total samples (3)
+4. IC type (0x12)
+
+Three matches means stably present, zero means stably absent, and one or two
+means unstable contact. Each sample leaves programming mode before any OTP
+write is executed and switches the rails off.
+
+

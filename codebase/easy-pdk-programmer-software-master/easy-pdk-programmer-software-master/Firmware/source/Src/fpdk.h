@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <stdint.h>
 
-#define __FPDKSW__ "1.4"
+#define __FPDKSW__ "1.5"
 #define __FPDKHW__ "1.2"
 
 typedef enum FPDKHWVARIANT
@@ -59,6 +59,7 @@ uint32_t FPDK_GetAdcVdd(void);
 uint32_t FPDK_GetAdcVpp(void);
 
 uint32_t FPDK_ProbeIC(FPDKICTYPE* type, uint32_t* vpp_cmd, uint32_t* vdd_cmd);
+uint32_t FPDK_DetectIC(FPDKICTYPE type, uint32_t vpp_cmd, uint32_t vdd_cmd, uint8_t data_bits);
 
 uint16_t FPDK_ReadIC(const uint16_t ic_id,
                      const FPDKICTYPE type,

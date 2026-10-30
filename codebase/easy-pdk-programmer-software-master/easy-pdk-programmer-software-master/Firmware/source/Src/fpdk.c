@@ -743,6 +743,11 @@ static uint32_t _FPDK_GetIDIC(const FPDKICTYPE type, const uint32_t vpp_cmd, con
   return ic_id;
 }
 
+uint32_t FPDK_DetectIC(const FPDKICTYPE type, const uint32_t vpp_cmd, const uint32_t vdd_cmd, const uint8_t data_bits)
+{
+  return _FPDK_GetIDIC(type, vpp_cmd, vdd_cmd, data_bits);
+}
+
 uint32_t FPDK_ProbeIC(FPDKICTYPE* type, uint32_t* vpp_cmd, uint32_t* vdd_cmd)
 {
   //try to get IC with low voltages
