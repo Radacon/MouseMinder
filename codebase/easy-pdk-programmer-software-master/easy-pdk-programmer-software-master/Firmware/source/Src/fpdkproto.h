@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef __FPDKPROTO_H_
 #define __FPDKPROTO_H_
 
-#define __FPDKPROTO__ "1.5"
+#define __FPDKPROTO__ "1.6"
 
 typedef enum FPDKPROTO_CMD
 {
@@ -43,6 +43,7 @@ typedef enum FPDKPROTO_CMD
   FPDKPROTO_CMD_CALIBRATEIC  = 'C',
 
   FPDKPROTO_CMD_EXECUTEIC    = 'X',
+  FPDKPROTO_CMD_SAMPLEQCPINS = 'J',
   FPDKPROTO_CMD_STOPIC       = 'Q',
   FPDKPROTO_CMD_DBGDAT       = 'D',
 

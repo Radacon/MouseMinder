@@ -34,6 +34,8 @@ static const uint32_t FPDK_LED_IC      = 3;
 #define MOUSEMINDER_PRESENCE_VPP_MV    4500U
 #define MOUSEMINDER_PRESENCE_VDD_MV    2000U
 #define MOUSEMINDER_PRESENCE_DATA_BITS    16U
+#define MOUSEMINDER_QC_SAMPLE_MIN_MS      50U
+#define MOUSEMINDER_QC_SAMPLE_MAX_MS   10000U
 
 static uint8_t  _packetbuf[256+2];
 static uint32_t _packetbufpos = 0;
@@ -478,7 +480,23 @@ bool _FPDKUSB_HandleCmd(const FPDKPROTO_CMD cmd, const uint8_t* dat, const uint3
       FPDK_SetLed(FPDK_LED_IC,false);
       FPDK_SetLed(FPDK_LED_UART_RX, false);
       FPDK_SetLed(FPDK_LED_UART_TX, false);
+      _ic_is_running = false;
       _FPDKUSB_Ack(0, 0);
+      break;
+
+    case FPDKPROTO_CMD_SAMPLEQCPINS:
+      {
+        if( len != sizeof(uint32_t) || !_ic_is_running )
+          return false;
+        uint32_t duration_ms;
+        memcpy(&duration_ms, &dat[0], sizeof(uint32_t));
+        if( duration_ms < MOUSEMINDER_QC_SAMPLE_MIN_MS || duration_ms > MOUSEMINDER_QC_SAMPLE_MAX_MS )
+          return false;
+        uint32_t r[6];
+        FPDK_SampleQCPins(duration_ms, &r[0], &r[1], &r[2], &r[3], &r[4]);
+        r[5] = duration_ms;
+        _FPDKUSB_Ack((uint8_t*)&r, sizeof(r));
+      }
       break;
 
     case FPDKPROTO_CMD_DBGDAT:
