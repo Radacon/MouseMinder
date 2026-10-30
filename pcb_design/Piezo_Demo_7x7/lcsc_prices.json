@@ -1,0 +1,3188 @@
+{
+  "source": "LCSC live product detail API",
+  "retrieved_utc": "2026-10-20T14:31:53.817245+00:00",
+  "prices": {
+    "C128017": {
+      "mpn": "HNR-1407A",
+      "currency": "$",
+      "qty_1_unit_usd": null,
+      "qty_500_unit_usd": 0.1172,
+      "price_tiers": [
+        {
+          "ladder": 5,
+          "productPrice": "0.1980",
+          "usdPrice": 0.198,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.198,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 50,
+          "productPrice": "0.1780",
+          "usdPrice": 0.178,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.178,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 150,
+          "productPrice": "0.1279",
+          "usdPrice": 0.1279,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1279,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.1172",
+          "usdPrice": 0.1172,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1172,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 2500,
+          "productPrice": "0.1124",
+          "usdPrice": 0.1124,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1124,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 5000,
+          "productPrice": "0.1095",
+          "usdPrice": 0.1095,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1095,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C129400": {
+      "mpn": "HNR-1707",
+      "currency": "$",
+      "qty_1_unit_usd": null,
+      "qty_500_unit_usd": 0.0863,
+      "price_tiers": [
+        {
+          "ladder": 5,
+          "productPrice": "0.1523",
+          "usdPrice": 0.1523,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1523,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 50,
+          "productPrice": "0.1187",
+          "usdPrice": 0.1187,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1187,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 150,
+          "productPrice": "0.1043",
+          "usdPrice": 0.1043,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1043,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.0863",
+          "usdPrice": 0.0863,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0863,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 2500,
+          "productPrice": "0.0783",
+          "usdPrice": 0.0783,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0783,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 5000,
+          "productPrice": "0.0735",
+          "usdPrice": 0.0735,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0735,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C20181991": {
+      "mpn": "CPT-9019A-SMT-TR",
+      "currency": "$",
+      "qty_1_unit_usd": 2.0916,
+      "qty_500_unit_usd": 1.2968,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "2.0916",
+          "usdPrice": 2.0916,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 2.0916,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "1.7888",
+          "usdPrice": 1.7888,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 1.7888,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "1.5979",
+          "usdPrice": 1.5979,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 1.5979,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "1.3857",
+          "usdPrice": 1.3857,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 1.3857,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "1.2968",
+          "usdPrice": 1.2968,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 1.2968,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1500,
+          "productPrice": "1.2590",
+          "usdPrice": 1.259,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 1.259,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C22387762": {
+      "mpn": "HNR-1407PA7.5",
+      "currency": "$",
+      "qty_1_unit_usd": null,
+      "qty_500_unit_usd": 0.0348,
+      "price_tiers": [
+        {
+          "ladder": 10,
+          "productPrice": "0.0514",
+          "usdPrice": 0.0514,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0514,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.0403",
+          "usdPrice": 0.0403,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0403,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 300,
+          "productPrice": "0.0348",
+          "usdPrice": 0.0348,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0348,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.0307",
+          "usdPrice": 0.0307,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0307,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 5000,
+          "productPrice": "0.0274",
+          "usdPrice": 0.0274,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0274,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10000,
+          "productPrice": "0.0257",
+          "usdPrice": 0.0257,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0257,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C22387765": {
+      "mpn": "HNR-1207PA6.5",
+      "currency": "$",
+      "qty_1_unit_usd": null,
+      "qty_500_unit_usd": 0.0599,
+      "price_tiers": [
+        {
+          "ladder": 5,
+          "productPrice": "0.1009",
+          "usdPrice": 0.1009,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1009,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 50,
+          "productPrice": "0.0790",
+          "usdPrice": 0.079,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.079,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 150,
+          "productPrice": "0.0681",
+          "usdPrice": 0.0681,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0681,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.0599",
+          "usdPrice": 0.0599,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0599,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 2500,
+          "productPrice": "0.0533",
+          "usdPrice": 0.0533,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0533,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 5000,
+          "productPrice": "0.0500",
+          "usdPrice": 0.05,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.05,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C252954": {
+      "mpn": "GPC1708AT-5V4000",
+      "currency": "$",
+      "qty_1_unit_usd": null,
+      "qty_500_unit_usd": 0.1749,
+      "price_tiers": [
+        {
+          "ladder": 5,
+          "productPrice": "0.2588",
+          "usdPrice": 0.2588,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2588,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 50,
+          "productPrice": "0.2046",
+          "usdPrice": 0.2046,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2046,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 300,
+          "productPrice": "0.1749",
+          "usdPrice": 0.1749,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1749,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 600,
+          "productPrice": "0.1459",
+          "usdPrice": 0.1459,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1459,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 2400,
+          "productPrice": "0.1330",
+          "usdPrice": 0.133,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.133,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 5100,
+          "productPrice": "0.1253",
+          "usdPrice": 0.1253,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1253,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C252964": {
+      "mpn": "GPC2316YB-5V",
+      "currency": "$",
+      "qty_1_unit_usd": 0.5831,
+      "qty_500_unit_usd": 0.3236,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "0.5831",
+          "usdPrice": 0.5831,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.5831,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.4698",
+          "usdPrice": 0.4698,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.4698,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.4123",
+          "usdPrice": 0.4123,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.4123,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.3565",
+          "usdPrice": 0.3565,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3565,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.3236",
+          "usdPrice": 0.3236,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3236,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.3055",
+          "usdPrice": 0.3055,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3055,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C252966": {
+      "mpn": "GPC2416YB-5V3700",
+      "currency": "$",
+      "qty_1_unit_usd": 0.4789,
+      "qty_500_unit_usd": 0.3604,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "0.4789",
+          "usdPrice": 0.4789,
+          "cnyProductPriceList": null,
+          "discountRate": "0.5400",
+          "currencyPrice": 0.4789,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.4262",
+          "usdPrice": 0.4262,
+          "cnyProductPriceList": null,
+          "discountRate": "0.5400",
+          "currencyPrice": 0.4262,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.4015",
+          "usdPrice": 0.4015,
+          "cnyProductPriceList": null,
+          "discountRate": "0.5400",
+          "currencyPrice": 0.4015,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.3752",
+          "usdPrice": 0.3752,
+          "cnyProductPriceList": null,
+          "discountRate": "0.5400",
+          "currencyPrice": 0.3752,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.3604",
+          "usdPrice": 0.3604,
+          "cnyProductPriceList": null,
+          "discountRate": "0.5400",
+          "currencyPrice": 0.3604,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.3522",
+          "usdPrice": 0.3522,
+          "cnyProductPriceList": null,
+          "discountRate": "0.5400",
+          "currencyPrice": 0.3522,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C255330": {
+      "mpn": "GSC1030RB-3V4000",
+      "currency": "$",
+      "qty_1_unit_usd": 0.5447,
+      "qty_500_unit_usd": 0.3659,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "0.5447",
+          "usdPrice": 0.5447,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.5447,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.4856",
+          "usdPrice": 0.4856,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.4856,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.4561",
+          "usdPrice": 0.4561,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.4561,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.4282",
+          "usdPrice": 0.4282,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.4282,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.3659",
+          "usdPrice": 0.3659,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3659,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.3577",
+          "usdPrice": 0.3577,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3577,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C255331": {
+      "mpn": "GSC1031YB-3V4000",
+      "currency": "$",
+      "qty_1_unit_usd": 0.821,
+      "qty_500_unit_usd": 0.4541,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "0.8210",
+          "usdPrice": 0.821,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.821,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.6614",
+          "usdPrice": 0.6614,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.6614,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.5808",
+          "usdPrice": 0.5808,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.5808,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.5018",
+          "usdPrice": 0.5018,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.5018,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.4541",
+          "usdPrice": 0.4541,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.4541,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.4294",
+          "usdPrice": 0.4294,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.4294,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C255333": {
+      "mpn": "GSC1230YB-3V4000",
+      "currency": "$",
+      "qty_1_unit_usd": 1.1718,
+      "qty_500_unit_usd": 0.6761,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "1.1718",
+          "usdPrice": 1.1718,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 1.1718,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.9690",
+          "usdPrice": 0.969,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.969,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.8579",
+          "usdPrice": 0.8579,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.8579,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.7324",
+          "usdPrice": 0.7324,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.7324,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.6761",
+          "usdPrice": 0.6761,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.6761,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.6519",
+          "usdPrice": 0.6519,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.6519,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C255334": {
+      "mpn": "GSC1325YB-3V4000",
+      "currency": "$",
+      "qty_1_unit_usd": 1.1884,
+      "qty_500_unit_usd": 0.6569,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "1.1884",
+          "usdPrice": 1.1884,
+          "cnyProductPriceList": null,
+          "discountRate": "0.1000",
+          "currencyPrice": 1.1884,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.9885",
+          "usdPrice": 0.9885,
+          "cnyProductPriceList": null,
+          "discountRate": "0.1000",
+          "currencyPrice": 0.9885,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.8790",
+          "usdPrice": 0.879,
+          "cnyProductPriceList": null,
+          "discountRate": "0.1000",
+          "currencyPrice": 0.879,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.7552",
+          "usdPrice": 0.7552,
+          "cnyProductPriceList": null,
+          "discountRate": "0.1000",
+          "currencyPrice": 0.7552,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.6569",
+          "usdPrice": 0.6569,
+          "cnyProductPriceList": null,
+          "discountRate": "0.1000",
+          "currencyPrice": 0.6569,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.6315",
+          "usdPrice": 0.6315,
+          "cnyProductPriceList": null,
+          "discountRate": "0.1000",
+          "currencyPrice": 0.6315,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C255337": {
+      "mpn": "GSC14045YB-3V4000",
+      "currency": "$",
+      "qty_1_unit_usd": 0.6537,
+      "qty_500_unit_usd": 0.4915,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "0.6537",
+          "usdPrice": 0.6537,
+          "cnyProductPriceList": null,
+          "discountRate": "0.5200",
+          "currencyPrice": 0.6537,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.5828",
+          "usdPrice": 0.5828,
+          "cnyProductPriceList": null,
+          "discountRate": "0.5200",
+          "currencyPrice": 0.5828,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.5482",
+          "usdPrice": 0.5482,
+          "cnyProductPriceList": null,
+          "discountRate": "0.5200",
+          "currencyPrice": 0.5482,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.5135",
+          "usdPrice": 0.5135,
+          "cnyProductPriceList": null,
+          "discountRate": "0.5200",
+          "currencyPrice": 0.5135,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.4915",
+          "usdPrice": 0.4915,
+          "cnyProductPriceList": null,
+          "discountRate": "0.5200",
+          "currencyPrice": 0.4915,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.4804",
+          "usdPrice": 0.4804,
+          "cnyProductPriceList": null,
+          "discountRate": "0.5200",
+          "currencyPrice": 0.4804,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C255339": {
+      "mpn": "GSC1750YB-3V4000",
+      "currency": "$",
+      "qty_1_unit_usd": 1.1884,
+      "qty_500_unit_usd": 0.7552,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "1.1884",
+          "usdPrice": 1.1884,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 1.1884,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.9885",
+          "usdPrice": 0.9885,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.9885,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.8790",
+          "usdPrice": 0.879,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.879,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.7552",
+          "usdPrice": 0.7552,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.7552,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 600,
+          "productPrice": "0.6569",
+          "usdPrice": 0.6569,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.6569,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1200,
+          "productPrice": "0.6331",
+          "usdPrice": 0.6331,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.6331,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C2972852": {
+      "mpn": "FUET-1760",
+      "currency": "$",
+      "qty_1_unit_usd": 0.8709,
+      "qty_500_unit_usd": 0.4785,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "0.8709",
+          "usdPrice": 0.8709,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.8709,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.7023",
+          "usdPrice": 0.7023,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.7023,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.6196",
+          "usdPrice": 0.6196,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.6196,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.5352",
+          "usdPrice": 0.5352,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.5352,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.4785",
+          "usdPrice": 0.4785,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.4785,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 800,
+          "productPrice": "0.4525",
+          "usdPrice": 0.4525,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.4525,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C360603": {
+      "mpn": "SFN-1407PA7.6",
+      "currency": "$",
+      "qty_1_unit_usd": null,
+      "qty_500_unit_usd": 0.0519,
+      "price_tiers": [
+        {
+          "ladder": 10,
+          "productPrice": "0.0719",
+          "usdPrice": 0.0719,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0719,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.0564",
+          "usdPrice": 0.0564,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0564,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 300,
+          "productPrice": "0.0519",
+          "usdPrice": 0.0519,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0519,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.0461",
+          "usdPrice": 0.0461,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0461,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 5000,
+          "productPrice": "0.0414",
+          "usdPrice": 0.0414,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0414,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10000,
+          "productPrice": "0.0391",
+          "usdPrice": 0.0391,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0391,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C360604": {
+      "mpn": "SFN-14045PA7.6",
+      "currency": "$",
+      "qty_1_unit_usd": null,
+      "qty_500_unit_usd": 0.0541,
+      "price_tiers": [
+        {
+          "ladder": 5,
+          "productPrice": "0.0790",
+          "usdPrice": 0.079,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.079,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 50,
+          "productPrice": "0.0624",
+          "usdPrice": 0.0624,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0624,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 150,
+          "productPrice": "0.0541",
+          "usdPrice": 0.0541,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0541,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.0520",
+          "usdPrice": 0.052,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.052,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 2000,
+          "productPrice": "0.0470",
+          "usdPrice": 0.047,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.047,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 5000,
+          "productPrice": "0.0445",
+          "usdPrice": 0.0445,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0445,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C360605": {
+      "mpn": "SFN-1207PA7.6",
+      "currency": "$",
+      "qty_1_unit_usd": null,
+      "qty_500_unit_usd": 0.0654,
+      "price_tiers": [
+        {
+          "ladder": 5,
+          "productPrice": "0.0939",
+          "usdPrice": 0.0939,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0939,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 50,
+          "productPrice": "0.0749",
+          "usdPrice": 0.0749,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0749,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 150,
+          "productPrice": "0.0654",
+          "usdPrice": 0.0654,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0654,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.0551",
+          "usdPrice": 0.0551,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0551,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 2000,
+          "productPrice": "0.0494",
+          "usdPrice": 0.0494,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0494,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 5000,
+          "productPrice": "0.0465",
+          "usdPrice": 0.0465,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0465,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C360607": {
+      "mpn": "SFN-12055PA6.5",
+      "currency": "$",
+      "qty_1_unit_usd": null,
+      "qty_500_unit_usd": 0.0517,
+      "price_tiers": [
+        {
+          "ladder": 5,
+          "productPrice": "0.0920",
+          "usdPrice": 0.092,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.092,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 50,
+          "productPrice": "0.0730",
+          "usdPrice": 0.073,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.073,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 200,
+          "productPrice": "0.0588",
+          "usdPrice": 0.0588,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0588,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.0517",
+          "usdPrice": 0.0517,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0517,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 2500,
+          "productPrice": "0.0460",
+          "usdPrice": 0.046,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.046,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 5000,
+          "productPrice": "0.0432",
+          "usdPrice": 0.0432,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0432,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C360608": {
+      "mpn": "SFN-17075PA10",
+      "currency": "$",
+      "qty_1_unit_usd": null,
+      "qty_500_unit_usd": 0.0751,
+      "price_tiers": [
+        {
+          "ladder": 8,
+          "productPrice": "0.1138",
+          "usdPrice": 0.1138,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1138,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 80,
+          "productPrice": "0.0869",
+          "usdPrice": 0.0869,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0869,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 240,
+          "productPrice": "0.0751",
+          "usdPrice": 0.0751,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0751,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 800,
+          "productPrice": "0.0662",
+          "usdPrice": 0.0662,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0662,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 4000,
+          "productPrice": "0.0592",
+          "usdPrice": 0.0592,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0592,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 8000,
+          "productPrice": "0.0556",
+          "usdPrice": 0.0556,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0556,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C360618": {
+      "mpn": "SFN-1207PA6.5",
+      "currency": "$",
+      "qty_1_unit_usd": null,
+      "qty_500_unit_usd": 0.0465,
+      "price_tiers": [
+        {
+          "ladder": 5,
+          "productPrice": "0.0810",
+          "usdPrice": 0.081,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.081,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 50,
+          "productPrice": "0.0637",
+          "usdPrice": 0.0637,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0637,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 200,
+          "productPrice": "0.0531",
+          "usdPrice": 0.0531,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0531,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.0465",
+          "usdPrice": 0.0465,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0465,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 2500,
+          "productPrice": "0.0414",
+          "usdPrice": 0.0414,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0414,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 5000,
+          "productPrice": "0.0387",
+          "usdPrice": 0.0387,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0387,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C391036": {
+      "mpn": "FUET-1109",
+      "currency": "$",
+      "qty_1_unit_usd": 0.5092,
+      "qty_500_unit_usd": 0.262,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "0.5092",
+          "usdPrice": 0.5092,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.5092,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.3972",
+          "usdPrice": 0.3972,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3972,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.3477",
+          "usdPrice": 0.3477,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3477,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.2884",
+          "usdPrice": 0.2884,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2884,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.2620",
+          "usdPrice": 0.262,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.262,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.2456",
+          "usdPrice": 0.2456,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2456,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C391037": {
+      "mpn": "FUET-1230",
+      "currency": "$",
+      "qty_1_unit_usd": 0.4903,
+      "qty_500_unit_usd": 0.2435,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "0.4903",
+          "usdPrice": 0.4903,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.4903,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.3817",
+          "usdPrice": 0.3817,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3817,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.3357",
+          "usdPrice": 0.3357,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3357,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.2781",
+          "usdPrice": 0.2781,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2781,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.2435",
+          "usdPrice": 0.2435,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2435,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.2271",
+          "usdPrice": 0.2271,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2271,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C391038": {
+      "mpn": "FUET-1325",
+      "currency": "$",
+      "qty_1_unit_usd": 0.5614,
+      "qty_500_unit_usd": 0.3019,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "0.5614",
+          "usdPrice": 0.5614,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.5614,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.4553",
+          "usdPrice": 0.4553,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.4553,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.4031",
+          "usdPrice": 0.4031,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.4031,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.3509",
+          "usdPrice": 0.3509,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3509,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.3019",
+          "usdPrice": 0.3019,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3019,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.2856",
+          "usdPrice": 0.2856,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2856,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C417414": {
+      "mpn": "FSR-1407TP-5V",
+      "currency": "$",
+      "qty_1_unit_usd": null,
+      "qty_500_unit_usd": 0.0868,
+      "price_tiers": [
+        {
+          "ladder": 5,
+          "productPrice": "0.1507",
+          "usdPrice": 0.1507,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1507,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 50,
+          "productPrice": "0.1208",
+          "usdPrice": 0.1208,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1208,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 200,
+          "productPrice": "0.0980",
+          "usdPrice": 0.098,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.098,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.0868",
+          "usdPrice": 0.0868,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0868,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 2000,
+          "productPrice": "0.0778",
+          "usdPrice": 0.0778,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0778,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 5000,
+          "productPrice": "0.0733",
+          "usdPrice": 0.0733,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0733,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C417416": {
+      "mpn": "FSR-1707TP-5V",
+      "currency": "$",
+      "qty_1_unit_usd": null,
+      "qty_500_unit_usd": 0.1001,
+      "price_tiers": [
+        {
+          "ladder": 5,
+          "productPrice": "0.1823",
+          "usdPrice": 0.1823,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1823,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 50,
+          "productPrice": "0.1451",
+          "usdPrice": 0.1451,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1451,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 200,
+          "productPrice": "0.1200",
+          "usdPrice": 0.12,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.12,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.1001",
+          "usdPrice": 0.1001,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1001,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 2000,
+          "productPrice": "0.0913",
+          "usdPrice": 0.0913,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.0913,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 5000,
+          "productPrice": "0.0860",
+          "usdPrice": 0.086,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.086,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C417421": {
+      "mpn": "FUET-1030-3V",
+      "currency": "$",
+      "qty_1_unit_usd": 0.6445,
+      "qty_500_unit_usd": 0.3534,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "0.6445",
+          "usdPrice": 0.6445,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.6445,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.5200",
+          "usdPrice": 0.52,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.52,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.4577",
+          "usdPrice": 0.4577,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.4577,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.3970",
+          "usdPrice": 0.397,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.397,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.3534",
+          "usdPrice": 0.3534,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3534,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.3347",
+          "usdPrice": 0.3347,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3347,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C42420998": {
+      "mpn": "SMD-1230-0340",
+      "currency": "$",
+      "qty_1_unit_usd": null,
+      "qty_500_unit_usd": 0.1877,
+      "price_tiers": [
+        {
+          "ladder": 5,
+          "productPrice": "0.3260",
+          "usdPrice": 0.326,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.326,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 50,
+          "productPrice": "0.2556",
+          "usdPrice": 0.2556,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2556,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 150,
+          "productPrice": "0.2254",
+          "usdPrice": 0.2254,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2254,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.1877",
+          "usdPrice": 0.1877,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1877,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 2500,
+          "productPrice": "0.1709",
+          "usdPrice": 0.1709,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1709,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 5000,
+          "productPrice": "0.1608",
+          "usdPrice": 0.1608,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1608,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C49246958": {
+      "mpn": "SMD9018",
+      "currency": "$",
+      "qty_1_unit_usd": null,
+      "qty_500_unit_usd": 0.2344,
+      "price_tiers": [
+        {
+          "ladder": 5,
+          "productPrice": "0.3966",
+          "usdPrice": 0.3966,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3966,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 50,
+          "productPrice": "0.3131",
+          "usdPrice": 0.3131,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3131,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 150,
+          "productPrice": "0.2786",
+          "usdPrice": 0.2786,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2786,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.2344",
+          "usdPrice": 0.2344,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2344,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 2000,
+          "productPrice": "0.2147",
+          "usdPrice": 0.2147,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2147,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 4000,
+          "productPrice": "0.2033",
+          "usdPrice": 0.2033,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2033,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C49246959": {
+      "mpn": "SMD1230",
+      "currency": "$",
+      "qty_1_unit_usd": null,
+      "qty_500_unit_usd": 0.258,
+      "price_tiers": [
+        {
+          "ladder": 5,
+          "productPrice": "0.3646",
+          "usdPrice": 0.3646,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3646,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 50,
+          "productPrice": "0.2899",
+          "usdPrice": 0.2899,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2899,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 150,
+          "productPrice": "0.2580",
+          "usdPrice": 0.258,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.258,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.2181",
+          "usdPrice": 0.2181,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2181,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 2000,
+          "productPrice": "0.2003",
+          "usdPrice": 0.2003,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2003,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 5000,
+          "productPrice": "0.1896",
+          "usdPrice": 0.1896,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1896,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C49246960": {
+      "mpn": "SMD9650-DC3V",
+      "currency": "$",
+      "qty_1_unit_usd": 0.5513,
+      "qty_500_unit_usd": 0.3654,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "0.5513",
+          "usdPrice": 0.5513,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.5513,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.4559",
+          "usdPrice": 0.4559,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.4559,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.4164",
+          "usdPrice": 0.4164,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.4164,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.3654",
+          "usdPrice": 0.3654,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3654,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 600,
+          "productPrice": "0.2568",
+          "usdPrice": 0.2568,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2568,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1200,
+          "productPrice": "0.2436",
+          "usdPrice": 0.2436,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2436,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C49246961": {
+      "mpn": "SMD9650-DC5V",
+      "currency": "$",
+      "qty_1_unit_usd": 0.4577,
+      "qty_500_unit_usd": 0.27,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "0.4577",
+          "usdPrice": 0.4577,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.4577,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.3622",
+          "usdPrice": 0.3622,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3622,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.3210",
+          "usdPrice": 0.321,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.321,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.2700",
+          "usdPrice": 0.27,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.27,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 600,
+          "productPrice": "0.2470",
+          "usdPrice": 0.247,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.247,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1200,
+          "productPrice": "0.2338",
+          "usdPrice": 0.2338,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2338,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C50132443": {
+      "mpn": "SFN-1911-0520P20",
+      "currency": "$",
+      "qty_1_unit_usd": 0.4402,
+      "qty_500_unit_usd": 0.3269,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "0.4402",
+          "usdPrice": 0.4402,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.4402,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.3910",
+          "usdPrice": 0.391,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.391,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.3663",
+          "usdPrice": 0.3663,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3663,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.3417",
+          "usdPrice": 0.3417,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3417,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.3269",
+          "usdPrice": 0.3269,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3269,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.3187",
+          "usdPrice": 0.3187,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3187,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C511707": {
+      "mpn": "SKY-1475-0540-45P7.6",
+      "currency": "$",
+      "qty_1_unit_usd": 0.5471,
+      "qty_500_unit_usd": 0.2868,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "0.5471",
+          "usdPrice": 0.5471,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.5471,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.4351",
+          "usdPrice": 0.4351,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.4351,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.3873",
+          "usdPrice": 0.3873,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3873,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.3148",
+          "usdPrice": 0.3148,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3148,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.2868",
+          "usdPrice": 0.2868,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2868,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.2719",
+          "usdPrice": 0.2719,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2719,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C530420": {
+      "mpn": "GPD14075YB-3V4000",
+      "currency": "$",
+      "qty_1_unit_usd": 0.8245,
+      "qty_500_unit_usd": 0.4987,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "0.8245",
+          "usdPrice": 0.8245,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.8245,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.6616",
+          "usdPrice": 0.6616,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.6616,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.5793",
+          "usdPrice": 0.5793,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.5793,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.5480",
+          "usdPrice": 0.548,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.548,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.4987",
+          "usdPrice": 0.4987,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.4987,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.4740",
+          "usdPrice": 0.474,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.474,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C530425": {
+      "mpn": "GPD2310YB-5V3500",
+      "currency": "$",
+      "qty_1_unit_usd": 0.9456,
+      "qty_500_unit_usd": 0.5228,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "0.9456",
+          "usdPrice": 0.9456,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.9456,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.7605",
+          "usdPrice": 0.7605,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.7605,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.6687",
+          "usdPrice": 0.6687,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.6687,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.5785",
+          "usdPrice": 0.5785,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.5785,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.5228",
+          "usdPrice": 0.5228,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.5228,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.4950",
+          "usdPrice": 0.495,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.495,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C530428": {
+      "mpn": "GPD2316YB-3V3500",
+      "currency": "$",
+      "qty_1_unit_usd": 0.9879,
+      "qty_500_unit_usd": 0.559,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "0.9879",
+          "usdPrice": 0.9879,
+          "cnyProductPriceList": null,
+          "discountRate": "0.6300",
+          "currencyPrice": 0.9879,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.8000",
+          "usdPrice": 0.8,
+          "cnyProductPriceList": null,
+          "discountRate": "0.6300",
+          "currencyPrice": 0.8,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.7068",
+          "usdPrice": 0.7068,
+          "cnyProductPriceList": null,
+          "discountRate": "0.6300",
+          "currencyPrice": 0.7068,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.6136",
+          "usdPrice": 0.6136,
+          "cnyProductPriceList": null,
+          "discountRate": "0.6300",
+          "currencyPrice": 0.6136,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.5590",
+          "usdPrice": 0.559,
+          "cnyProductPriceList": null,
+          "discountRate": "0.6300",
+          "currencyPrice": 0.559,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.5301",
+          "usdPrice": 0.5301,
+          "cnyProductPriceList": null,
+          "discountRate": "0.6300",
+          "currencyPrice": 0.5301,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C530429": {
+      "mpn": "GPD2316YB-5V3500",
+      "currency": "$",
+      "qty_1_unit_usd": 0.9391,
+      "qty_500_unit_usd": 0.5192,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "0.9391",
+          "usdPrice": 0.9391,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.9391,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.7552",
+          "usdPrice": 0.7552,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.7552,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.6641",
+          "usdPrice": 0.6641,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.6641,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.5746",
+          "usdPrice": 0.5746,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.5746,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.5192",
+          "usdPrice": 0.5192,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.5192,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.4916",
+          "usdPrice": 0.4916,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.4916,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C530432": {
+      "mpn": "GPD2416YB-3V3500",
+      "currency": "$",
+      "qty_1_unit_usd": 0.9496,
+      "qty_500_unit_usd": 0.5431,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "0.9496",
+          "usdPrice": 0.9496,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.9496,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.7718",
+          "usdPrice": 0.7718,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.7718,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.6830",
+          "usdPrice": 0.683,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.683,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.5958",
+          "usdPrice": 0.5958,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.5958,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.5431",
+          "usdPrice": 0.5431,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.5431,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.5151",
+          "usdPrice": 0.5151,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.5151,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C530448": {
+      "mpn": "GPD3020YB-5V3500",
+      "currency": "$",
+      "qty_1_unit_usd": 1.4696,
+      "qty_500_unit_usd": 0.7258,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "1.4696",
+          "usdPrice": 1.4696,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 1.4696,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "1.2688",
+          "usdPrice": 1.2688,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 1.2688,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "1.1569",
+          "usdPrice": 1.1569,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 1.1569,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.7801",
+          "usdPrice": 0.7801,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.7801,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.7258",
+          "usdPrice": 0.7258,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.7258,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.6994",
+          "usdPrice": 0.6994,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.6994,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C76871": {
+      "mpn": "PS1240P02BT",
+      "currency": "$",
+      "qty_1_unit_usd": 0.2136,
+      "qty_500_unit_usd": 0.1193,
+      "price_tiers": [
+        {
+          "ladder": 1,
+          "productPrice": "0.2136",
+          "usdPrice": 0.2136,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2136,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 10,
+          "productPrice": "0.1709",
+          "usdPrice": 0.1709,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1709,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 30,
+          "productPrice": "0.1526",
+          "usdPrice": 0.1526,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1526,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 100,
+          "productPrice": "0.1298",
+          "usdPrice": 0.1298,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1298,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 500,
+          "productPrice": "0.1193",
+          "usdPrice": 0.1193,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1193,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 1000,
+          "productPrice": "0.1132",
+          "usdPrice": 0.1132,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1132,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C76872": {
+      "mpn": "PS1740P02E",
+      "currency": "$",
+      "qty_1_unit_usd": null,
+      "qty_500_unit_usd": 0.216,
+      "price_tiers": [
+        {
+          "ladder": 5,
+          "productPrice": "0.3681",
+          "usdPrice": 0.3681,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3681,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 50,
+          "productPrice": "0.2907",
+          "usdPrice": 0.2907,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2907,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 150,
+          "productPrice": "0.2575",
+          "usdPrice": 0.2575,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2575,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 450,
+          "productPrice": "0.2160",
+          "usdPrice": 0.216,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.216,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 3000,
+          "productPrice": "0.1976",
+          "usdPrice": 0.1976,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1976,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 4500,
+          "productPrice": "0.1865",
+          "usdPrice": 0.1865,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1865,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    },
+    "C96060": {
+      "mpn": "PS1440P02BT",
+      "currency": "$",
+      "qty_1_unit_usd": null,
+      "qty_500_unit_usd": 0.2332,
+      "price_tiers": [
+        {
+          "ladder": 5,
+          "productPrice": "0.4107",
+          "usdPrice": 0.4107,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.4107,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 50,
+          "productPrice": "0.3203",
+          "usdPrice": 0.3203,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.3203,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 150,
+          "productPrice": "0.2816",
+          "usdPrice": 0.2816,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2816,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 350,
+          "productPrice": "0.2332",
+          "usdPrice": 0.2332,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2332,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 2450,
+          "productPrice": "0.2117",
+          "usdPrice": 0.2117,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.2117,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        },
+        {
+          "ladder": 4900,
+          "productPrice": "0.1988",
+          "usdPrice": 0.1988,
+          "cnyProductPriceList": null,
+          "discountRate": "1",
+          "currencyPrice": 0.1988,
+          "currencySymbol": "$",
+          "isForeignDiscount": null,
+          "ladderLevel": null
+        }
+      ]
+    }
+  }
+}

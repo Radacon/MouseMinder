@@ -1,0 +1,3 @@
+References,Quantity,Description,Value,Footprint
+SW1-SW14,14,MouseMinder SMD tactile button,LCK-TA022H18-2WL / C51978285,Button_Switch_SMD:SW_Push_1P1T_XKB_TS-1187A
+J1,1,Vertical PCB BNC connector,TE 1-1478204-0,Connector_Coaxial:BNC_TEConnectivity_1478204_Vertical

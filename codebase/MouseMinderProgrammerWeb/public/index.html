@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>MouseMinder Programmer</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Production station</p>
+        <h1>MouseMinder Programmer</h1>
+        <p class="subtitle">PMS150C firmware, calibration, verification, and unit history.</p>
+      </div>
+      <div id="connectionBadge" class="badge badge-offline">Disconnected</div>
+    </header>
+
+    <div id="compatibilityNotice" class="notice hidden" role="alert"></div>
+
+    <section class="grid">
+      <article class="card programmer-card">
+        <div class="card-heading">
+          <div>
+            <span class="step">1</span>
+            <h2>Programmer</h2>
+          </div>
+          <span class="protocol">Web Serial · 115200</span>
+        </div>
+        <p id="programmerVersion" class="muted">Connect the Easy PDK Programmer through Chrome.</p>
+        <div class="actions">
+          <button id="connectButton" class="button button-primary">Connect serial port</button>
+          <button id="disconnectButton" class="button button-secondary" disabled>Disconnect</button>
+          <button id="probeButton" class="button button-secondary" disabled>Probe PCB</button>
+        </div>
+      </article>
+
+      <article class="card firmware-card">
+        <div class="card-heading">
+          <div>
+            <span class="step">2</span>
+            <h2>Standard firmware</h2>
+          </div>
+          <span class="chip">PMS150C</span>
+        </div>
+        <dl class="firmware-facts">
+          <div><dt>File</dt><dd id="firmwareName">Loading…</dd></div>
+          <div><dt>SHA-256</dt><dd id="firmwareHash">—</dd></div>
+          <div><dt>Git</dt><dd id="gitHash">Loading…</dd></div>
+          <div><dt>Settings</dt><dd>10 kHz · 20 µs phase</dd></div>
+        </dl>
+      </article>
+
+      <article class="card production-card">
+        <div class="card-heading">
+          <div>
+            <span class="step">3</span>
+            <h2>Program unit</h2>
+          </div>
+          <span class="otp">OTP — permanent</span>
+        </div>
+        <div class="form-row">
+          <label for="unitNumber">Unit number</label>
+          <input id="unitNumber" maxlength="9" inputmode="numeric" pattern="[0-9]{9}" autocomplete="off" placeholder="000000001" required>
+        </div>
+        <div class="form-row">
+          <label for="notes">Embedded notes <span id="notesLimit">0 / 0 UTF-8 bytes</span></label>
+          <input id="notes" autocomplete="off" placeholder="Assembly notes, verse, etc.">
+        </div>
+        <button id="programButton" class="button button-program" disabled>Blank-check, program & verify</button>
+        <p class="safety">The PMS150C cannot be erased. A confirmation is required before every write.</p>
+      </article>
+
+      <article class="card readback-card">
+        <div class="card-heading">
+          <div>
+            <span class="step">4</span>
+            <h2>Readback</h2>
+          </div>
+        </div>
+        <p class="muted">Read all 1,024 words from the target and download an Intel HEX file.</p>
+        <button id="readButton" class="button button-secondary" disabled>Read PCB firmware</button>
+      </article>
+    </section>
+
+    <section class="card console-card">
+      <div class="card-heading">
+        <h2>Station log</h2>
+        <button id="clearConsoleButton" class="text-button">Clear</button>
+      </div>
+      <div id="console" class="console" role="log" aria-live="polite"></div>
+    </section>
+
+    <section id="readbackOutput" class="card readback-output hidden">
+      <div class="card-heading">
+        <div>
+          <h2>PCB readback</h2>
+          <p class="muted">Decoded production metadata and all 2,048 raw bytes.</p>
+        </div>
+      </div>
+      <div id="metadataSummary" class="metadata-summary"></div>
+      <pre id="rawHex" class="raw-hex" aria-label="Raw firmware hex bytes"></pre>
+    </section>
+
+    <section class="card history-card">
+      <div class="card-heading">
+        <div>
+          <h2>Programming history</h2>
+          <p class="muted">Stored in <code>data/programming-log.json</code></p>
+        </div>
+        <button id="exportButton" class="button button-secondary">Export JSON</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Time</th><th>Unit</th><th>Action</th><th>Result</th><th>Firmware</th></tr>
+          </thead>
+          <tbody id="historyBody"><tr><td colspan="5" class="empty">No records yet.</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

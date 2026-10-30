@@ -72,3 +72,13 @@ private/
 
 # Generated PCB panels and production-ready manufacturing packages.
 pcb_design/panelization/
+
+# Local worktrees and runtime production data.
+mouseminder-phase2/
+codebase/MouseMinderProgrammerWeb/data/
+
+# Generated fabrication packages; keep the KiCad source and project assets.
+pcb_design/Piezo_Demo_7x7/fabrication/
+
+# KiCad creates these while projects are open.
+*.lck
