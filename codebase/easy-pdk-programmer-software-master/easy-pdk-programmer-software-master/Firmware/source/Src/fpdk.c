@@ -241,7 +241,10 @@ static void _FPDK_SetPA4Incoming(void)
 void FPDK_SampleQCPins(uint32_t duration_ms, uint32_t* sample_count,
                        uint32_t* pa3_high_samples, uint32_t* pa3_transitions,
                        uint32_t* pa4_high_samples, uint32_t* pa4_transitions,
-                       uint32_t* pa6_high_samples, uint32_t* pa6_transitions)
+                       uint32_t* pa6_high_samples, uint32_t* pa6_transitions,
+                       uint32_t* low_period_ticks, uint32_t* low_cycles,
+                       uint32_t* high_period_ticks, uint32_t* high_cycles,
+                       uint32_t* rejected_periods)
 {
   _FPDK_SetClkIncoming();
   _FPDK_SetPA4Incoming();
@@ -254,10 +257,17 @@ void FPDK_SampleQCPins(uint32_t duration_ms, uint32_t* sample_count,
   *pa4_transitions = 0;
   *pa6_high_samples = 0;
   *pa6_transitions = 0;
+  *low_period_ticks = 0;
+  *low_cycles = 0;
+  *high_period_ticks = 0;
+  *high_cycles = 0;
+  *rejected_periods = 0;
 
   GPIO_PinState last_pa3 = HAL_GPIO_ReadPin(IC_IO_PA3_CLK_GPIO_Port, IC_IO_PA3_CLK_Pin);
   GPIO_PinState last_pa4 = HAL_GPIO_ReadPin(IC_IO_PA4_GPIO_Port, IC_IO_PA4_Pin);
   GPIO_PinState last_pa6 = HAL_GPIO_ReadPin(IC_IO_PA6_DAT_GPIO_Port, IC_IO_PA6_DAT_Pin);
+  uint32_t last_pa3_rise = 0;
+  bool have_pa3_rise = false;
   uint32_t started_at = HAL_GetTick();
   do
   {
@@ -271,6 +281,33 @@ void FPDK_SampleQCPins(uint32_t duration_ms, uint32_t* sample_count,
     if( pa3 != last_pa3 ) (*pa3_transitions)++;
     if( pa4 != last_pa4 ) (*pa4_transitions)++;
     if( pa6 != last_pa6 ) (*pa6_transitions)++;
+    if( GPIO_PIN_SET == pa3 && GPIO_PIN_RESET == last_pa3 )
+    {
+      uint32_t now = __HAL_TIM_GET_COUNTER(&htim2);
+      if( have_pa3_rise )
+      {
+        uint32_t period = now - last_pa3_rise;
+        /* 48 MHz timer: accept 500 Hz through 20 kHz.  The 2 kHz split
+           separates MouseMinder's nominal 1.0 kHz and 4.333 kHz tones. */
+        if( period >= 2400U && period <= 96000U )
+        {
+          if( period > 24000U )
+          {
+            *low_period_ticks += period;
+            (*low_cycles)++;
+          }
+          else
+          {
+            *high_period_ticks += period;
+            (*high_cycles)++;
+          }
+        }
+        else
+          (*rejected_periods)++;
+      }
+      last_pa3_rise = now;
+      have_pa3_rise = true;
+    }
     last_pa3 = pa3;
     last_pa4 = pa4;
     last_pa6 = pa6;

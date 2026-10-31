@@ -54,7 +54,10 @@ bool     FPDK_SetTiming(uint32_t frequency_hz, int32_t phase_us);
 void     FPDK_SampleQCPins(uint32_t duration_ms, uint32_t* sample_count,
                            uint32_t* pa3_high_samples, uint32_t* pa3_transitions,
                            uint32_t* pa4_high_samples, uint32_t* pa4_transitions,
-                           uint32_t* pa6_high_samples, uint32_t* pa6_transitions);
+                           uint32_t* pa6_high_samples, uint32_t* pa6_transitions,
+                           uint32_t* low_period_ticks, uint32_t* low_cycles,
+                           uint32_t* high_period_ticks, uint32_t* high_cycles,
+                           uint32_t* rejected_periods);
 
 bool     FPDK_SetVDD(uint32_t mV, uint32_t stabelizeDelayUS);
 bool     FPDK_SetVPP(uint32_t mV, uint32_t stabelizeDelayUS);

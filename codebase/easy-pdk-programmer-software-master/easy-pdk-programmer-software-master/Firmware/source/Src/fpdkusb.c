@@ -492,8 +492,9 @@ bool _FPDKUSB_HandleCmd(const FPDKPROTO_CMD cmd, const uint8_t* dat, const uint3
         memcpy(&duration_ms, &dat[0], sizeof(uint32_t));
         if( duration_ms < MOUSEMINDER_QC_SAMPLE_MIN_MS || duration_ms > MOUSEMINDER_QC_SAMPLE_MAX_MS )
           return false;
-        uint32_t r[8];
-        FPDK_SampleQCPins(duration_ms, &r[0], &r[1], &r[2], &r[3], &r[4], &r[5], &r[6]);
+        uint32_t r[13];
+        FPDK_SampleQCPins(duration_ms, &r[0], &r[1], &r[2], &r[3], &r[4], &r[5], &r[6],
+                          &r[8], &r[9], &r[10], &r[11], &r[12]);
         r[7] = duration_ms;
         _FPDKUSB_Ack((uint8_t*)&r, sizeof(r));
       }
