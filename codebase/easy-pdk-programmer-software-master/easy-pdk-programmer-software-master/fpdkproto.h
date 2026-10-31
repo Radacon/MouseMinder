@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef __FPDKPROTO_H_
 #define __FPDKPROTO_H_
 
-#define __FPDKPROTO__ "1.6"
+#define __FPDKPROTO__ "1.7"
 #define FPDKPROTO_MAJOR 1
 #define FPDKPROTO_MINOR 4
 

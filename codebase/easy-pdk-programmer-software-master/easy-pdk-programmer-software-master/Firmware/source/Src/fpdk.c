@@ -240,31 +240,40 @@ static void _FPDK_SetPA4Incoming(void)
 
 void FPDK_SampleQCPins(uint32_t duration_ms, uint32_t* sample_count,
                        uint32_t* pa3_high_samples, uint32_t* pa3_transitions,
-                       uint32_t* pa4_high_samples, uint32_t* pa4_transitions)
+                       uint32_t* pa4_high_samples, uint32_t* pa4_transitions,
+                       uint32_t* pa6_high_samples, uint32_t* pa6_transitions)
 {
   _FPDK_SetClkIncoming();
   _FPDK_SetPA4Incoming();
+  _FPDK_SetDatIncoming();
 
   *sample_count = 0;
   *pa3_high_samples = 0;
   *pa3_transitions = 0;
   *pa4_high_samples = 0;
   *pa4_transitions = 0;
+  *pa6_high_samples = 0;
+  *pa6_transitions = 0;
 
   GPIO_PinState last_pa3 = HAL_GPIO_ReadPin(IC_IO_PA3_CLK_GPIO_Port, IC_IO_PA3_CLK_Pin);
   GPIO_PinState last_pa4 = HAL_GPIO_ReadPin(IC_IO_PA4_GPIO_Port, IC_IO_PA4_Pin);
+  GPIO_PinState last_pa6 = HAL_GPIO_ReadPin(IC_IO_PA6_DAT_GPIO_Port, IC_IO_PA6_DAT_Pin);
   uint32_t started_at = HAL_GetTick();
   do
   {
     GPIO_PinState pa3 = HAL_GPIO_ReadPin(IC_IO_PA3_CLK_GPIO_Port, IC_IO_PA3_CLK_Pin);
     GPIO_PinState pa4 = HAL_GPIO_ReadPin(IC_IO_PA4_GPIO_Port, IC_IO_PA4_Pin);
+    GPIO_PinState pa6 = HAL_GPIO_ReadPin(IC_IO_PA6_DAT_GPIO_Port, IC_IO_PA6_DAT_Pin);
     (*sample_count)++;
     if( GPIO_PIN_SET == pa3 ) (*pa3_high_samples)++;
     if( GPIO_PIN_SET == pa4 ) (*pa4_high_samples)++;
+    if( GPIO_PIN_SET == pa6 ) (*pa6_high_samples)++;
     if( pa3 != last_pa3 ) (*pa3_transitions)++;
     if( pa4 != last_pa4 ) (*pa4_transitions)++;
+    if( pa6 != last_pa6 ) (*pa6_transitions)++;
     last_pa3 = pa3;
     last_pa4 = pa4;
+    last_pa6 = pa6;
   }
   while( (HAL_GetTick() - started_at) < duration_ms );
 }
