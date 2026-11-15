@@ -785,10 +785,10 @@ _main:
 ;	 function _sdcc_external_startup
 ;	-----------------------------------------
 __sdcc_external_startup:
-;	main.c: 338: AUTO_INIT_SYSCLOCK();
-	mov	a, #0xf4
+;	main.c: 344: CLKMD = (uint8_t)(CLKMD_ENABLE_ILRC | SYSCLOCK_ILRC);
+	mov	a, #0xe4
 	mov.io	__clkmd, a
-;	main.c: 339: AUTO_CALIBRATE_SYSCLOCK(TARGET_VDD_MV);
+;	main.c: 345: AUTO_CALIBRATE_SYSCLOCK(TARGET_VDD_MV);
 	and	a, #'R'                       
 	and	a, #'C'                       
 	and	a, #(2)            
@@ -799,8 +799,8 @@ __sdcc_external_startup:
 	and	a, #((2800))     
 	and	a, #((2800)>>8)  
 	and	a, #(0x1f)             
-;	main.c: 341: return 0;
-;	main.c: 342: }
+;	main.c: 347: return 0;
+;	main.c: 348: }
 	ret	#0x00
 	.area CODE
 	.area CONST

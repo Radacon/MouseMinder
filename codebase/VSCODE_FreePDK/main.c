@@ -335,7 +335,13 @@ void main(void)
 
 unsigned char STARTUP_FUNCTION(void)
 {
-    AUTO_INIT_SYSCLOCK();
+    /*
+     * This product relies on the 47 CFR 15.103(h) low-frequency path.
+     * Select the calibrated 52 kHz ILRC without enabling the 16 MHz IHRC.
+     * AUTO_INIT_SYSCLOCK() cannot be used here because the generic helper
+     * deliberately enables both internal oscillators during clock setup.
+     */
+    CLKMD = (uint8_t)(CLKMD_ENABLE_ILRC | SYSCLOCK_ILRC);
     AUTO_CALIBRATE_SYSCLOCK(TARGET_VDD_MV);
 
     return 0;
