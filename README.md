@@ -1,6 +1,6 @@
 # MouseMinder
 
-MouseMinder is a coin-cell-powered alarm for reusable mouse traps. The current hardware is built around a **Padauk PMS150C-U06**, not an ATtiny10. A piezo element serves as both the trap-event sensor and the audible sounder; the board also has a status LED and a pushbutton.
+MouseMinder is a coin-cell-powered alarm for reusable mouse traps, built around a **Padauk PMS150C-U06**. A piezo element serves as both the trap-event sensor and the audible sounder; the board also has a status LED and a pushbutton.
 
 ## Current Hardware
 
@@ -47,6 +47,20 @@ The current production path uses the open-source Easy PDK programmer:
 
 The local programmer uses the PMS150C target, the current `.ihx` firmware, and an explicit confirmation before writing, calibration, and verification.
 
+## Revision History
+
+### Hardware
+
+- **Early prototypes:** ATtiny10 with an Arduino Uno TPI programming fixture.
+- **Rev 6 (August 2026):** PMS150C hardware with Free PDK/SDCC firmware and Easy PDK programming.
+- **Rev 6.1 (October 2026):** rotated R1 for easier rework and updated the silkscreen.
+
+### Software
+
+- **Firmware v1.0.0 (October 2026):** introduced tagged releases with a binary, checksum, and build manifest.
+- **Firmware v1.1.0 (October 2026):** reserved program memory for per-unit production metadata.
+- **Subsequent development (October–November 2026):** added local and Web Serial programmer tools, presence/button/chirp QC, and updated ILRC startup to keep IHRC disabled.
+
 ## Repository Layout
 
 - `codebase/VSCODE_FreePDK/` — current PMS150C production firmware
@@ -55,7 +69,7 @@ The local programmer uses the PMS150C target, the current `.ihx` firmware, and a
 - `pcb_design/` — KiCad source, fabrication history, and test hardware
 - `mechanical_design/` — enclosure and accessory CAD exports
 - `tools/` — release and engineering utilities
-- `codebase/AtmelStudio/`, `codebase/ardu_tiny_toaster.ino`, `codebase/tiny10_base_code.ino`, and `codebase/gui.py` — archived ATtiny10-era prototype work; **not the current product architecture**
+- `codebase/AtmelStudio/`, `codebase/ardu_tiny_toaster.ino`, `codebase/tiny10_base_code.ino`, and `codebase/gui.py` — prototype AVR firmware and Arduino TPI fixture tools
 
 ## Firmware Releases
 
@@ -66,7 +80,3 @@ Production firmware releases use tags named `firmware-vMAJOR.MINOR.PATCH` that p
 - `mouseminder-firmware.json`
 
 The manifest records the source commit, toolchain, PMS150C memory contract, calibration target, asset size, and SHA-256. Production programming still requires explicit operator approval and checksum verification.
-
-## Legacy ATtiny10 Work
-
-Early prototypes used an ATtiny10 and an Arduino Uno TPI fixture. Those files remain for design history and reference only. They must not be used to describe, build, or program current MouseMinder hardware.
