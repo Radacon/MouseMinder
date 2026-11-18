@@ -1,3 +1,9 @@
+ARCHIVED ATtiny10 PROTOTYPE REQUIREMENTS
+=======================================
+This document describes an early Arduino/TPI fixture. It does not describe the
+current Rev 6.1 MouseMinder, which uses a PMS150C and the Free PDK/Easy PDK
+toolchain. See ../README.md and VSCODE_FreePDK/ for the production architecture.
+
 I want a gui written that talks to an arduino uno over serial. The gui should control a piece of hardware called the arduino toaster. it's job is to take test PCBs and power them on, program them, and then test them. The gui.py will have a selector for .hex files for the firmware. It will also auto-discover the arduino over com ports. 
 
 The arduino code (adru_tiny_toaster.ino) will use tiny10_base_code.ino as a base for programming 
