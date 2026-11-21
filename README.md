@@ -1,5 +1,9 @@
 # MouseMinder
 
+<p align="center">
+  <img src="docs/images/mouseminder-hero.png" alt="MouseMinder mousetrap alarm in its enclosure" width="520">
+</p>
+
 MouseMinder is a coin-cell-powered alarm for reusable mouse traps, built around a **Padauk PMS150C-U06**. A piezo element serves as both the trap-event sensor and the audible sounder; the board also has a status LED and a pushbutton.
 
 It clips onto a trap and chirps and flashes after detecting the sharp vibration of the trap firing. The goal is to make a sprung trap easier to find and check, using a replaceable CR2032 and a small, reusable sensor. Operation is entirely local, with no app, radio, hub, or subscription.
