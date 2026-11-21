@@ -10,9 +10,9 @@ It clips onto a trap and chirps and flashes after detecting the sharp vibration 
 
 ## How It Works
 
-While waiting for a trigger, the microcontroller sleeps and the piezo acts as a vibration sensor. A trap firing produces a voltage pulse that wakes the controller. The firmware then uses that same piezo to play the alert, switching its pin between sensing and sound output.
+While waiting for a trigger, the microcontroller sleeps and the piezo acts as a vibration sensor. A trap firing produces a voltage pulse that wakes the controller. The firmware then uses that same piezo to play the alert, switching its pin from sensing to sound output.
 
-The alert repeats until the button is pressed: a brief LED flash roughly once a second, with a two-tone chirp after every fifth flash. Pressing the button silences the alert and returns the sensor to its quiet, armed state. Pressing it while armed starts the alert for testing.
+The alert repeats until the test/reset button is pressed: a brief LED flash roughly once a second, with a two-tone chirp after every fifth flash. Pressing the button silences the alert and returns the sensor to its quiet, armed state. Pressing it while armed starts the alert for testing.
 
 Mounting matters: the sensor needs to move with the trap, and unrelated impacts or vibration can trigger it. Inspect the trap to confirm a catch. Choose a position where the chirp can be heard or the LED seen.
 
@@ -20,7 +20,7 @@ Mounting matters: the sensor needs to move with the trap, and unrelated impacts 
 
 1. **Mount it:** attach the snap-trap clip to a compatible wooden spring trap, or use the zip-tie mount for another suitable setup. Keep the sensor and mount clear of the trigger and moving bar.
 2. **Power it:** remove the battery-isolator tab completely. The sensor starts its chirp-and-flash alert.
-3. **Set and arm:** set the trap following its manufacturer's instructions, then press the MouseMinder button to silence it. The quiet sensor is waiting for a trigger.
+3. **Set and arm:** set the trap following its manufacturer's instructions, then press the Test/Reset button to silence it. The quiet sensor is waiting for a trigger.
 4. **Check an alert:** inspect the trap and press the button to silence the sensor. Setting or moving the trap may trigger it again; finish by returning it to the quiet waiting state.
 5. **Test it:** press the button while the sensor is quiet to test the alert, then press again to silence it. To check the complete setup, safely fire an empty trap with a suitable tool while keeping hands clear, confirm the alert, and reset it.
 6. **Replace the battery:** use a CR2032 with the polarity shown in the holder and securely close the battery compartment. Keep sensors and coin batteries away from children.
